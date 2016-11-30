@@ -25,12 +25,13 @@
     <string name="old_launcher_provider_uri" translatable="false">content://com.android.launcher2.settings/favorites?notify=true</string>
 
     <!-- Permission to receive the com.android.launcher3.action.LAUNCH intent. [DO NOT TRANSLATE] -->
-    <string name="receive_launch_broadcasts_permission" translatable="false">com.android.launcher3.permission.RECEIVE_LAUNCH_BROADCASTS</string>
+    <string name="receive_launch_broadcasts_permission" translatable="false">com.jasonkung.launcher3.permission.RECEIVE_LAUNCH_BROADCASTS</string>
 
     <!-- Permission to receive the com.android.launcher3.action.FIRST_LOAD_COMPLETE intent. [DO NOT TRANSLATE] -->
-    <string name="receive_first_load_broadcast_permission" translatable="false">com.android.launcher3.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
+    <string name="receive_first_load_broadcast_permission" translatable="false">com.jasonkung.launcher3.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
 
     <!-- Application name -->
+    <string name="application_name">Launcher3</string>
     <string name="app_name">Launcher3</string>
     <!-- Default folder name -->
     <string name="folder_name"></string>
@@ -175,7 +176,9 @@
 
     <!-- Strings for settings -->
     <!-- Title for Allow Rotation setting. [CHAR LIMIT=50] -->
-    <string name="allow_rotation_title">Allow rotation</string>
+    <string name="allow_rotation_title">Allow Home screen rotation</string>
+    <string name="allow_rotation_desc">When phone is rotated</string>
+    <string name="allow_rotation_blocked_desc">"Current Display setting doesn't permit rotation"</string>
 
     <!-- Label on an icon that references an uninstalled package, for which we have no information about when it might be installed. [CHAR_LIMIT=15] -->
     <string name="package_state_unknown">Unknown</string>

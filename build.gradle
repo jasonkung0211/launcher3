@@ -1,41 +1,71 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.7.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
     }
 }
 
+def gitSha() {
+  def p = 'git rev-parse --short HEAD'.execute([], project.rootDir)
+  p.waitFor()
+  if (p.exitValue() != 0) {
+    throw new RuntimeException(p.errorStream.text)
+  }
+
+  return p.text.trim()
+}
+
+def gitTimestamp() {
+  def p = 'git log -n 1 --format=%at'.execute([], rootDir)
+  p.waitFor()
+  if (p.exitValue() != 0) {
+    throw new RuntimeException(p.errorStream.text)
+  }
+
+  return p.text.trim()
+}
+
+
+
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.protobuf'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
-        applicationId "com.android.launcher3"
-        minSdkVersion 16
-        targetSdkVersion 23
+        applicationId "com.jasonkung.launcher3"
+        minSdkVersion 17
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 
-        testApplicationId "com.android.launcher3.tests"
+        testApplicationId "com.jasonkung.launcher3.tests"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //resConfigs "en", "de", "fr", "it"
+        //resConfigs "xhdpi", "xxhdpi"
     }
     buildTypes {
         debug {
             minifyEnabled false
         }
+        release {
+            shrinkResources true // 是否去除無效的資源文件
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
     }
     sourceSets {
         main {
             res.srcDirs = ['res', 'WallpaperPicker/res']
             java.srcDirs = ['src', 'WallpaperPicker/src']
             manifest.srcFile 'AndroidManifest.xml'
-            proto.srcDirs 'protos/'
+            //proto.srcDirs 'protos/'
         }
 
         androidTest {
@@ -44,25 +74,50 @@ android {
             manifest.srcFile "tests/AndroidManifest.xml"
         }
     }
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+        disable 'MissingTranslation'
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
 }
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'// for aar libs
+    }
+}
+
+configurations.all {
+  resolutionStrategy {
+    force 'com.android.support:support-annotations:23.1.1'
+  }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-2'
+
+    //JSR-310
+    compile 'com.jakewharton.threetenabp:threetenabp:1.0.4'
+
+    //butter knife
+    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:24.2.1'
+    //compile 'com.android.support:support-compat:25.1.0'
+    compile 'com.android.support:recyclerview-v7:25.1.0'
+    //compile 'com.android.support:appcompat-v7:25.1.0'
 
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-}
-
-protobuf {
-    // Configure the protoc executable
-    protoc {
-        artifact = 'com.google.protobuf:protoc:3.0.0-alpha-3'
-    }
 }

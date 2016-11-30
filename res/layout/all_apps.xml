@@ -16,7 +16,7 @@
 <!-- The top and bottom paddings are defined in this container, but since we want
      the list view to span the full width (for touch interception purposes), we
      will bake the left/right padding into that view's background itself. -->
-<com.android.launcher3.allapps.AllAppsContainerView
+<com.jasonkung.launcher3.allapps.AllAppsContainerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res-auto"
     android:id="@+id/apps_view"
@@ -35,7 +35,7 @@
         android:visibility="invisible" />
 
 
-    <com.android.launcher3.allapps.AllAppsRecyclerViewContainerView
+    <com.jasonkung.launcher3.allapps.AllAppsRecyclerViewContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/main_content"
@@ -47,7 +47,7 @@
         android:elevation="15dp" >
 
         <!-- DO NOT CHANGE THE ID -->
-        <com.android.launcher3.allapps.AllAppsRecyclerView
+        <com.jasonkung.launcher3.allapps.AllAppsRecyclerView
             android:id="@+id/apps_list_view"
             android:theme="@style/Theme.Light.CustomOverscroll"
             android:layout_width="match_parent"
@@ -67,25 +67,25 @@
             android:orientation="horizontal"
             android:background="@drawable/all_apps_search_bg" >
 
-            <com.android.launcher3.ExtendedEditText
+            <com.jasonkung.launcher3.ExtendedEditText
                 android:id="@+id/search_box_input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:focusableInTouchMode="true"
-                android:gravity="fill_horizontal|center_vertical"
+                android:gravity="center"
                 android:hint="@string/all_apps_search_bar_hint"
-                android:inputType="text|textNoSuggestions|textCapWords"
+                android:inputType="textNoSuggestions|textCapWords"
                 android:imeOptions="actionSearch|flagNoExtractUi"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:layout_marginLeft="@dimen/container_fastscroll_thumb_max_width"
                 android:layout_marginRight="@dimen/container_fastscroll_thumb_max_width"
                 android:singleLine="true"
-                android:textColor="#4c4c4c"
-                android:textColorHint="#9c9c9c"
-                android:textSize="16sp" />
+                android:textColor="#ff4c4c4c"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="18sp" />
         </LinearLayout>
 
-    </com.android.launcher3.allapps.AllAppsRecyclerViewContainerView>
-</com.android.launcher3.allapps.AllAppsContainerView>
+    </com.jasonkung.launcher3.allapps.AllAppsRecyclerViewContainerView>
+</com.jasonkung.launcher3.allapps.AllAppsContainerView>
