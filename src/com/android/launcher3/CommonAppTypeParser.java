@@ -25,7 +25,7 @@ import android.util.Log;
 
 import com.android.launcher3.AutoInstallsLayout.LayoutParserCallback;
 import com.android.launcher3.LauncherSettings.Favorites;
-import com.android.launcher3.backup.nano.BackupProtos.Favorite;
+//import com.android.launcher3.backup.nano.BackupProtos.Favorite;
 import com.android.launcher3.util.Thunk;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -119,22 +119,22 @@ public class CommonAppTypeParser implements LayoutParserCallback {
 
     public static int getResourceForItemType(int type) {
         switch (type) {
-            case Favorite.TARGET_PHONE:
+            case 1:
                 return R.xml.app_target_phone;
 
-            case Favorite.TARGET_MESSENGER:
+            case 2:
                 return R.xml.app_target_messenger;
 
-            case Favorite.TARGET_EMAIL:
+            case 3:
                 return R.xml.app_target_email;
 
-            case Favorite.TARGET_BROWSER:
+            case 4:
                 return R.xml.app_target_browser;
 
-            case Favorite.TARGET_GALLERY:
+            case 5:
                 return R.xml.app_target_gallery;
 
-            case Favorite.TARGET_CAMERA:
+            case 6:
                 return R.xml.app_target_camera;
 
             default:

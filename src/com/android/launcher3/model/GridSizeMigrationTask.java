@@ -22,7 +22,7 @@ import com.android.launcher3.LauncherProvider;
 import com.android.launcher3.LauncherSettings;
 import com.android.launcher3.LauncherSettings.Favorites;
 import com.android.launcher3.Utilities;
-import com.android.launcher3.backup.nano.BackupProtos;
+//import com.android.launcher3.backup.nano.BackupProtos;
 import com.android.launcher3.compat.AppWidgetManagerCompat;
 import com.android.launcher3.compat.PackageInstallerCompat;
 import com.android.launcher3.util.LongArrayMap;
@@ -886,7 +886,7 @@ public class GridSizeMigrationTask {
         return String.format(Locale.ENGLISH, "%d,%d", x, y);
     }
 
-    public static void markForMigration(
+    /*public static void markForMigration(
             Context context, HashSet<String> widgets, BackupProtos.DeviceProfieData srcProfile) {
         Utilities.getPrefs(context).edit()
                 .putString(KEY_MIGRATION_SRC_WORKSPACE_SIZE,
@@ -895,7 +895,7 @@ public class GridSizeMigrationTask {
                         getPointString((int) srcProfile.hotseatCount, srcProfile.allappsRank))
                 .putStringSet(KEY_MIGRATION_WIDGET_MINSIZE, widgets)
                 .apply();
-    }
+    }*/
 
     /**
      * Migrates the workspace and hotseat in case their sizes changed.

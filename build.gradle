@@ -1,41 +1,49 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.7.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.protobuf'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
         applicationId "com.android.launcher3"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
 
         testApplicationId "com.android.launcher3.tests"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //resConfigs "en", "de", "fr", "it"
+        //resConfigs "xhdpi", "xxhdpi"
     }
     buildTypes {
         debug {
             minifyEnabled false
         }
+        release {
+            shrinkResources true // 是否去除無效的資源文件
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
     }
     sourceSets {
         main {
             res.srcDirs = ['res', 'WallpaperPicker/res']
             java.srcDirs = ['src', 'WallpaperPicker/src']
             manifest.srcFile 'AndroidManifest.xml'
-            proto.srcDirs 'protos/'
+            //proto.srcDirs 'protos/'
         }
 
         androidTest {
@@ -43,6 +51,10 @@ android {
             res.srcDirs = ['tests/res']
             manifest.srcFile "tests/AndroidManifest.xml"
         }
+    }
+    lintOptions {
+        disable 'MissingTranslation'
+        abortOnError false
     }
 }
 
@@ -53,16 +65,8 @@ repositories {
 dependencies {
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-2'
 
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-}
-
-protobuf {
-    // Configure the protoc executable
-    protoc {
-        artifact = 'com.google.protobuf:protoc:3.0.0-alpha-3'
-    }
 }
