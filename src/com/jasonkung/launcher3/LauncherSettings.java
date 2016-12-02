@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-import com.android.launcher3.config.ProviderConfig;
+import com.jasonkung.launcher3.config.ProviderConfig;
 
 /**
  * Settings related utilities.

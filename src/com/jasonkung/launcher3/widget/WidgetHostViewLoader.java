@@ -1,4 +1,4 @@
-package com.android.launcher3.widget;
+package com.jasonkung.launcher3.widget;
 
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetManager;
@@ -9,15 +9,15 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
-import com.android.launcher3.AppWidgetResizeFrame;
-import com.android.launcher3.DragController;
-import com.android.launcher3.DragLayer;
-import com.android.launcher3.DragSource;
-import com.android.launcher3.Launcher;
-import com.android.launcher3.LauncherAppWidgetProviderInfo;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.compat.AppWidgetManagerCompat;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.AppWidgetResizeFrame;
+import com.jasonkung.launcher3.DragController;
+import com.jasonkung.launcher3.DragLayer;
+import com.jasonkung.launcher3.DragSource;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAppWidgetProviderInfo;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
+import com.jasonkung.launcher3.util.Thunk;
 
 public class WidgetHostViewLoader implements DragController.DragListener {
     private static final String TAG = "WidgetHostViewLoader";

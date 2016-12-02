@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetProviderInfo;
@@ -28,7 +28,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.RemoteViews;
 
-import com.android.launcher3.DragLayer.TouchCompleteListener;
+import com.jasonkung.launcher3.DragLayer.TouchCompleteListener;
 
 import java.util.ArrayList;
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.allapps;
+package com.jasonkung.launcher3.allapps;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -25,7 +25,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
 import android.view.Gravity;
-import com.android.launcher3.R;
+import com.jasonkung.launcher3.R;
 
 /**
  * A helper class to positon and orient a drawable to be drawn.

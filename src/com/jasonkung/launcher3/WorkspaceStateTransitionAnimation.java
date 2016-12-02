@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -30,7 +30,7 @@ import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.DecelerateInterpolator;
 
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.HashMap;
 

@@ -1,9 +1,9 @@
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import android.content.Context;
 
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.LauncherProvider;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherProvider;
 
 /**
  * An extension of LauncherProvider backed up by in-memory database.

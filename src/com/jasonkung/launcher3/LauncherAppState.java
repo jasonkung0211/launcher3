@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -22,14 +22,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 
-import com.android.launcher3.accessibility.LauncherAccessibilityDelegate;
-import com.android.launcher3.compat.LauncherAppsCompat;
-import com.android.launcher3.compat.PackageInstallerCompat;
-import com.android.launcher3.compat.UserManagerCompat;
-import com.android.launcher3.config.FeatureFlags;
-import com.android.launcher3.util.ConfigMonitor;
-import com.android.launcher3.util.TestingUtils;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.accessibility.LauncherAccessibilityDelegate;
+import com.jasonkung.launcher3.compat.LauncherAppsCompat;
+import com.jasonkung.launcher3.compat.PackageInstallerCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.config.FeatureFlags;
+import com.jasonkung.launcher3.util.ConfigMonitor;
+import com.jasonkung.launcher3.util.TestingUtils;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.lang.ref.WeakReference;
 

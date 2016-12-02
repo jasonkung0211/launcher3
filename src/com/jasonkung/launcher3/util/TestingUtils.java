@@ -1,4 +1,4 @@
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,11 +9,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.android.launcher3.CustomAppWidget;
-import com.android.launcher3.Launcher;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.R;
-import com.android.launcher3.Utilities;
+import com.jasonkung.launcher3.CustomAppWidget;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.Utilities;
 
 import java.util.HashMap;
 

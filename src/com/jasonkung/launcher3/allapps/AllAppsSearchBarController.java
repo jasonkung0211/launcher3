@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.allapps;
+package com.jasonkung.launcher3.allapps;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,10 +28,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.android.launcher3.ExtendedEditText;
-import com.android.launcher3.Launcher;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.ExtendedEditText;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.util.ComponentKey;
 
 import java.util.ArrayList;
 

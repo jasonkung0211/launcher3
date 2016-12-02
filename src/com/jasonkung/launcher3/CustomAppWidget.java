@@ -1,4 +1,4 @@
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 public interface CustomAppWidget {
     public String getLabel();

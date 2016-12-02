@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.accessibility;
+package com.jasonkung.launcher3.accessibility;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -25,9 +25,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.accessibility.AccessibilityEvent;
 
-import com.android.launcher3.CellLayout;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.R;
+import com.jasonkung.launcher3.CellLayout;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.R;
 
 import java.util.List;
 

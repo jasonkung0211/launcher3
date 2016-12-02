@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.allapps;
+package com.jasonkung.launcher3.allapps;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import com.android.launcher3.AppInfo;
-import com.android.launcher3.Launcher;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.compat.AlphabeticIndexCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.model.AppNameComparator;
-import com.android.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.AppInfo;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.compat.AlphabeticIndexCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.model.AppNameComparator;
+import com.jasonkung.launcher3.util.ComponentKey;
 
 import java.util.ArrayList;
 import java.util.Collections;

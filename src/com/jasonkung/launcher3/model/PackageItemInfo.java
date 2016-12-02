@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.model;
+package com.jasonkung.launcher3.model;
 
 import android.graphics.Bitmap;
 
-import com.android.launcher3.ItemInfo;
+import com.jasonkung.launcher3.ItemInfo;
 
 import java.util.Arrays;
 

@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.allapps;
+package com.jasonkung.launcher3.allapps;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.android.launcher3.BaseRecyclerView;
-import com.android.launcher3.BaseRecyclerViewFastScrollBar;
-import com.android.launcher3.FastBitmapDrawable;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.BaseRecyclerView;
+import com.jasonkung.launcher3.BaseRecyclerViewFastScrollBar;
+import com.jasonkung.launcher3.FastBitmapDrawable;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.HashSet;
 

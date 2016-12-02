@@ -14,14 +14,14 @@
  * the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.android.launcher3.util.FocusLogic;
+import com.jasonkung.launcher3.util.FocusLogic;
 
 /**
  * Tests the {@link FocusLogic} class that handles key event based focus handling.

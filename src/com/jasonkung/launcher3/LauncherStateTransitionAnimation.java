@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -30,10 +30,10 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
-import com.android.launcher3.allapps.AllAppsContainerView;
-import com.android.launcher3.util.UiThreadCircularReveal;
-import com.android.launcher3.util.Thunk;
-import com.android.launcher3.widget.WidgetsContainerView;
+import com.jasonkung.launcher3.allapps.AllAppsContainerView;
+import com.jasonkung.launcher3.util.UiThreadCircularReveal;
+import com.jasonkung.launcher3.util.Thunk;
+import com.jasonkung.launcher3.widget.WidgetsContainerView;
 
 import java.util.HashMap;
 

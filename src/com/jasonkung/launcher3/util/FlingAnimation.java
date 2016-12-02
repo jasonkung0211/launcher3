@@ -1,4 +1,4 @@
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
@@ -7,9 +7,9 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.view.animation.DecelerateInterpolator;
 
-import com.android.launcher3.DragLayer;
-import com.android.launcher3.DragView;
-import com.android.launcher3.DropTarget.DragObject;
+import com.jasonkung.launcher3.DragLayer;
+import com.jasonkung.launcher3.DragView;
+import com.jasonkung.launcher3.DropTarget.DragObject;
 
 public class FlingAnimation implements AnimatorUpdateListener {
 

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import com.android.launcher3.Utilities;
+import com.jasonkung.launcher3.Utilities;
 
 /**
  * Utility methods using package manager

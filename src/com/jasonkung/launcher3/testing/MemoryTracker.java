@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.testing;
+package com.jasonkung.launcher3.testing;
 
 import android.app.ActivityManager;
 import android.app.Service;
@@ -29,7 +29,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.util.LongSparseArray;
 
-import com.android.launcher3.util.TestingUtils;
+import com.jasonkung.launcher3.util.TestingUtils;
 
 import java.util.ArrayList;
 import java.util.List;

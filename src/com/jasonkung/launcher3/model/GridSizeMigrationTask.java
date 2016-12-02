@@ -1,4 +1,4 @@
-package com.android.launcher3.model;
+package com.jasonkung.launcher3.model;
 
 import android.content.ComponentName;
 import android.content.ContentProviderOperation;
@@ -13,19 +13,19 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.launcher3.InvariantDeviceProfile;
-import com.android.launcher3.ItemInfo;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.LauncherAppWidgetProviderInfo;
-import com.android.launcher3.LauncherModel;
-import com.android.launcher3.LauncherProvider;
-import com.android.launcher3.LauncherSettings;
-import com.android.launcher3.LauncherSettings.Favorites;
-import com.android.launcher3.Utilities;
-//import com.android.launcher3.backup.nano.BackupProtos;
-import com.android.launcher3.compat.AppWidgetManagerCompat;
-import com.android.launcher3.compat.PackageInstallerCompat;
-import com.android.launcher3.util.LongArrayMap;
+import com.jasonkung.launcher3.InvariantDeviceProfile;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherAppWidgetProviderInfo;
+import com.jasonkung.launcher3.LauncherModel;
+import com.jasonkung.launcher3.LauncherProvider;
+import com.jasonkung.launcher3.LauncherSettings;
+import com.jasonkung.launcher3.LauncherSettings.Favorites;
+import com.jasonkung.launcher3.Utilities;
+//import com.jasonkung.launcher3.backup.nano.BackupProtos;
+import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
+import com.jasonkung.launcher3.compat.PackageInstallerCompat;
+import com.jasonkung.launcher3.util.LongArrayMap;
 
 import java.util.ArrayList;
 import java.util.Collections;

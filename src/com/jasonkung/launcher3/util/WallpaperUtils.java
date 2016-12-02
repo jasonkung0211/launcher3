@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import android.annotation.TargetApi;
 import android.app.WallpaperManager;
@@ -24,7 +24,7 @@ import android.graphics.Point;
 import android.os.Build;
 import android.view.WindowManager;
 
-import com.android.launcher3.Utilities;
+import com.jasonkung.launcher3.Utilities;
 
 /**
  * Utility methods for wallpaper management.

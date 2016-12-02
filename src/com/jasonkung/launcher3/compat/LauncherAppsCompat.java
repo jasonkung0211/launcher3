@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.compat;
+package com.jasonkung.launcher3.compat;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -22,7 +22,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 
-import com.android.launcher3.Utilities;
+import com.jasonkung.launcher3.Utilities;
 
 import java.util.List;
 

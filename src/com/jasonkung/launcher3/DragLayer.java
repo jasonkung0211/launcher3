@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -39,8 +39,8 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.android.launcher3.accessibility.LauncherAccessibilityDelegate;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.accessibility.LauncherAccessibilityDelegate;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.ArrayList;
 

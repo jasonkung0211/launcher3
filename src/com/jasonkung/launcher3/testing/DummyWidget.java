@@ -1,9 +1,9 @@
-package com.android.launcher3.testing;
+package com.jasonkung.launcher3.testing;
 
 import android.appwidget.AppWidgetProviderInfo;
 
-import com.android.launcher3.CustomAppWidget;
-import com.android.launcher3.R;
+import com.jasonkung.launcher3.CustomAppWidget;
+import com.jasonkung.launcher3.R;
 
 public class DummyWidget implements CustomAppWidget {
     @Override

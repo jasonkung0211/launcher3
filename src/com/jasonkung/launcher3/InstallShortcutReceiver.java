@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,11 +29,11 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.android.launcher3.compat.LauncherActivityInfoCompat;
-import com.android.launcher3.compat.LauncherAppsCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.compat.UserManagerCompat;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.compat.LauncherActivityInfoCompat;
+import com.jasonkung.launcher3.compat.LauncherAppsCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.util.Thunk;
 
 import org.json.JSONException;
 import org.json.JSONObject;

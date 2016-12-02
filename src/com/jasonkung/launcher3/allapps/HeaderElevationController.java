@@ -1,4 +1,4 @@
-package com.android.launcher3.allapps;
+package com.jasonkung.launcher3.allapps;
 
 import android.annotation.TargetApi;
 import android.content.res.Resources;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.widget.FrameLayout;
 
-import com.android.launcher3.R;
+import com.jasonkung.launcher3.R;
 
 /**
  * Helper class for controlling the header elevation in response to RecyclerView scroll.

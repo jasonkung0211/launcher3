@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.widget;
+package com.jasonkung.launcher3.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -29,16 +29,16 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
-import com.android.launcher3.BubbleTextView;
-import com.android.launcher3.DeviceProfile;
-import com.android.launcher3.Launcher;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.LauncherAppWidgetProviderInfo;
-import com.android.launcher3.R;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.WidgetPreviewLoader;
-import com.android.launcher3.model.PackageItemInfo;
-import com.android.launcher3.model.WidgetsModel;
+import com.jasonkung.launcher3.BubbleTextView;
+import com.jasonkung.launcher3.DeviceProfile;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherAppWidgetProviderInfo;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.WidgetPreviewLoader;
+import com.jasonkung.launcher3.model.PackageItemInfo;
+import com.jasonkung.launcher3.model.WidgetsModel;
 
 import java.util.List;
 

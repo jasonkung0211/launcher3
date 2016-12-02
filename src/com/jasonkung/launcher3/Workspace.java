@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -60,22 +60,22 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.TextView;
 
-import com.android.launcher3.FolderIcon.FolderRingAnimator;
-import com.android.launcher3.Launcher.CustomContentCallbacks;
-import com.android.launcher3.Launcher.LauncherOverlay;
-import com.android.launcher3.LauncherSettings.Favorites;
-import com.android.launcher3.UninstallDropTarget.UninstallSource;
-import com.android.launcher3.accessibility.LauncherAccessibilityDelegate;
-import com.android.launcher3.accessibility.LauncherAccessibilityDelegate.AccessibilityDragSource;
-import com.android.launcher3.accessibility.OverviewScreenAccessibilityDelegate;
-import com.android.launcher3.accessibility.WorkspaceAccessibilityHelper;
-import com.android.launcher3.compat.AppWidgetManagerCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.util.LongArrayMap;
-import com.android.launcher3.util.Thunk;
-import com.android.launcher3.util.WallpaperUtils;
-import com.android.launcher3.widget.PendingAddShortcutInfo;
-import com.android.launcher3.widget.PendingAddWidgetInfo;
+import com.jasonkung.launcher3.FolderIcon.FolderRingAnimator;
+import com.jasonkung.launcher3.Launcher.CustomContentCallbacks;
+import com.jasonkung.launcher3.Launcher.LauncherOverlay;
+import com.jasonkung.launcher3.LauncherSettings.Favorites;
+import com.jasonkung.launcher3.UninstallDropTarget.UninstallSource;
+import com.jasonkung.launcher3.accessibility.LauncherAccessibilityDelegate;
+import com.jasonkung.launcher3.accessibility.LauncherAccessibilityDelegate.AccessibilityDragSource;
+import com.jasonkung.launcher3.accessibility.OverviewScreenAccessibilityDelegate;
+import com.jasonkung.launcher3.accessibility.WorkspaceAccessibilityHelper;
+import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.util.LongArrayMap;
+import com.jasonkung.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.WallpaperUtils;
+import com.jasonkung.launcher3.widget.PendingAddShortcutInfo;
+import com.jasonkung.launcher3.widget.PendingAddWidgetInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

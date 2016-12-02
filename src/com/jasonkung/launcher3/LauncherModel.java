@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.app.SearchManager;
 import android.appwidget.AppWidgetProviderInfo;
@@ -45,23 +45,23 @@ import android.util.Log;
 import android.util.LongSparseArray;
 import android.util.Pair;
 
-import com.android.launcher3.compat.AppWidgetManagerCompat;
-import com.android.launcher3.compat.LauncherActivityInfoCompat;
-import com.android.launcher3.compat.LauncherAppsCompat;
-import com.android.launcher3.compat.PackageInstallerCompat;
-import com.android.launcher3.compat.PackageInstallerCompat.PackageInstallInfo;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.compat.UserManagerCompat;
-import com.android.launcher3.model.GridSizeMigrationTask;
-import com.android.launcher3.model.WidgetsModel;
-import com.android.launcher3.util.ComponentKey;
-import com.android.launcher3.util.CursorIconInfo;
-import com.android.launcher3.util.FlagOp;
-import com.android.launcher3.util.LongArrayMap;
-import com.android.launcher3.util.ManagedProfileHeuristic;
-import com.android.launcher3.util.PackageManagerHelper;
-import com.android.launcher3.util.StringFilter;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
+import com.jasonkung.launcher3.compat.LauncherActivityInfoCompat;
+import com.jasonkung.launcher3.compat.LauncherAppsCompat;
+import com.jasonkung.launcher3.compat.PackageInstallerCompat;
+import com.jasonkung.launcher3.compat.PackageInstallerCompat.PackageInstallInfo;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.model.GridSizeMigrationTask;
+import com.jasonkung.launcher3.model.WidgetsModel;
+import com.jasonkung.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.util.CursorIconInfo;
+import com.jasonkung.launcher3.util.FlagOp;
+import com.jasonkung.launcher3.util.LongArrayMap;
+import com.jasonkung.launcher3.util.ManagedProfileHeuristic;
+import com.jasonkung.launcher3.util.PackageManagerHelper;
+import com.jasonkung.launcher3.util.StringFilter;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.lang.ref.WeakReference;
 import java.net.URISyntaxException;

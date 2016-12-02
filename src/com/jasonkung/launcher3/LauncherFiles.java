@@ -1,4 +1,4 @@
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import java.util.Arrays;
 import java.util.Collections;

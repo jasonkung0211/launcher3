@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.appwidget.AppWidgetHost;
 import android.appwidget.AppWidgetManager;
@@ -35,9 +35,9 @@ import android.util.Log;
 import android.util.Pair;
 import android.util.Patterns;
 
-import com.android.launcher3.LauncherProvider.SqlArguments;
-import com.android.launcher3.LauncherSettings.Favorites;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.LauncherProvider.SqlArguments;
+import com.jasonkung.launcher3.LauncherSettings.Favorites;
+import com.jasonkung.launcher3.util.Thunk;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

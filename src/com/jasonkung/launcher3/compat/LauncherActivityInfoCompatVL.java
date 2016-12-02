@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.compat;
+package com.jasonkung.launcher3.compat;
 
 import android.annotation.TargetApi;
 import android.content.ComponentName;

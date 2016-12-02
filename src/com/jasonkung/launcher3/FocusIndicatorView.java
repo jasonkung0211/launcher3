@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -24,7 +24,7 @@ import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.View;
 
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.Thunk;
 
 public class FocusIndicatorView extends View implements View.OnFocusChangeListener {
 

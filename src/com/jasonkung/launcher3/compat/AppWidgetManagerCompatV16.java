@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.compat;
+package com.jasonkung.launcher3.compat;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -29,10 +29,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.android.launcher3.IconCache;
-import com.android.launcher3.LauncherAppWidgetProviderInfo;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.IconCache;
+import com.jasonkung.launcher3.LauncherAppWidgetProviderInfo;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.util.ComponentKey;
 
 import java.util.HashMap;
 import java.util.List;

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.view.View;
 
-import com.android.launcher3.DropTarget.DragObject;
+import com.jasonkung.launcher3.DropTarget.DragObject;
 
 /**
  * Interface defining an object that can originate a drag.

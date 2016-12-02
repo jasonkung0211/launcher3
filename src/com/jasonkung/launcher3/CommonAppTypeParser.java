@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,10 +23,10 @@ import android.content.res.XmlResourceParser;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.android.launcher3.AutoInstallsLayout.LayoutParserCallback;
-import com.android.launcher3.LauncherSettings.Favorites;
-//import com.android.launcher3.backup.nano.BackupProtos.Favorite;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.AutoInstallsLayout.LayoutParserCallback;
+import com.jasonkung.launcher3.LauncherSettings.Favorites;
+//import com.jasonkung.launcher3.backup.nano.BackupProtos.Favorite;
+import com.jasonkung.launcher3.util.Thunk;
 
 import org.xmlpull.v1.XmlPullParserException;
 

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.graphics.PointF;
 import android.graphics.Rect;
 
-import com.android.launcher3.accessibility.DragViewStateAnnouncer;
+import com.jasonkung.launcher3.accessibility.DragViewStateAnnouncer;
 
 /**
  * Interface defining an object that can receive a drag.

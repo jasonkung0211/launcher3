@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -41,15 +41,15 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.launcher3.compat.LauncherActivityInfoCompat;
-import com.android.launcher3.compat.LauncherAppsCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.compat.UserManagerCompat;
-import com.android.launcher3.config.FeatureFlags;
-import com.android.launcher3.model.PackageItemInfo;
-import com.android.launcher3.util.ComponentKey;
-import com.android.launcher3.util.SQLiteCacheHelper;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.compat.LauncherActivityInfoCompat;
+import com.jasonkung.launcher3.compat.LauncherAppsCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.config.FeatureFlags;
+import com.jasonkung.launcher3.model.PackageItemInfo;
+import com.jasonkung.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.util.SQLiteCacheHelper;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.Collections;
 import java.util.HashMap;

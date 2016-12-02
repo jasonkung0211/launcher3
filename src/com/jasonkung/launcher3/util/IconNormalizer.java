@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
-import com.android.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherAppState;
 
 import java.nio.ByteBuffer;
 

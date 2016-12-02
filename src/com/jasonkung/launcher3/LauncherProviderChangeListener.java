@@ -1,4 +1,4 @@
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 /**
  * This class is a listener for {@link LauncherProvider} changes. It gets notified in the

@@ -1,4 +1,4 @@
-package com.android.launcher3.model;
+package com.jasonkung.launcher3.model;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -6,12 +6,12 @@ import android.database.Cursor;
 import android.graphics.Point;
 import android.test.ProviderTestCase2;
 
-import com.android.launcher3.InvariantDeviceProfile;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.LauncherModel;
-import com.android.launcher3.LauncherSettings;
-import com.android.launcher3.config.ProviderConfig;
-import com.android.launcher3.util.TestLauncherProvider;
+import com.jasonkung.launcher3.InvariantDeviceProfile;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherModel;
+import com.jasonkung.launcher3.LauncherSettings;
+import com.jasonkung.launcher3.config.ProviderConfig;
+import com.jasonkung.launcher3.util.TestLauncherProvider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public class GridSizeMigrationTaskTest extends ProviderTestCase2<TestLauncherPro
     private static final int APPLICATION = LauncherSettings.Favorites.ITEM_TYPE_APPLICATION;
     private static final int SHORTCUT = LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT;
 
-    private static final String TEST_PACKAGE = "com.android.launcher3.validpackage";
+    private static final String TEST_PACKAGE = "com.jasonkung.launcher3.validpackage";
     private static final String VALID_INTENT =
             new Intent(Intent.ACTION_MAIN).setPackage(TEST_PACKAGE).toUri(0);
 

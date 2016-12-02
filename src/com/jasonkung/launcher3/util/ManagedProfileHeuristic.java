@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -25,19 +25,19 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.util.Log;
 
-import com.android.launcher3.FolderInfo;
-import com.android.launcher3.ItemInfo;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.LauncherFiles;
-import com.android.launcher3.LauncherModel;
-import com.android.launcher3.MainThreadExecutor;
-import com.android.launcher3.R;
-import com.android.launcher3.ShortcutInfo;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.compat.LauncherActivityInfoCompat;
-import com.android.launcher3.compat.LauncherAppsCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.FolderInfo;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherFiles;
+import com.jasonkung.launcher3.LauncherModel;
+import com.jasonkung.launcher3.MainThreadExecutor;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.ShortcutInfo;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.compat.LauncherActivityInfoCompat;
+import com.jasonkung.launcher3.compat.LauncherAppsCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;

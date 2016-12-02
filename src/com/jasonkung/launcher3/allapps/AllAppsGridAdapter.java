@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.allapps;
+package com.jasonkung.launcher3.allapps;
 
 import android.content.Context;
 import android.content.Intent;
@@ -41,12 +41,12 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.TextView;
-import com.android.launcher3.AppInfo;
-import com.android.launcher3.BubbleTextView;
-import com.android.launcher3.Launcher;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.R;
-import com.android.launcher3.Utilities;
+import com.jasonkung.launcher3.AppInfo;
+import com.jasonkung.launcher3.BubbleTextView;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.Utilities;
 
 import java.util.HashMap;
 import java.util.List;

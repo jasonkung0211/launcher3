@@ -1,10 +1,10 @@
-package com.android.launcher3.compat;
+package com.jasonkung.launcher3.compat;
 
 import android.content.Context;
 import android.content.res.Configuration;
 import android.util.Log;
 
-import com.android.launcher3.Utilities;
+import com.jasonkung.launcher3.Utilities;
 
 import java.lang.reflect.Method;
 import java.util.Locale;

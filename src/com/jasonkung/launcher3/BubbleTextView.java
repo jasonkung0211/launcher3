@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -39,8 +39,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewParent;
 import android.widget.TextView;
 
-import com.android.launcher3.IconCache.IconLoadRequest;
-import com.android.launcher3.model.PackageItemInfo;
+import com.jasonkung.launcher3.IconCache.IconLoadRequest;
+import com.jasonkung.launcher3.model.PackageItemInfo;
 
 import java.text.NumberFormat;
 

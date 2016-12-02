@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -47,13 +47,13 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.DecelerateInterpolator;
 
-import com.android.launcher3.BubbleTextView.BubbleTextShadowHandler;
-import com.android.launcher3.FolderIcon.FolderRingAnimator;
-import com.android.launcher3.accessibility.DragAndDropAccessibilityDelegate;
-import com.android.launcher3.accessibility.FolderAccessibilityHelper;
-import com.android.launcher3.accessibility.WorkspaceAccessibilityHelper;
-import com.android.launcher3.util.ParcelableSparseArray;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.BubbleTextView.BubbleTextShadowHandler;
+import com.jasonkung.launcher3.FolderIcon.FolderRingAnimator;
+import com.jasonkung.launcher3.accessibility.DragAndDropAccessibilityDelegate;
+import com.jasonkung.launcher3.accessibility.FolderAccessibilityHelper;
+import com.jasonkung.launcher3.accessibility.WorkspaceAccessibilityHelper;
+import com.jasonkung.launcher3.util.ParcelableSparseArray;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.ArrayList;
 import java.util.Arrays;

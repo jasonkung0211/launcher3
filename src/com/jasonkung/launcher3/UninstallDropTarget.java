@@ -1,4 +1,4 @@
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.annotation.TargetApi;
 import android.content.ComponentName;
@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.os.UserManager;
 import android.util.AttributeSet;
 import android.util.Pair;
-import com.android.launcher3.R;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.util.Thunk;
 
 public class UninstallDropTarget extends ButtonDropTarget {
 

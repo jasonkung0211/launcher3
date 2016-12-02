@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.appwidget.AppWidgetHostView;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 
-import com.android.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
 
 /**
  * Represents a widget (either instantiated or about to be) in the Launcher.

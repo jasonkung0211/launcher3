@@ -1,4 +1,4 @@
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -27,13 +27,13 @@ import android.os.Handler;
 import android.util.Log;
 import android.util.LongSparseArray;
 
-import com.android.launcher3.compat.AppWidgetManagerCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.compat.UserManagerCompat;
-import com.android.launcher3.util.ComponentKey;
-import com.android.launcher3.util.SQLiteCacheHelper;
-import com.android.launcher3.util.Thunk;
-import com.android.launcher3.widget.WidgetCell;
+import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.util.SQLiteCacheHelper;
+import com.jasonkung.launcher3.util.Thunk;
+import com.jasonkung.launcher3.widget.WidgetCell;
 
 import java.util.ArrayList;
 import java.util.Collections;

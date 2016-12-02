@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.AnimatorSet;
 import android.animation.FloatArrayEvaluator;
@@ -39,7 +39,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.Thunk;
 
 /**
  * Implements a DropTarget.

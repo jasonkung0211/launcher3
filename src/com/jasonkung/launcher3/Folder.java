@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -51,15 +51,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.launcher3.CellLayout.CellInfo;
-import com.android.launcher3.DragController.DragListener;
-import com.android.launcher3.FolderInfo.FolderListener;
-import com.android.launcher3.UninstallDropTarget.UninstallSource;
-import com.android.launcher3.Workspace.ItemOperator;
-import com.android.launcher3.accessibility.LauncherAccessibilityDelegate.AccessibilityDragSource;
-import com.android.launcher3.config.FeatureFlags;
-import com.android.launcher3.util.Thunk;
-import com.android.launcher3.util.UiThreadCircularReveal;
+import com.jasonkung.launcher3.CellLayout.CellInfo;
+import com.jasonkung.launcher3.DragController.DragListener;
+import com.jasonkung.launcher3.FolderInfo.FolderListener;
+import com.jasonkung.launcher3.UninstallDropTarget.UninstallSource;
+import com.jasonkung.launcher3.Workspace.ItemOperator;
+import com.jasonkung.launcher3.accessibility.LauncherAccessibilityDelegate.AccessibilityDragSource;
+import com.jasonkung.launcher3.config.FeatureFlags;
+import com.jasonkung.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.UiThreadCircularReveal;
 
 import java.util.ArrayList;
 import java.util.Collections;

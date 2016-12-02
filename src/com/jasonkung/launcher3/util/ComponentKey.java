@@ -1,4 +1,4 @@
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 /**
  * Copyright (C) 2015 The Android Open Source Project
@@ -18,8 +18,8 @@ package com.android.launcher3.util;
 
 import android.content.ComponentName;
 import android.content.Context;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
 
 import java.util.Arrays;
 

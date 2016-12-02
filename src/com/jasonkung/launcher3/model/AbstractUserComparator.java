@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.model;
+package com.jasonkung.launcher3.model;
 
 import android.content.Context;
 
-import com.android.launcher3.ItemInfo;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
 
 import java.util.Comparator;
 

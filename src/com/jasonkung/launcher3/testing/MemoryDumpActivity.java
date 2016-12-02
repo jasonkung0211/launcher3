@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.testing;
+package com.jasonkung.launcher3.testing;
 
 import android.app.Activity;
 import android.content.ComponentName;

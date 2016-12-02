@@ -1,4 +1,4 @@
-package com.android.launcher3.model;
+package com.jasonkung.launcher3.model;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -6,11 +6,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.util.Log;
 
-import com.android.launcher3.LauncherAppWidgetProviderInfo;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.compat.AppWidgetManagerCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.LauncherAppWidgetProviderInfo;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.util.ComponentKey;
 
 import java.text.Collator;
 import java.util.Comparator;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -23,10 +23,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.android.launcher3.LauncherSettings.Favorites;
-import com.android.launcher3.compat.LauncherActivityInfoCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.LauncherSettings.Favorites;
+import com.jasonkung.launcher3.compat.LauncherActivityInfoCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,5 +1,5 @@
 
-package com.android.launcher3.model;
+package com.jasonkung.launcher3.model;
 
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.ComponentName;
@@ -10,17 +10,17 @@ import android.os.DeadObjectException;
 import android.os.TransactionTooLargeException;
 import android.util.Log;
 
-import com.android.launcher3.AppFilter;
-import com.android.launcher3.IconCache;
-import com.android.launcher3.InvariantDeviceProfile;
-import com.android.launcher3.ItemInfo;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.LauncherAppWidgetProviderInfo;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.compat.AlphabeticIndexCompat;
-import com.android.launcher3.compat.AppWidgetManagerCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.config.ProviderConfig;
+import com.jasonkung.launcher3.AppFilter;
+import com.jasonkung.launcher3.IconCache;
+import com.jasonkung.launcher3.InvariantDeviceProfile;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherAppWidgetProviderInfo;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.compat.AlphabeticIndexCompat;
+import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.config.ProviderConfig;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.accessibility;
+package com.jasonkung.launcher3.accessibility;
 
 import android.content.Context;
 import android.view.View;

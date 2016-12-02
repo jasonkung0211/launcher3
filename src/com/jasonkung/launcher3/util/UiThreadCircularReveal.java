@@ -1,4 +1,4 @@
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -9,7 +9,7 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 
-import com.android.launcher3.Utilities;
+import com.jasonkung.launcher3.Utilities;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class UiThreadCircularReveal {

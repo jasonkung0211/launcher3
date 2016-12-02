@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

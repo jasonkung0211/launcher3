@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
@@ -30,7 +30,7 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.Thunk;
 
 /**
  * The track and scrollbar that shows when you scroll the list.

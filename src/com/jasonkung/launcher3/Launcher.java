@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -94,23 +94,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.launcher3.DropTarget.DragObject;
-import com.android.launcher3.PagedView.PageSwitchListener;
-import com.android.launcher3.allapps.AllAppsContainerView;
-import com.android.launcher3.allapps.DefaultAppSearchController;
-import com.android.launcher3.compat.AppWidgetManagerCompat;
-import com.android.launcher3.compat.LauncherActivityInfoCompat;
-import com.android.launcher3.compat.LauncherAppsCompat;
-import com.android.launcher3.compat.UserHandleCompat;
-import com.android.launcher3.compat.UserManagerCompat;
-import com.android.launcher3.model.WidgetsModel;
-import com.android.launcher3.util.ComponentKey;
-import com.android.launcher3.util.LongArrayMap;
-import com.android.launcher3.util.TestingUtils;
-import com.android.launcher3.util.Thunk;
-import com.android.launcher3.widget.PendingAddWidgetInfo;
-import com.android.launcher3.widget.WidgetHostViewLoader;
-import com.android.launcher3.widget.WidgetsContainerView;
+import com.jasonkung.launcher3.DropTarget.DragObject;
+import com.jasonkung.launcher3.PagedView.PageSwitchListener;
+import com.jasonkung.launcher3.allapps.AllAppsContainerView;
+import com.jasonkung.launcher3.allapps.DefaultAppSearchController;
+import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
+import com.jasonkung.launcher3.compat.LauncherActivityInfoCompat;
+import com.jasonkung.launcher3.compat.LauncherAppsCompat;
+import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.model.WidgetsModel;
+import com.jasonkung.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.util.LongArrayMap;
+import com.jasonkung.launcher3.util.TestingUtils;
+import com.jasonkung.launcher3.util.Thunk;
+import com.jasonkung.launcher3.widget.PendingAddWidgetInfo;
+import com.jasonkung.launcher3.widget.WidgetHostViewLoader;
+import com.jasonkung.launcher3.widget.WidgetsContainerView;
 
 import java.io.File;
 import java.io.FileDescriptor;

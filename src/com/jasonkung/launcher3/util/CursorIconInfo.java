@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 import android.content.Context;
 import android.content.Intent.ShortcutIconResource;
@@ -22,9 +22,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 
-import com.android.launcher3.LauncherSettings;
-import com.android.launcher3.ShortcutInfo;
-import com.android.launcher3.Utilities;
+import com.jasonkung.launcher3.LauncherSettings;
+import com.jasonkung.launcher3.ShortcutInfo;
+import com.jasonkung.launcher3.Utilities;
 
 /**
  * Utility class to load icon from a cursor.

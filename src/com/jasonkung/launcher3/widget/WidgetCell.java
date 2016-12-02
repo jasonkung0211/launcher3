@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.widget;
+package com.jasonkung.launcher3.widget;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -30,17 +30,17 @@ import android.view.ViewPropertyAnimator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.launcher3.DeviceProfile;
-import com.android.launcher3.InvariantDeviceProfile;
-import com.android.launcher3.ItemInfo;
-import com.android.launcher3.Launcher;
-import com.android.launcher3.LauncherAppState;
-import com.android.launcher3.LauncherAppWidgetProviderInfo;
-import com.android.launcher3.R;
-import com.android.launcher3.StylusEventHelper;
-import com.android.launcher3.WidgetPreviewLoader;
-import com.android.launcher3.WidgetPreviewLoader.PreviewLoadRequest;
-import com.android.launcher3.compat.AppWidgetManagerCompat;
+import com.jasonkung.launcher3.DeviceProfile;
+import com.jasonkung.launcher3.InvariantDeviceProfile;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherAppWidgetProviderInfo;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.StylusEventHelper;
+import com.jasonkung.launcher3.WidgetPreviewLoader;
+import com.jasonkung.launcher3.WidgetPreviewLoader.PreviewLoadRequest;
+import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
 
 /**
  * Represents the individual cell of the widget inside the widget tray. The preview is drawn

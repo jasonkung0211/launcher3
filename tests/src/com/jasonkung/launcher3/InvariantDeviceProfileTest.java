@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.content.res.Resources;
 import android.graphics.Point;

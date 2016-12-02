@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -35,8 +35,8 @@ import android.view.ViewConfiguration;
 import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.android.launcher3.accessibility.DragViewStateAnnouncer;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.accessibility.DragViewStateAnnouncer;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.ArrayList;
 import java.util.HashSet;

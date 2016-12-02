@@ -1,4 +1,4 @@
-package com.android.launcher3.util;
+package com.jasonkung.launcher3.util;
 
 /**
  * Copyright (C) 2015 The Android Open Source Project
@@ -23,7 +23,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.util.Log;
 
-import com.android.launcher3.Utilities;
+import com.jasonkung.launcher3.Utilities;
 
 /**
  * {@link BroadcastReceiver} which watches configuration changes and

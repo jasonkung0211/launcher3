@@ -1,4 +1,4 @@
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.appwidget.AppWidgetHost;
 import android.appwidget.AppWidgetManager;
@@ -12,7 +12,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.android.launcher3.LauncherSettings.Favorites;
+import com.jasonkung.launcher3.LauncherSettings.Favorites;
 
 import java.util.ArrayList;
 import java.util.List;

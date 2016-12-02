@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.widget;
+package com.jasonkung.launcher3.widget;
 
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;

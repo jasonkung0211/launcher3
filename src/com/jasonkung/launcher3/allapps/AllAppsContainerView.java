@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.allapps;
+package com.jasonkung.launcher3.allapps;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -31,23 +31,23 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import com.android.launcher3.AppInfo;
-import com.android.launcher3.BaseContainerView;
-import com.android.launcher3.BubbleTextView;
-import com.android.launcher3.CellLayout;
-import com.android.launcher3.DeleteDropTarget;
-import com.android.launcher3.DeviceProfile;
-import com.android.launcher3.DragSource;
-import com.android.launcher3.DropTarget;
-import com.android.launcher3.ExtendedEditText;
-import com.android.launcher3.Folder;
-import com.android.launcher3.ItemInfo;
-import com.android.launcher3.Launcher;
-import com.android.launcher3.LauncherTransitionable;
-import com.android.launcher3.R;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.Workspace;
-import com.android.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.AppInfo;
+import com.jasonkung.launcher3.BaseContainerView;
+import com.jasonkung.launcher3.BubbleTextView;
+import com.jasonkung.launcher3.CellLayout;
+import com.jasonkung.launcher3.DeleteDropTarget;
+import com.jasonkung.launcher3.DeviceProfile;
+import com.jasonkung.launcher3.DragSource;
+import com.jasonkung.launcher3.DropTarget;
+import com.jasonkung.launcher3.ExtendedEditText;
+import com.jasonkung.launcher3.Folder;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherTransitionable;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.Workspace;
+import com.jasonkung.launcher3.util.ComponentKey;
 
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;

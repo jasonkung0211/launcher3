@@ -32,7 +32,7 @@ import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.glrenderer.BasicTexture;
 import com.android.gallery3d.glrenderer.GLCanvas;
 import com.android.gallery3d.glrenderer.UploadedTexture;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.Thunk;
 
 /**
  * Handles laying out, decoding, and drawing of tiles in GL

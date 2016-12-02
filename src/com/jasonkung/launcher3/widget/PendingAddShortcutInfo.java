@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher3.widget;
+package com.jasonkung.launcher3.widget;
 
 import android.content.ComponentName;
 import android.content.pm.ActivityInfo;
 
-import com.android.launcher3.LauncherSettings;
-import com.android.launcher3.PendingAddItemInfo;
+import com.jasonkung.launcher3.LauncherSettings;
+import com.jasonkung.launcher3.PendingAddItemInfo;
 
 /**
  * Meta data used for late binding of the short cuts.

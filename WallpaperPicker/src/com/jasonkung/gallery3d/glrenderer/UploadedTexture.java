@@ -21,7 +21,7 @@ import android.graphics.Bitmap.Config;
 import android.opengl.GLUtils;
 
 import com.android.gallery3d.common.Utils;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.HashMap;
 

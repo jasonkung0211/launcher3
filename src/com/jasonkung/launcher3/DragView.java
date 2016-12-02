@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.animation.FloatArrayEvaluator;
 import android.animation.ValueAnimator;
@@ -33,7 +33,7 @@ import android.os.Build;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.Arrays;
 

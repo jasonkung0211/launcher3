@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.testing;
+package com.jasonkung.launcher3.testing;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -34,7 +34,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.util.Thunk;
 
 public class WeightWatcher extends LinearLayout {
     private static final int RAM_GRAPH_RSS_COLOR = 0xFF990000;

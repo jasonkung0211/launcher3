@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3;
+package com.jasonkung.launcher3;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -27,10 +27,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 
-import com.android.launcher3.FocusHelper.PagedFolderKeyEventListener;
-import com.android.launcher3.PageIndicator.PageMarkerResources;
-import com.android.launcher3.Workspace.ItemOperator;
-import com.android.launcher3.util.Thunk;
+import com.jasonkung.launcher3.FocusHelper.PagedFolderKeyEventListener;
+import com.jasonkung.launcher3.PageIndicator.PageMarkerResources;
+import com.jasonkung.launcher3.Workspace.ItemOperator;
+import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.ArrayList;
 import java.util.HashMap;

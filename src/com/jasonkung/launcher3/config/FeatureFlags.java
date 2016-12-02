@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.launcher3.config;
+package com.jasonkung.launcher3.config;
 
 /**
  * Defines a set of flags used to control various launcher behaviors

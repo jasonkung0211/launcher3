@@ -1,4 +1,4 @@
-package com.android.launcher3.testing;
+package com.jasonkung.launcher3.testing;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,11 +8,11 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.android.launcher3.AppInfo;
-import com.android.launcher3.Launcher;
-import com.android.launcher3.LauncherCallbacks;
-import com.android.launcher3.allapps.AllAppsSearchBarController;
-import com.android.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.AppInfo;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherCallbacks;
+import com.jasonkung.launcher3.allapps.AllAppsSearchBarController;
+import com.jasonkung.launcher3.util.ComponentKey;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
