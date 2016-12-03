@@ -89,6 +89,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class WallpaperPickerActivity extends WallpaperCropActivity {
     static final String TAG = "WallpaperPickerActivity";
 
@@ -105,8 +108,8 @@ public class WallpaperPickerActivity extends WallpaperCropActivity {
     @Thunk OnClickListener mThumbnailOnClickListener;
 
     @Thunk LinearLayout mWallpapersView;
-    @Thunk HorizontalScrollView mWallpaperScrollContainer;
-    @Thunk View mWallpaperStrip;
+    @Thunk @BindView(R.id.wallpaper_scroll_container) HorizontalScrollView mWallpaperScrollContainer;
+    @Thunk @BindView((R.id.wallpaper_strip)) View mWallpaperStrip;
 
     @Thunk ActionMode.Callback mActionModeCallback;
     @Thunk ActionMode mActionMode;
@@ -478,13 +481,13 @@ public class WallpaperPickerActivity extends WallpaperCropActivity {
     // called by onCreate; this is subclassed to overwrite WallpaperCropActivity
     protected void init() {
         setContentView(R.layout.wallpaper_picker);
+        ButterKnife.bind(this);
 
         mCropView = (CropView) findViewById(R.id.cropView);
         mCropView.setVisibility(View.INVISIBLE);
 
         mProgressView = findViewById(R.id.loading);
-        mWallpaperScrollContainer = (HorizontalScrollView) findViewById(R.id.wallpaper_scroll_container);
-        mWallpaperStrip = findViewById(R.id.wallpaper_strip);
+
         mCropView.setTouchCallback(new CropView.TouchCallback() {
             ViewPropertyAnimator mAnim;
             @Override

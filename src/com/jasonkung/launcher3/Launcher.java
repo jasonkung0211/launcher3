@@ -126,6 +126,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Default launcher application.
  */
@@ -231,10 +234,10 @@ public class Launcher extends Activity
 
     private LayoutInflater mInflater;
 
-    @Thunk Workspace mWorkspace;
-    private View mLauncherView;
-    private View mPageIndicators;
-    @Thunk DragLayer mDragLayer;
+    @Thunk @BindView(R.id.workspace) Workspace mWorkspace;
+    @BindView(R.id.launcher) View mLauncherView;
+    @BindView(R.id.page_indicator) View mPageIndicators;
+    @Thunk @BindView((R.id.drag_layer)) DragLayer mDragLayer;
     private DragController mDragController;
 
     public View mWeightWatcher;
@@ -248,19 +251,19 @@ public class Launcher extends Activity
 
     private int[] mTmpAddItemCellCoordinates = new int[2];
 
-    @Thunk Hotseat mHotseat;
-    private ViewGroup mOverviewPanel;
+    @Thunk @BindView(R.id.hotseat) Hotseat mHotseat;
+    @BindView (R.id.overview_panel) ViewGroup mOverviewPanel;
 
     private View mAllAppsButton;
     private View mWidgetsButton;
 
-    private SearchDropTargetBar mSearchDropTargetBar;
+    @BindView(R.id.search_drop_target_bar) SearchDropTargetBar mSearchDropTargetBar;
 
     // Main container view for the all apps screen.
-    @Thunk AllAppsContainerView mAppsView;
+    @Thunk @BindView(R.id.apps_view) AllAppsContainerView mAppsView;
 
     // Main container view and the model for the widget tray screen.
-    @Thunk WidgetsContainerView mWidgetsView;
+    @Thunk @BindView(R.id.widgets_view) WidgetsContainerView mWidgetsView;
     @Thunk WidgetsModel mWidgetsModel;
 
     private boolean mAutoAdvanceRunning = false;
@@ -374,7 +377,7 @@ public class Launcher extends Activity
     }
 
     private Stats mStats;
-    FocusIndicatorView mFocusHandler;
+    @BindView(R.id.focus_indicator) FocusIndicatorView mFocusHandler;
     private boolean mRotationEnabled = false;
 
     @Thunk void setOrientation() {
@@ -450,6 +453,7 @@ public class Launcher extends Activity
         }
 
         setContentView(R.layout.launcher);
+        ButterKnife.bind(this);
 
         app.getInvariantDeviceProfile().landscapeProfile.setSearchBarHeight(getSearchBarHeight());
         app.getInvariantDeviceProfile().portraitProfile.setSearchBarHeight(getSearchBarHeight());
@@ -1329,12 +1333,7 @@ public class Launcher extends Activity
     private void setupViews() {
         final DragController dragController = mDragController;
 
-        mLauncherView = findViewById(R.id.launcher);
-        mFocusHandler = (FocusIndicatorView) findViewById(R.id.focus_indicator);
-        mDragLayer = (DragLayer) findViewById(R.id.drag_layer);
-        mWorkspace = (Workspace) mDragLayer.findViewById(R.id.workspace);
         mWorkspace.setPageSwitchListener(this);
-        mPageIndicators = mDragLayer.findViewById(R.id.page_indicator);
 
         mLauncherView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -1345,7 +1344,6 @@ public class Launcher extends Activity
         mDragLayer.setup(this, dragController);
 
         // Setup the hotseat
-        mHotseat = (Hotseat) findViewById(R.id.hotseat);
         if (mHotseat != null) {
             mHotseat.setOnLongClickListener(this);
         }
@@ -1359,13 +1357,7 @@ public class Launcher extends Activity
         mWorkspace.setup(dragController);
         dragController.addDragListener(mWorkspace);
 
-        // Get the search/delete bar
-        mSearchDropTargetBar = (SearchDropTargetBar)
-                mDragLayer.findViewById(R.id.search_drop_target_bar);
-
         // Setup Apps and Widgets
-        mAppsView = (AllAppsContainerView) findViewById(R.id.apps_view);
-        mWidgetsView = (WidgetsContainerView) findViewById(R.id.widgets_view);
         if (mLauncherCallbacks != null && mLauncherCallbacks.getAllAppsSearchBarController() != null) {
             mAppsView.setSearchBarController(mLauncherCallbacks.getAllAppsSearchBarController());
         } else {
@@ -1388,8 +1380,6 @@ public class Launcher extends Activity
     }
 
     private void setupOverviewPanel() {
-        mOverviewPanel = (ViewGroup) findViewById(R.id.overview_panel);
-
         // Long-clicking buttons in the overview panel does the same thing as clicking them.
         OnLongClickListener performClickOnLongClick = new OnLongClickListener() {
             @Override
