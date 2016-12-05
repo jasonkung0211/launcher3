@@ -29,8 +29,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
-import com.android.photos.views.TiledImageRenderer.TileSource;
-import com.android.photos.views.TiledImageView;
+import com.jasonkung.photos.views.TiledImageRenderer.TileSource;
+import com.jasonkung.photos.views.TiledImageView;
 
 public class  CropView extends TiledImageView implements OnScaleGestureListener {
 

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.gallery3d.glrenderer;
+package com.jasonkung.gallery3d.glrenderer;
 
 import android.util.Log;
 
-import com.android.gallery3d.common.Utils;
+import com.jasonkung.gallery3d.common.Utils;
 
 import java.util.WeakHashMap;
 

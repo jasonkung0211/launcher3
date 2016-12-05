@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.gallery3d.glrenderer;
+package com.jasonkung.gallery3d.glrenderer;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;

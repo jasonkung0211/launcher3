@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.gallery3d.common;
+package com.jasonkung.gallery3d.common;
 
 import android.app.WallpaperManager;
 import android.content.Context;

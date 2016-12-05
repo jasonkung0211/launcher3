@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.photos.views;
+package com.jasonkung.photos.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -31,10 +31,10 @@ import android.view.Choreographer;
 import android.view.Choreographer.FrameCallback;
 import android.widget.FrameLayout;
 
-import com.android.gallery3d.glrenderer.BasicTexture;
-import com.android.gallery3d.glrenderer.GLES20Canvas;
+import com.jasonkung.gallery3d.glrenderer.BasicTexture;
+import com.jasonkung.gallery3d.glrenderer.GLES20Canvas;
 import com.jasonkung.launcher3.util.Thunk;
-import com.android.photos.views.TiledImageRenderer.TileSource;
+import com.jasonkung.photos.views.TiledImageRenderer.TileSource;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

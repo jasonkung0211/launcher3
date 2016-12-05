@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.photos;
+package com.jasonkung.photos;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -30,12 +30,12 @@ import android.opengl.GLUtils;
 import android.os.Build;
 import android.util.Log;
 
-import com.android.gallery3d.common.BitmapUtils;
-import com.android.gallery3d.common.Utils;
-import com.android.gallery3d.exif.ExifInterface;
-import com.android.gallery3d.glrenderer.BasicTexture;
-import com.android.gallery3d.glrenderer.BitmapTexture;
-import com.android.photos.views.TiledImageRenderer;
+import com.jasonkung.gallery3d.common.BitmapUtils;
+import com.jasonkung.gallery3d.common.Utils;
+import com.jasonkung.gallery3d.exif.ExifInterface;
+import com.jasonkung.gallery3d.glrenderer.BasicTexture;
+import com.jasonkung.gallery3d.glrenderer.BitmapTexture;
+import com.jasonkung.photos.views.TiledImageRenderer;
 
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;

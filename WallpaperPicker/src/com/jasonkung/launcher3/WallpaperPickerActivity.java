@@ -74,12 +74,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.gallery3d.common.BitmapCropTask;
-import com.android.gallery3d.common.BitmapUtils;
-import com.android.gallery3d.common.Utils;
+import com.jasonkung.gallery3d.common.BitmapCropTask;
+import com.jasonkung.gallery3d.common.BitmapUtils;
+import com.jasonkung.gallery3d.common.Utils;
 import com.jasonkung.launcher3.util.Thunk;
-import com.android.photos.BitmapRegionTileSource;
-import com.android.photos.BitmapRegionTileSource.BitmapSource;
+import com.jasonkung.photos.BitmapRegionTileSource;
+import com.jasonkung.photos.BitmapRegionTileSource.BitmapSource;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.gallery3d.exif;
+package com.jasonkung.gallery3d.exif;
 
 /**
  * The rational data type of EXIF tag. Contains a pair of longs representing the

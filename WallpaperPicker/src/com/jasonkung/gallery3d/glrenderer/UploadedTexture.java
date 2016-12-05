@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.gallery3d.glrenderer;
+package com.jasonkung.gallery3d.glrenderer;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.opengl.GLUtils;
 
-import com.android.gallery3d.common.Utils;
+import com.jasonkung.gallery3d.common.Utils;
 import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.HashMap;

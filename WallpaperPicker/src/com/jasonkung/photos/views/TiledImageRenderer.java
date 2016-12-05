@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.photos.views;
+package com.jasonkung.photos.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -28,10 +28,10 @@ import android.util.LongSparseArray;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.android.gallery3d.common.Utils;
-import com.android.gallery3d.glrenderer.BasicTexture;
-import com.android.gallery3d.glrenderer.GLCanvas;
-import com.android.gallery3d.glrenderer.UploadedTexture;
+import com.jasonkung.gallery3d.common.Utils;
+import com.jasonkung.gallery3d.glrenderer.BasicTexture;
+import com.jasonkung.gallery3d.glrenderer.GLCanvas;
+import com.jasonkung.gallery3d.glrenderer.UploadedTexture;
 import com.jasonkung.launcher3.util.Thunk;
 
 /**

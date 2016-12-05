@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.gallery3d.exif;
+package com.jasonkung.gallery3d.exif;
 
 /**
  * The constants of the IFD ID defined in EXIF spec.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.gallery3d.exif;
+package com.jasonkung.gallery3d.exif;
 
 class JpegHeader {
     public static final short SOI =  (short) 0xFFD8;

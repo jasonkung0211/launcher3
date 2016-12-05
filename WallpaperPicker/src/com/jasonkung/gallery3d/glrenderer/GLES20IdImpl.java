@@ -1,4 +1,4 @@
-package com.android.gallery3d.glrenderer;
+package com.jasonkung.gallery3d.glrenderer;
 
 import android.opengl.GLES20;
 

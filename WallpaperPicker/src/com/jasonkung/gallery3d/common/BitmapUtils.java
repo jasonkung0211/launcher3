@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.gallery3d.common;
+package com.jasonkung.gallery3d.common;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.util.Log;
 
-import com.android.gallery3d.exif.ExifInterface;
+import com.jasonkung.gallery3d.exif.ExifInterface;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
