@@ -670,7 +670,7 @@ public class AutoInstallsLayout {
      */
     protected static String getAttributeValue(XmlResourceParser parser, String attribute) {
         String value = parser.getAttributeValue(
-                "http://schemas.android.com/apk/res-auto/com.android.launcher3", attribute);
+                "http://schemas.android.com/apk/res-auto/com.jasonkung.launcher3", attribute);
         if (value == null) {
             value = parser.getAttributeValue(null, attribute);
         }
@@ -684,7 +684,7 @@ public class AutoInstallsLayout {
     protected static int getAttributeResourceValue(XmlResourceParser parser, String attribute,
             int defaultValue) {
         int value = parser.getAttributeResourceValue(
-                "http://schemas.android.com/apk/res-auto/com.android.launcher3", attribute,
+                "http://schemas.android.com/apk/res-auto/com.jasonkung.launcher3", attribute,
                 defaultValue);
         if (value == defaultValue) {
             value = parser.getAttributeResourceValue(null, attribute, defaultValue);
