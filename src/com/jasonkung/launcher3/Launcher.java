@@ -298,6 +298,7 @@ public class Launcher extends Activity
     private boolean mVisible = false;
     private boolean mHasFocus = false;
     private boolean mAttached = false;
+    private boolean hideQsbBar = true;
 
     private LauncherClings mClings;
 
@@ -3588,7 +3589,15 @@ public class Launcher extends Activity
         return (mLauncherCallbacks != null && mLauncherCallbacks.providesSearch());
     }
 
+    public View getOrCreateDateTimeQsbBar() {
+        return null;
+    }
+
     public View getOrCreateQsbBar() {
+        if(hideQsbBar/*show Date Time string.*/) {
+            //If always allow bindAppWidgetIdIfAllowed, the QsbBar will show on.We need to hidden.
+            return getOrCreateDateTimeQsbBar();
+        }
         if (launcherCallbacksProvidesSearch()) {
             return mLauncherCallbacks.getQsbBar();
         }
@@ -3675,10 +3684,13 @@ public class Launcher extends Activity
 
     private void reinflateQSBIfNecessary() {
         if (mQsb instanceof LauncherAppWidgetHostView &&
-                ((LauncherAppWidgetHostView) mQsb).isReinflateRequired()) {
+                ((LauncherAppWidgetHostView) mQsb).isReinflateRequired() && !hideQsbBar) {
             mSearchDropTargetBar.removeView(mQsb);
             mQsb = null;
             mSearchDropTargetBar.setQsbSearchBar(getOrCreateQsbBar());
+        }
+        if (hideQsbBar) {
+            mSearchDropTargetBar.setQsbSearchBar(getOrCreateDateTimeQsbBar());
         }
     }
 
