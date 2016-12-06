@@ -16,8 +16,14 @@
 package com.jasonkung.launcher3;
 
 import android.content.Context;
+import android.graphics.Rect;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 
 
@@ -25,6 +31,11 @@ import android.widget.EditText;
  * The edit text that reports back when the back key has been pressed.
  */
 public class ExtendedEditText extends EditText {
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        setHint(getSearchHint());
+    }
 
     /**
      * Implemented by listeners of the back key.
@@ -62,4 +73,20 @@ public class ExtendedEditText extends EditText {
         }
         return super.onKeyPreIme(keyCode, event);
     }
+
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        setHint(focused ? "" : getSearchHint());
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
+
+    private SpannableStringBuilder getSearchHint(){
+        ImageSpan imageHint = new ImageSpan(getContext(), R.drawable.ic_search_grey);
+        SpannableStringBuilder spannableString =
+                new SpannableStringBuilder(" "+getContext().getResources().getString(R.string.all_apps_search_bar_hint));
+        spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+
 }

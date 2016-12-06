@@ -73,17 +73,17 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:focusableInTouchMode="true"
-                android:gravity="fill_horizontal|center_vertical"
+                android:gravity="center"
                 android:hint="@string/all_apps_search_bar_hint"
-                android:inputType="text|textNoSuggestions|textCapWords"
+                android:inputType="textNoSuggestions|textCapWords"
                 android:imeOptions="actionSearch|flagNoExtractUi"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:layout_marginLeft="@dimen/container_fastscroll_thumb_max_width"
                 android:layout_marginRight="@dimen/container_fastscroll_thumb_max_width"
                 android:singleLine="true"
-                android:textColor="#4c4c4c"
-                android:textColorHint="#9c9c9c"
+                android:textColor="#ff4c4c4c"
+                android:textColorHint="@android:color/darker_gray"
                 android:textSize="16sp" />
         </LinearLayout>
 
