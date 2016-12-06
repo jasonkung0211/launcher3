@@ -273,7 +273,7 @@ public class DeviceProfile {
         int numAppsCols = (availableAppsWidthPx + allAppsCellWidthGap - appsViewLeftMarginPx) /
                 (allAppsIconSizePx + allAppsCellWidthGap);
         int numPredictiveAppCols = Math.max(inv.minAllAppsPredictionColumns, numAppsCols);
-        allAppsNumCols = numAppsCols;
+        allAppsNumCols = numAppsCols;//change width gap to make more cols
         allAppsNumPredictiveCols = numPredictiveAppCols;
     }
 
