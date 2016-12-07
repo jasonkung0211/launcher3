@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.util.Log;
 
+import com.ibm.icu.text.AlphabeticIndex;
 import com.jasonkung.launcher3.Utilities;
 
 import java.lang.reflect.Method;
 import java.util.Locale;
+
 
 public class AlphabeticIndexCompat {
     private static final String TAG = "AlphabeticIndexCompat";
@@ -20,12 +22,21 @@ public class AlphabeticIndexCompat {
         BaseIndex index = null;
 
         try {
-            if (Utilities.ATLEAST_N) {
-                index = new AlphabeticIndexVN(context);
-            }
+            index = new AlphabeticIndexICU(context);
         } catch (Exception e) {
             Log.d(TAG, "Unable to load the system index", e);
         }
+
+        if (index == null) {
+            try {
+                if (Utilities.ATLEAST_N) {
+                    index = new AlphabeticIndexVN(context);
+                }
+            } catch (Exception e) {
+                Log.d(TAG, "Unable to load the system index", e);
+            }
+        }
+
         if (index == null) {
             try {
                 index = new AlphabeticIndexV16(context);
@@ -102,6 +113,39 @@ public class AlphabeticIndexCompat {
          */
         protected String getBucketLabel(int index) {
             return BUCKETS.substring(index, index + 1);
+        }
+    }
+
+    private static class AlphabeticIndexICU extends BaseIndex {
+        private AlphabeticIndex mAlphabeticIndex;
+        Locale curLocale;
+        private AlphabeticIndex.ImmutableIndex mImmutableIndex;
+
+        public AlphabeticIndexICU(Context context) {
+            curLocale = context.getResources().getConfiguration().locale;
+            mAlphabeticIndex = new AlphabeticIndex(curLocale);
+            if (!curLocale.getLanguage().equals(Locale.ENGLISH.getLanguage())) {
+                mAlphabeticIndex.addLabels(Locale.ENGLISH);
+            }
+            mImmutableIndex = mAlphabeticIndex.buildImmutableIndex();
+        }
+
+        protected int getBucketIndex(String s) {
+            try {
+                return mImmutableIndex.getBucketIndex(s);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return super.getBucketIndex(s);
+        }
+
+        protected String getBucketLabel(int index) {
+            try {
+                return mImmutableIndex.getBucket(index).getLabel();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return super.getBucketLabel(index);
         }
     }
 

@@ -69,9 +69,17 @@ android {
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'// for aar libs
+    }
 }
 
 dependencies {
+
+    //icu
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    //compile 'com.ibm.icu:icu4j:58.1'
+
     //butter knife
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
