@@ -65,7 +65,7 @@ android {
             shrinkResources true // 是否去除無效的資源文件
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
 
     }
