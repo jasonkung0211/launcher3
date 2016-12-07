@@ -114,13 +114,13 @@ configurations.all {
 dependencies {
 
     //icu
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     //compile 'com.ibm.icu:icu4j:58.1'
 
     //butter knife
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.0'
 

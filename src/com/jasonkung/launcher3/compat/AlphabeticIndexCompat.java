@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.util.Log;
 
-import com.ibm.icu.text.AlphabeticIndex;
+//import com.ibm.icu.text.AlphabeticIndex;
 import com.jasonkung.launcher3.Utilities;
 
 import java.lang.reflect.Method;
@@ -21,11 +21,11 @@ public class AlphabeticIndexCompat {
     public AlphabeticIndexCompat(Context context) {
         BaseIndex index = null;
 
-        try {
-            index = new AlphabeticIndexICU(context);
-        } catch (Exception e) {
-            Log.d(TAG, "Unable to load the system index", e);
-        }
+//        try {
+//            index = new AlphabeticIndexICU(context);
+//        } catch (Exception e) {
+//            Log.d(TAG, "Unable to load the system index", e);
+//        }
 
         if (index == null) {
             try {
@@ -116,38 +116,38 @@ public class AlphabeticIndexCompat {
         }
     }
 
-    private static class AlphabeticIndexICU extends BaseIndex {
-        private AlphabeticIndex mAlphabeticIndex;
-        Locale curLocale;
-        private AlphabeticIndex.ImmutableIndex mImmutableIndex;
-
-        public AlphabeticIndexICU(Context context) {
-            curLocale = context.getResources().getConfiguration().locale;
-            mAlphabeticIndex = new AlphabeticIndex(curLocale);
-            if (!curLocale.getLanguage().equals(Locale.ENGLISH.getLanguage())) {
-                mAlphabeticIndex.addLabels(Locale.ENGLISH);
-            }
-            mImmutableIndex = mAlphabeticIndex.buildImmutableIndex();
-        }
-
-        protected int getBucketIndex(String s) {
-            try {
-                return mImmutableIndex.getBucketIndex(s);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return super.getBucketIndex(s);
-        }
-
-        protected String getBucketLabel(int index) {
-            try {
-                return mImmutableIndex.getBucket(index).getLabel();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return super.getBucketLabel(index);
-        }
-    }
+//    private static class AlphabeticIndexICU extends BaseIndex {
+//        private AlphabeticIndex mAlphabeticIndex;
+//        Locale curLocale;
+//        private AlphabeticIndex.ImmutableIndex mImmutableIndex;
+//
+//        public AlphabeticIndexICU(Context context) {
+//            curLocale = context.getResources().getConfiguration().locale;
+//            mAlphabeticIndex = new AlphabeticIndex(curLocale);
+//            if (!curLocale.getLanguage().equals(Locale.ENGLISH.getLanguage())) {
+//                mAlphabeticIndex.addLabels(Locale.ENGLISH);
+//            }
+//            mImmutableIndex = mAlphabeticIndex.buildImmutableIndex();
+//        }
+//
+//        protected int getBucketIndex(String s) {
+//            try {
+//                return mImmutableIndex.getBucketIndex(s);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return super.getBucketIndex(s);
+//        }
+//
+//        protected String getBucketLabel(int index) {
+//            try {
+//                return mImmutableIndex.getBucket(index).getLabel();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return super.getBucketLabel(index);
+//        }
+//    }
 
     /**
      * Reflected libcore.icu.AlphabeticIndex implementation, falls back to the base
@@ -222,14 +222,17 @@ public class AlphabeticIndexCompat {
 
             Class clazz = Class.forName("android.icu.text.AlphabeticIndex");
             mAlphabeticIndex = clazz.getConstructor(Locale.class).newInstance(primaryLocale);
-
             Method addLocales = clazz.getDeclaredMethod("addLabels", Locale[].class);
-            for (int i = 1; i < localeCount; i++) {
-                Locale l = (Locale) localeGetter.invoke(locales, i);
-                addLocales.invoke(mAlphabeticIndex, new Object[]{ new Locale[] {l}});
-            }
-            addLocales.invoke(mAlphabeticIndex, new Object[]{ new Locale[] {Locale.ENGLISH}});
 
+            try{
+                addLocales.invoke(mAlphabeticIndex, new Object[]{ new Locale[] {Locale.ENGLISH}});
+                for (int i = 1; i < localeCount; i++) {
+                    Locale l = (Locale) localeGetter.invoke(locales, i);
+                    addLocales.invoke(mAlphabeticIndex, new Object[]{ new Locale[] {l}});
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
             mAlphabeticIndex = mAlphabeticIndex.getClass()
                     .getDeclaredMethod("buildImmutableIndex")
                     .invoke(mAlphabeticIndex);
