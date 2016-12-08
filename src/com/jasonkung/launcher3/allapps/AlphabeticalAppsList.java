@@ -19,6 +19,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import com.jasonkung.launcher3.AppInfo;
+import com.jasonkung.launcher3.BuildConfig;
 import com.jasonkung.launcher3.Launcher;
 import com.jasonkung.launcher3.LauncherAppState;
 import com.jasonkung.launcher3.compat.AlphabeticIndexCompat;
@@ -322,7 +323,13 @@ public class AlphabeticalAppsList {
      */
     public void updateApps(List<AppInfo> apps) {
         for (AppInfo app : apps) {
-            mComponentToAppMap.put(app.toComponentKey(), app);
+            if (BuildConfig.DEBUG) {
+                mComponentToAppMap.put(app.toComponentKey(), app);
+            } else {
+                if (!"com.jasonkung.launcher3".equals(app.componentName.getPackageName())) {
+                    mComponentToAppMap.put(app.toComponentKey(), app);
+                }
+            }
         }
         onAppsUpdated();
     }
