@@ -32,7 +32,7 @@ import java.util.Comparator;
 public class InvariantDeviceProfile {
 
     // This is a static that we use for the default icon size on a 4/5-inch phone
-    private static float DEFAULT_ICON_SIZE_DP = 60;
+    private static float DEFAULT_ICON_SIZE_DP = 48;
 
     private static final float ICON_SIZE_DEFINED_IN_APP_DP = 48;
 
@@ -187,11 +187,11 @@ public class InvariantDeviceProfile {
         predefinedDeviceProfiles.add(new InvariantDeviceProfile("Nexus 5",
                 335, 567,     4, 4, 4, 4, 4, DEFAULT_ICON_SIZE_DP, 13, 5, 56, R.xml.default_workspace_4x4));
         predefinedDeviceProfiles.add(new InvariantDeviceProfile("Large Phone",
-                406, 694,     5, 5, 4, 4, 4, 64, 14.4f,  5, 56, R.xml.default_workspace_5x5));
+                406, 694,     5, 5, 4, 4, 4, 54, 14.4f,  5, 56, R.xml.default_workspace_5x5));
         // The tablet profile is odd in that the landscape orientation
         // also includes the nav bar on the side
         predefinedDeviceProfiles.add(new InvariantDeviceProfile("Nexus 7",
-                575, 904,     5, 6, 4, 5, 4, 72, 14.4f,  7, 60, R.xml.default_workspace_5x6));
+                575, 904,     5, 6, 4, 5, 4, 62, 14.4f,  7, 60, R.xml.default_workspace_5x6));
         // Larger tablet profiles always have system bars on the top & bottom
         predefinedDeviceProfiles.add(new InvariantDeviceProfile("Nexus 10",
                 727, 1207,    5, 6, 4, 5, 4, 76, 14.4f,  7, 76, R.xml.default_workspace_5x6));
