@@ -4009,7 +4009,7 @@ public class Workspace extends PagedView
 
     @Override
     public boolean supportsAppInfoDropTarget() {
-        return false;
+        return true;
     }
 
     @Override
