@@ -26,6 +26,10 @@ import android.view.animation.AnimationUtils;
 import com.jasonkung.launcher3.allapps.AllAppsContainerView;
 import com.jasonkung.launcher3.util.FlingAnimation;
 import com.jasonkung.launcher3.util.Thunk;
+import com.jasonkung.launcher3.widget.PendingAddShortcutInfo;
+import com.jasonkung.launcher3.widget.PendingAddWidgetInfo;
+import com.jasonkung.launcher3.widget.WidgetsContainerView;
+
 
 
 public class DeleteDropTarget extends ButtonDropTarget {
@@ -48,7 +52,10 @@ public class DeleteDropTarget extends ButtonDropTarget {
     }
 
     public static boolean supportsDrop(Object info) {
-        return (info instanceof AppInfo) ? true : (info instanceof ShortcutInfo)
+        return (info instanceof AppInfo)
+                || (info instanceof PendingAddWidgetInfo)
+                || (info instanceof PendingAddShortcutInfo)
+                || (info instanceof ShortcutInfo)
                 || (info instanceof LauncherAppWidgetInfo)
                 || (info instanceof FolderInfo);
     }
@@ -59,7 +66,8 @@ public class DeleteDropTarget extends ButtonDropTarget {
     }
 
     private boolean isCancelAction(DragSource source, Object info) {
-        return info instanceof AppInfo && source instanceof AllAppsContainerView;
+        return info instanceof AppInfo && source instanceof AllAppsContainerView
+                || (info instanceof PendingAddItemInfo && source instanceof WidgetsContainerView);
     }
 
     @Override
