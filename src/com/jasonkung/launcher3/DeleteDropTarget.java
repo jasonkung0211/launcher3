@@ -23,8 +23,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
+import com.jasonkung.launcher3.allapps.AllAppsContainerView;
 import com.jasonkung.launcher3.util.FlingAnimation;
 import com.jasonkung.launcher3.util.Thunk;
+
 
 public class DeleteDropTarget extends ButtonDropTarget {
 
@@ -46,7 +48,7 @@ public class DeleteDropTarget extends ButtonDropTarget {
     }
 
     public static boolean supportsDrop(Object info) {
-        return (info instanceof ShortcutInfo)
+        return (info instanceof AppInfo) ? true : (info instanceof ShortcutInfo)
                 || (info instanceof LauncherAppWidgetInfo)
                 || (info instanceof FolderInfo);
     }
@@ -56,10 +58,26 @@ public class DeleteDropTarget extends ButtonDropTarget {
         return source.supportsDeleteDropTarget() && supportsDrop(info);
     }
 
+    private boolean isCancelAction(DragSource source, Object info) {
+        return info instanceof AppInfo && source instanceof AllAppsContainerView;
+    }
+
+    @Override
+    public void onDragStart(DragSource source, Object info) {
+        if(isCancelAction(source, info)) {
+            setCancelLabel();
+        } else {
+            setRemoveLabel();
+        }
+    }
+
     @Override
     @Thunk void completeDrop(DragObject d) {
-        ItemInfo item = (ItemInfo) d.dragInfo;
+        if(isCancelAction(d.dragSource, d.dragInfo)) {
+            return;//Do nothing
+        }
         if ((d.dragSource instanceof Workspace) || (d.dragSource instanceof Folder)) {
+            ItemInfo item = (ItemInfo) d.dragInfo;
             removeWorkspaceOrFolderItem(mLauncher, item, null);
         }
     }

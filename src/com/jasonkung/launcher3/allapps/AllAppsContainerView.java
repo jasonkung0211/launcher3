@@ -464,7 +464,7 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
 
     @Override
     public boolean supportsDeleteDropTarget() {
-        return false;
+        return true;
     }
 
     @Override

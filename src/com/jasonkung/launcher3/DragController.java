@@ -224,6 +224,7 @@ public class DragController {
         }
         mInputMethodManager.hideSoftInputFromWindow(mWindowToken, 0);
 
+        //callback onDrag icon
         for (DragListener listener : mListeners) {
             listener.onDragStart(source, dragInfo, dragAction);
         }

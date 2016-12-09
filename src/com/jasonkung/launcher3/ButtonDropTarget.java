@@ -198,7 +198,18 @@ public abstract class ButtonDropTarget extends TextView
             mCurrentColorAnim = null;
         }
         setTextColor(mOriginalTextColor);
+        onDragStart(source, info);
         ((ViewGroup) getParent()).setVisibility(mActive ? View.VISIBLE : View.GONE);
+    }
+
+    protected void onDragStart(DragSource source, Object info) {}
+
+    protected void setCancelLabel() {
+        setText(getResources().getString(android.R.string.cancel));
+    }
+
+    protected void setRemoveLabel() {
+        setText(getResources().getString(R.string.delete_target_label));
     }
 
     @Override

@@ -106,6 +106,7 @@ public class LauncherAccessibilityDelegate extends AccessibilityDelegate impleme
             info.addAction(mActions.get(INFO));
         }
 
+        //already in WS
         if ((item instanceof ShortcutInfo)
                 || (item instanceof LauncherAppWidgetInfo)
                 || (item instanceof FolderInfo)) {
@@ -120,6 +121,7 @@ public class LauncherAccessibilityDelegate extends AccessibilityDelegate impleme
             }
         }
 
+        //from all Apps or ...
         if ((item instanceof AppInfo) || (item instanceof PendingAddItemInfo)) {
             info.addAction(mActions.get(ADD_TO_WORKSPACE));
         }
