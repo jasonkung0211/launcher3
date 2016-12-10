@@ -90,6 +90,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.MONKEY"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 

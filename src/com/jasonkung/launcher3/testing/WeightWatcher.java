@@ -146,7 +146,7 @@ public class WeightWatcher extends LinearLayout {
             mText = new TextView(getContext());
             mText.setTextColor(TEXT_COLOR);
             mText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 10 * dp);
-            mText.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+            mText.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
 
             final int p = (int)(2*dp);
             setPadding(p, 0, p, 0);

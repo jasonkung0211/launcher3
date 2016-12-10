@@ -1051,7 +1051,11 @@ public class WallpaperPickerActivity extends WallpaperCropActivity {
         v.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                return stylusEventHelper.checkAndPerformStylusEvent(event);
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    return stylusEventHelper.checkAndPerformStylusEvent(event);
+                }
+                //return stylusEventHelper.checkAndPerformStylusEvent(event);
+                return true;
             }
         });
     }

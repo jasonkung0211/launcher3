@@ -459,7 +459,7 @@ public class DeviceProfile {
         if (hasVerticalBarLayout) {
             // Vertical search bar space -- The search bar is fixed in the layout to be on the left
             //                              of the screen regardless of RTL
-            lp.gravity = Gravity.LEFT;
+            lp.gravity = Gravity.START;
 
             LinearLayout targets = (LinearLayout) searchBar.findViewById(R.id.drag_target_bar);
             targets.setOrientation(LinearLayout.VERTICAL);
@@ -495,7 +495,7 @@ public class DeviceProfile {
         if (hasVerticalBarLayout) {
             // Vertical hotseat -- The hotseat is fixed in the layout to be on the right of the
             //                     screen regardless of RTL
-            lp.gravity = Gravity.RIGHT;
+            lp.gravity = Gravity.END;
             lp.width = normalHotseatBarHeightPx;
             lp.height = LayoutParams.MATCH_PARENT;
             hotseat.findViewById(R.id.layout).setPadding(0, 2 * edgeMarginPx, 0, 2 * edgeMarginPx);

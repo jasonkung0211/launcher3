@@ -50,6 +50,7 @@
             android:imeOptions="actionSearch|flagNoExtractUi"
             android:maxLines="1"
             android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textColor="#4c4c4c"
