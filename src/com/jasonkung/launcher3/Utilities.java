@@ -139,18 +139,25 @@ public final class Utilities {
         return Log.isLoggable(propertyName, Log.VERBOSE);
     }
 
-    public static boolean isAllowRotationPrefEnabled(Context context) {
-        boolean allowRotationPref = false;
-        if (ATLEAST_N) {
-            // If the device was scaled, used the original dimensions to determine if rotation
-            // is allowed of not.
-            int originalDensity = DisplayMetrics.DENSITY_DEVICE_STABLE;
-            Resources res = context.getResources();
-            int originalSmallestWidth = res.getConfiguration().smallestScreenWidthDp
-                    * res.getDisplayMetrics().densityDpi / originalDensity;
-            allowRotationPref = originalSmallestWidth >= 600;
+    public static boolean getAllowRotationDefaultValue(Context context) {
+        boolean z = false;
+        if (!isNycOrAbove()) {
+            return false;
         }
-        return getPrefs(context).getBoolean(ALLOW_ROTATION_PREFERENCE_KEY, allowRotationPref);
+        Resources res = context.getResources();
+        int originalDensity = DisplayMetrics.DENSITY_DEVICE_STABLE;
+        if ((res.getDisplayMetrics().densityDpi * res.getConfiguration().smallestScreenWidthDp) / originalDensity >= 600) {
+            z = true;
+        }
+        return z;
+    }
+
+    public static boolean isNycOrAbove() {
+        return Build.VERSION.SDK_INT >= 24;
+    }
+
+    public static boolean isAllowRotationPrefEnabled(Context context) {
+        return getPrefs(context).getBoolean(ALLOW_ROTATION_PREFERENCE_KEY, getAllowRotationDefaultValue(context));
     }
 
     public static Bitmap createIconBitmap(Cursor c, int iconIndex, Context context) {

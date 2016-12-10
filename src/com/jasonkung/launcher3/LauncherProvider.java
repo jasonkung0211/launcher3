@@ -264,7 +264,7 @@ public class LauncherProvider extends ContentProvider {
         if (Binder.getCallingUid() != Process.myUid()) {
             return null;
         }
-
+        //createDbIfNotExists();
         switch (method) {
             case LauncherSettings.Settings.METHOD_GET_BOOLEAN: {
                 Bundle result = new Bundle();
@@ -281,9 +281,6 @@ public class LauncherProvider extends ContentProvider {
             case LauncherSettings.Settings.METHOD_SET_BOOLEAN: {
                 boolean value = extras.getBoolean(LauncherSettings.Settings.EXTRA_VALUE);
                 Utilities.getPrefs(getContext()).edit().putBoolean(arg, value).apply();
-                if (mListener != null) {
-                    mListener.onSettingsChanged(arg, value);
-                }
                 /*if (extras.getBoolean(LauncherSettings.Settings.NOTIFY_BACKUP)) {
                     LauncherBackupAgentHelper.dataChanged(getContext());
                 }*/

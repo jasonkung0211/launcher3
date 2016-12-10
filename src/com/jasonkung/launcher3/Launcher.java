@@ -43,6 +43,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -214,6 +215,24 @@ public class Launcher extends Activity
 
     public static final String USER_HAS_MIGRATED = "launcher.user_migrated_from_old_data";
 
+    class RotationPrefChangeHandler implements OnSharedPreferenceChangeListener, Runnable {
+        private RotationPrefChangeHandler() {
+        }
+
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String str) {
+            if ("pref_allowRotation".equals(str)) {
+                Launcher.this.mRotationEnabled = Utilities.isAllowRotationPrefEnabled(Launcher.this.getApplicationContext());
+                if (!Launcher.this.waitUntilResume(this, true)) {
+                    run();
+                }
+            }
+        }
+
+        public void run() {
+            Launcher.this.setOrientation();
+        }
+    }
+
     /** The different states that Launcher can be in. */
     enum State { NONE, WORKSPACE, APPS, APPS_SPRING_LOADED, WIDGETS, WIDGETS_SPRING_LOADED }
 
@@ -383,6 +402,7 @@ public class Launcher extends Activity
     private Stats mStats;
     @BindView(R.id.focus_indicator) FocusIndicatorView mFocusHandler;
     private boolean mRotationEnabled = false;
+    private RotationPrefChangeHandler mRotationPrefChangeHandler;
 
     @Thunk void setOrientation() {
         if (mRotationEnabled) {
@@ -392,12 +412,6 @@ public class Launcher extends Activity
                     ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
     }
-
-    private Runnable mUpdateOrientationRunnable = new Runnable() {
-        public void run() {
-            setOrientation();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -497,6 +511,8 @@ public class Launcher extends Activity
         // if the user has specifically allowed rotation.
         if (!mRotationEnabled) {
             mRotationEnabled = Utilities.isAllowRotationPrefEnabled(getApplicationContext());
+            mRotationPrefChangeHandler = new RotationPrefChangeHandler();
+            mSharedPrefs.registerOnSharedPreferenceChangeListener(this.mRotationPrefChangeHandler);
         }
 
         // On large interfaces, or on devices that a user has specifically enabled screen rotation,
@@ -512,16 +528,6 @@ public class Launcher extends Activity
         } else {
             showFirstRunActivity();
             showFirstRunClings();
-        }
-    }
-
-    @Override
-    public void onSettingsChanged(String settings, boolean value) {
-        if (Utilities.ALLOW_ROTATION_PREFERENCE_KEY.equals(settings)) {
-            mRotationEnabled = value;
-            if (!waitUntilResume(mUpdateOrientationRunnable, true)) {
-                mUpdateOrientationRunnable.run();
-            }
         }
     }
 
@@ -2000,7 +2006,9 @@ public class Launcher extends Activity
             mModel.stopLoader();
             app.setLauncher(null);
         }
-
+        if (this.mRotationPrefChangeHandler != null) {
+            this.mSharedPrefs.unregisterOnSharedPreferenceChangeListener(this.mRotationPrefChangeHandler);
+        }
         try {
             mAppWidgetHost.stopListening();
         } catch (NullPointerException ex) {

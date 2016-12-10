@@ -51,6 +51,15 @@
             android:layout_height="match_parent"
             android:layout_gravity="right" />
 
+        <!-- Keep these behind the workspace so that they are not visible when
+             we go into AllApps -->
+        <include
+            android:id="@+id/page_indicator"
+            layout="@layout/page_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
         <include
             android:id="@+id/search_drop_target_bar"
             layout="@layout/search_drop_target_bar" />
