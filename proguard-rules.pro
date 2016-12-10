@@ -16,6 +16,10 @@
 #   public *;
 #}
 
--keep class com.ibm.icu.* {
+-keep class com.jasonkung.launcher3.* {
       *;
 }
+
+#-keep class com.jasonkung.launcher3.compat.AlphabeticIndexCompat.** {
+#      *;
+#}
