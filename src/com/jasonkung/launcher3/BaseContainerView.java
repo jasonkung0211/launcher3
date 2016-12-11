@@ -16,9 +16,11 @@
 
 package com.jasonkung.launcher3;
 
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.util.AttributeSet;
@@ -57,6 +59,10 @@ public abstract class BaseContainerView extends FrameLayout implements Insettabl
     public BaseContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContainerBoundsInset = getResources().getDimensionPixelSize(R.dimen.container_bounds_inset);
+
+//        final WallpaperManager wm = WallpaperManager.getInstance(context);
+//        mRevealDrawable = new BitmapDrawable(getResources(), ((BitmapDrawable)wm.getDrawable())
+//                .getBitmap());
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.BaseContainerView, defStyleAttr, 0);

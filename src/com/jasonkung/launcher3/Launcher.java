@@ -220,7 +220,7 @@ public class Launcher extends Activity
         }
 
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String str) {
-            if ("pref_allowRotation".equals(str)) {
+            if (Utilities.ALLOW_ROTATION_PREFERENCE_KEY.equals(str)) {
                 Launcher.this.mRotationEnabled = Utilities.isAllowRotationPrefEnabled(Launcher.this.getApplicationContext());
                 if (!Launcher.this.waitUntilResume(this, true)) {
                     run();
