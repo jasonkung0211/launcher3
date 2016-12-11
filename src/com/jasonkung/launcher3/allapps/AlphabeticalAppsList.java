@@ -414,14 +414,10 @@ public class AlphabeticalAppsList {
 
         if (DEBUG_PREDICTIONS) {
             if (mPredictedAppComponents.isEmpty() && !mApps.isEmpty()) {
-                mPredictedAppComponents.add(new ComponentKey(mApps.get(0).componentName,
-                        UserHandleCompat.myUserHandle()));
-                mPredictedAppComponents.add(new ComponentKey(mApps.get(0).componentName,
-                        UserHandleCompat.myUserHandle()));
-                mPredictedAppComponents.add(new ComponentKey(mApps.get(0).componentName,
-                        UserHandleCompat.myUserHandle()));
-                mPredictedAppComponents.add(new ComponentKey(mApps.get(0).componentName,
-                        UserHandleCompat.myUserHandle()));
+                for (int i = 0; i < mNumPredictedAppsPerRow; i++) {
+                    mPredictedAppComponents.add(new ComponentKey(mApps.get(i).componentName,
+                            UserHandleCompat.myUserHandle()));
+                }
             }
         }
 

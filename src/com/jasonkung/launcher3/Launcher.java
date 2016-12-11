@@ -551,6 +551,7 @@ public class Launcher extends Activity
     }
 
     public boolean setLauncherCallbacks(LauncherCallbacks callbacks) {
+        Log.d(TAG ,"--------------------setLauncherCallbacks--------------------------");
         mLauncherCallbacks = callbacks;
         mLauncherCallbacks.setLauncherSearchCallback(new Launcher.LauncherSearchCallbacks() {
             private boolean mWorkspaceImportanceStored = false;
