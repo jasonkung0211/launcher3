@@ -20,9 +20,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.jasonkung.launcher3.compat.UserHandleCompat;
-
-public class InfoDropTarget extends ButtonDropTarget {
+public class InfoDropTarget extends UninstallDropTarget {
 
     public InfoDropTarget(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -49,16 +47,12 @@ public class InfoDropTarget extends ButtonDropTarget {
             componentName = ((ShortcutInfo) info).intent.getComponent();
         } else if (info instanceof PendingAddItemInfo) {
             componentName = ((PendingAddItemInfo) info).componentName;
-        }
-        final UserHandleCompat user;
-        if (info instanceof ItemInfo) {
-            user = ((ItemInfo) info).user;
-        } else {
-            user = UserHandleCompat.myUserHandle();
+        } else if (info instanceof LauncherAppWidgetInfo) {
+            componentName = ((LauncherAppWidgetInfo) info).providerName;
         }
 
         if (componentName != null) {
-            launcher.startApplicationDetailsActivity(componentName, user);
+            launcher.startApplicationDetailsActivity(componentName, ((ItemInfo) info).user);
         }
     }
 
@@ -68,11 +62,15 @@ public class InfoDropTarget extends ButtonDropTarget {
     }
 
     public static boolean supportsDrop(Context context, Object info) {
-        return info instanceof AppInfo || info instanceof PendingAddItemInfo || info instanceof ShortcutInfo;
+        return info instanceof AppInfo
+                || info instanceof PendingAddItemInfo
+                || info instanceof ShortcutInfo
+                || info instanceof LauncherAppWidgetInfo;
     }
 
     @Override
     void completeDrop(DragObject d) {
         startDetailsActivityForInfo(d.dragInfo, mLauncher);
+        sendUninstallResult(d.dragSource, false);//magic code: Dresses Uninstall fail
     }
 }

@@ -390,7 +390,7 @@ public class Workspace extends PagedView
             enfoceDragParity("onDragStart", 0, 0);
         }
 
-        mIsDragOccuring = true;
+        //mIsDragOccuring = true;
         updateChildrenLayersEnabled(false);
         mLauncher.lockScreenOrientation();
         mLauncher.onInteractionBegin();
@@ -421,7 +421,7 @@ public class Workspace extends PagedView
             removeExtraEmptyScreen(true, mDragSourceInternal != null);
         }
 
-        mIsDragOccuring = false;
+//        mIsDragOccuring = false;
         updateChildrenLayersEnabled(false);
         mLauncher.unlockScreenOrientation(false);
 
@@ -479,14 +479,15 @@ public class Workspace extends PagedView
 
     @Override
     public void onChildViewAdded(View parent, View child) {
-        if (!(child instanceof CellLayout)) {
-            throw new IllegalArgumentException("A Workspace can only have CellLayout children.");
+        if (child instanceof CellLayout) {
+            CellLayout cl = ((CellLayout) child);
+            cl.setOnInterceptTouchListener(this);
+            cl.setClickable(true);
+            cl.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
+            super.onChildViewAdded(parent, child);
+            return;
         }
-        CellLayout cl = ((CellLayout) child);
-        cl.setOnInterceptTouchListener(this);
-        cl.setClickable(true);
-        cl.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
-        super.onChildViewAdded(parent, child);
+        throw new IllegalArgumentException("A Workspace can only have CellLayout children.");
     }
 
     protected boolean shouldDrawChild(View child) {
@@ -534,7 +535,6 @@ public class Workspace extends PagedView
         removeAllViews();
         mScreenOrder.clear();
         mWorkspaceScreens.clear();
-
         // Re-enable the layout transitions
         enableLayoutTransitions();
     }
@@ -597,7 +597,7 @@ public class Workspace extends PagedView
 
         // Update the custom content hint
         if (mRestorePage != INVALID_RESTORE_PAGE) {
-            mRestorePage = mRestorePage + 1;
+            mRestorePage++;
         } else {
             setCurrentPage(getCurrentPage() + 1);
         }
@@ -625,7 +625,7 @@ public class Workspace extends PagedView
 
         // Update the custom content hint
         if (mRestorePage != INVALID_RESTORE_PAGE) {
-            mRestorePage = mRestorePage - 1;
+            mRestorePage--;
         } else {
             setCurrentPage(getCurrentPage() - 1);
         }
@@ -1117,8 +1117,7 @@ public class Workspace extends PagedView
     protected void reinflateWidgetsIfNecessary() {
         final int clCount = getChildCount();
         for (int i = 0; i < clCount; i++) {
-            CellLayout cl = (CellLayout) getChildAt(i);
-            ShortcutAndWidgetContainer swc = cl.getShortcutsAndWidgets();
+            ShortcutAndWidgetContainer swc = ((CellLayout) getChildAt(i)).getShortcutsAndWidgets();
             final int itemCount = swc.getChildCount();
             for (int j = 0; j < itemCount; j++) {
                 View v = swc.getChildAt(j);
@@ -3044,8 +3043,7 @@ public class Workspace extends PagedView
 
     private void enfoceDragParity(View v, String event, int update, int expectedValue) {
         Object tag = v.getTag(R.id.drag_event_parity);
-        int value = tag == null ? 0 : (Integer) tag;
-        value += update;
+        int value = tag == null ? 0 : ((Integer) tag).intValue() + update;
         v.setTag(R.id.drag_event_parity, value);
 
         if (value != expectedValue) {
@@ -3880,6 +3878,7 @@ public class Workspace extends PagedView
         if (success && !(beingCalledAfterUninstall && !mUninstallSuccessful)) {
             if (target != this && mDragInfo != null) {
                 removeWorkspaceItem(mDragInfo.cell);
+                Log.d(TAG, "--------------------removeWorkspaceItem------------------------");
             }
         } else if (mDragInfo != null) {
             final CellLayout cellLayout = mLauncher.getCellLayout(

@@ -298,10 +298,11 @@ public class WidgetsContainerView extends BaseContainerView
                 if (layout != null) {
                     showOutOfSpaceMessage =
                             !layout.findCellForSpan(null, itemInfo.spanX, itemInfo.spanY);
+                    if (showOutOfSpaceMessage) {
+                        mLauncher.showOutOfSpaceMessage(false);
+                    }
+                    d.deferDragViewCleanupPostAnimation = false;
                 }
-            }
-            if (showOutOfSpaceMessage) {
-                mLauncher.showOutOfSpaceMessage(false);
             }
             d.deferDragViewCleanupPostAnimation = false;
         }
