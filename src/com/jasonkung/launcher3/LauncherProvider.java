@@ -54,6 +54,7 @@ import com.jasonkung.launcher3.LauncherSettings.Favorites;
 import com.jasonkung.launcher3.compat.UserHandleCompat;
 import com.jasonkung.launcher3.compat.UserManagerCompat;
 import com.jasonkung.launcher3.config.ProviderConfig;
+import com.jasonkung.launcher3.util.ComponentKey;
 import com.jasonkung.launcher3.util.ManagedProfileHeuristic;
 import com.jasonkung.launcher3.util.Thunk;
 
@@ -67,12 +68,13 @@ public class LauncherProvider extends ContentProvider {
     private static final String TAG = "LauncherProvider";
     private static final boolean LOGD = false;
 
-    private static final int DATABASE_VERSION = 26;
+    private static final int DATABASE_VERSION = 27;
 
     public static final String AUTHORITY = ProviderConfig.AUTHORITY;
 
     static final String TABLE_FAVORITES = LauncherSettings.Favorites.TABLE_NAME;
     static final String TABLE_WORKSPACE_SCREENS = LauncherSettings.WorkspaceScreens.TABLE_NAME;
+    static final String TABLE_PREDICTED_APPS = LauncherSettings.PredictedApps.TABLE_NAME;
     static final String EMPTY_DATABASE_CREATED = "EMPTY_DATABASE_CREATED";
 
     private static final String RESTRICTION_PACKAGE_NAME = "workspace.configuration.package.name";
@@ -160,6 +162,7 @@ public class LauncherProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues initialValues) {
+        createDbIfNotExists();
         SqlArguments args = new SqlArguments(uri);
 
         // In very limited cases, we support system|signature permission apps to modify the db.
@@ -236,6 +239,7 @@ public class LauncherProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
+        createDbIfNotExists();
         SqlArguments args = new SqlArguments(uri, selection, selectionArgs);
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
@@ -248,6 +252,7 @@ public class LauncherProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        createDbIfNotExists();
         SqlArguments args = new SqlArguments(uri, selection, selectionArgs);
 
         addModifiedTime(values);
@@ -264,7 +269,7 @@ public class LauncherProvider extends ContentProvider {
         if (Binder.getCallingUid() != Process.myUid()) {
             return null;
         }
-        //createDbIfNotExists();
+        createDbIfNotExists();
         switch (method) {
             case LauncherSettings.Settings.METHOD_GET_BOOLEAN: {
                 Bundle result = new Bundle();
@@ -473,6 +478,91 @@ public class LauncherProvider extends ContentProvider {
         mOpenHelper.createEmptyDB(mOpenHelper.getWritableDatabase());
     }
 
+    public List<ComponentKey> getAllPredictedApps() {
+        List<ComponentKey> apps = new ArrayList<>();
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from " + LauncherSettings.PredictedApps.TABLE_NAME +
+                " ORDER BY " + LauncherSettings.PredictedApps.COLUMN_FREQ +
+                " DESC", null);
+        if (c.moveToFirst()) {
+            while (c.isAfterLast() == false) {
+                String pn = c.getString(c.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME));
+                String cn = c.getString(c.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_CLASSNAME));
+                apps.add(new ComponentKey(new ComponentName(pn, cn), UserHandleCompat.myUserHandle()));
+                c.moveToNext();
+            }
+        }
+        return apps;
+    }
+
+    public Cursor queryBycomponentName(SQLiteDatabase db, String packageName, String className) {
+        String[] selection = { packageName, className };
+        return  db.rawQuery("SELECT * FROM " + LauncherSettings.PredictedApps.TABLE_NAME + " WHERE " +
+                LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME + "=? AND "
+                + LauncherSettings.PredictedApps.COLUMN_CLASSNAME  + "=?" , selection);
+    }
+
+
+
+    public void insertOrUpdatePredictedApps(String packageName, String className) {
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        Cursor cursor = queryBycomponentName(db, packageName, className);
+
+        if(cursor != null && cursor.getCount() > 0) {
+            //update
+            cursor.moveToFirst();
+            long time = cursor.getLong(cursor.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_TIME));
+            Double freq = cursor.getDouble(cursor.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_FREQ));
+            int _id = cursor.getInt(cursor.getColumnIndex(LauncherSettings.PredictedApps._ID));
+            long now = System.currentTimeMillis();
+            if(now > time) {
+                if((1 * 1000 * 60 * 60) / (now - time) > 1) {
+                    freq++;
+                } else {
+                    freq += (1 * 1000 * 60 * 60) / (now - time);
+                }
+            } else {
+                freq += 0.04;
+            }
+            ContentValues values = new ContentValues();
+            String[] selectionArgs = { String.valueOf(_id) };
+            values.put(LauncherSettings.PredictedApps.COLUMN_FREQ, freq);
+            values.put(LauncherSettings.PredictedApps.COLUMN_TIME, now);
+            int count = db.update(LauncherSettings.PredictedApps.TABLE_NAME,values,
+                    LauncherSettings.PredictedApps._ID+"=?", selectionArgs);
+            Log.d(TAG, className + "db.update : " + values.toString());
+            if (count > 0) notifyListeners();
+        } else {
+            //insert
+            ContentValues values = new ContentValues();
+            values.put(LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME, packageName);
+            values.put(LauncherSettings.PredictedApps.COLUMN_CLASSNAME, className);
+            values.put(LauncherSettings.PredictedApps.COLUMN_TIME, System.currentTimeMillis());
+            values.put(LauncherSettings.PredictedApps.COLUMN_FREQ, 1);
+            long ret = db.insert(LauncherSettings.PredictedApps.TABLE_NAME,null,values);
+            Log.d(TAG, className + "db.insert : " + values.toString());
+            if (ret != -1) notifyListeners();
+        }
+    }
+
+    public void cleanPredictedAppsTable(HashSet<String> packageNames) {
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        try {
+            db.beginTransaction();
+            for (String pkg : packageNames) {
+                // Insert new column for holding widget provider name
+                db.execSQL("DELETE FROM " + TABLE_PREDICTED_APPS +
+                        " WHERE " + LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME + "="+
+                        pkg+";");
+            }
+            db.setTransactionSuccessful();
+        } catch (SQLException ex) {
+            Log.e(TAG, ex.getMessage(), ex);
+        } finally {
+            db.endTransaction();
+        }
+    }
+
     /**
      * The class is subclassed in tests to create an in-memory db.
      */
@@ -500,7 +590,13 @@ public class LauncherProvider extends ContentProvider {
                 addFavoritesTable(getWritableDatabase(), true);
                 addWorkspacesTable(getWritableDatabase(), true);
             }
+            if(!tableExists(TABLE_PREDICTED_APPS)) {
+                addPredictedAppsTable(getWritableDatabase(), true);
+            }
+            initIds();
+        }
 
+        protected void initIds() {
             // In the case where neither onCreate nor onUpgrade gets called, we read the maxId from
             // the DB here
             if (mMaxItemId == -1) {
@@ -549,6 +645,7 @@ public class LauncherProvider extends ContentProvider {
 
             addFavoritesTable(db, false);
             addWorkspacesTable(db, false);
+            addPredictedAppsTable(db, true);
 
             // Database was just created, so wipe any previous widgets
             if (mAppWidgetHost != null) {
@@ -631,6 +728,19 @@ public class LauncherProvider extends ContentProvider {
                     LauncherSettings.ChangeLogColumns.MODIFIED + " INTEGER NOT NULL DEFAULT 0" +
                     ");");
         }
+
+
+        private void addPredictedAppsTable(SQLiteDatabase db, boolean optional) {
+            String ifNotExists = optional ? " IF NOT EXISTS " : "";
+            db.execSQL("CREATE TABLE " + ifNotExists + TABLE_PREDICTED_APPS + " (" +
+                    LauncherSettings.PredictedApps._ID + " INTEGER PRIMARY KEY," +
+                    LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME + " TEXT," +
+                    LauncherSettings.PredictedApps.COLUMN_CLASSNAME + " TEXT," +
+                    LauncherSettings.PredictedApps.COLUMN_TIME + " TEXT," +
+                    LauncherSettings.PredictedApps.COLUMN_FREQ + " TEXT NOT NULL" +
+                    ");");
+        }
+
 
         private void removeOrphanedItems(SQLiteDatabase db) {
             // Delete items directly on the workspace who's screen id doesn't exist
@@ -765,8 +875,10 @@ public class LauncherProvider extends ContentProvider {
                     convertShortcutsToLauncherActivities(db);
                 case 26: {
                     // DB Upgraded successfully
-                    return;
                 }
+                case 27:
+                    addPredictedAppsTable(db, false);
+                    return;
             }
 
             // DB was not upgraded
@@ -788,6 +900,7 @@ public class LauncherProvider extends ContentProvider {
         public void createEmptyDB(SQLiteDatabase db) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITES);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_WORKSPACE_SCREENS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_PREDICTED_APPS);
             onCreate(db);
         }
 

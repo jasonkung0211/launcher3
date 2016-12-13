@@ -32,7 +32,7 @@ import java.util.Comparator;
 public class InvariantDeviceProfile {
 
     // This is a static that we use for the default icon size on a 4/5-inch phone
-    private static float DEFAULT_ICON_SIZE_DP = 48;
+    private static float DEFAULT_ICON_SIZE_DP = 54;
 
     private static final float ICON_SIZE_DEFINED_IN_APP_DP = 48;
 

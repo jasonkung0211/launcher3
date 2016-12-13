@@ -140,16 +140,12 @@ public final class Utilities {
     }
 
     public static boolean getAllowRotationDefaultValue(Context context) {
-        boolean z = false;
         if (!isNycOrAbove()) {
             return false;
         }
         Resources res = context.getResources();
         int originalDensity = DisplayMetrics.DENSITY_DEVICE_STABLE;
-        if ((res.getDisplayMetrics().densityDpi * res.getConfiguration().smallestScreenWidthDp) / originalDensity >= 600) {
-            z = true;
-        }
-        return z;
+        return ((res.getDisplayMetrics().densityDpi * res.getConfiguration().smallestScreenWidthDp) / originalDensity >= 600);
     }
 
     public static boolean isNycOrAbove() {

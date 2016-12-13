@@ -84,7 +84,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
@@ -2981,6 +2980,13 @@ public class Launcher extends Activity
                 optsBundle = opts != null ? opts.toBundle() : null;
             }
 
+            if (null != intent.getComponent()) {
+                if (BuildConfig.DEBUG) {
+                    Log.d(TAG, "=========startActivity===========" + intent.getComponent());
+                }
+                insert2DB(new ComponentKey(intent.getComponent(), user));
+            }
+
             if (user == null || user.equals(UserHandleCompat.myUserHandle())) {
                 StrictMode.VmPolicy oldPolicy = StrictMode.getVmPolicy();
                 try {
@@ -3024,6 +3030,11 @@ public class Launcher extends Activity
                     + "tag="+ tag + " intent=" + intent, e);
         }
         return false;
+    }
+
+    private void insert2DB(ComponentKey key) {
+        LauncherProvider lp = LauncherAppState.getInstance().getLauncherProvider();
+        lp.insertOrUpdatePredictedApps(key.componentName.getPackageName(), key.componentName.getClassName());
     }
 
     public boolean startActivitySafely(View v, Intent intent, Object tag) {
@@ -3456,6 +3467,7 @@ public class Launcher extends Activity
             mAppsView.scrollToTop();
         }
         if (updatePredictedApps) {
+            Log.d(TAG, "updatePredictedApps--------------tryAndUpdatePredictedApps" );
             tryAndUpdatePredictedApps();
         }
         showAppsOrWidgets(State.APPS, animated, focusSearchBar);
@@ -3578,20 +3590,21 @@ public class Launcher extends Activity
      * resumed.
      */
     private void tryAndUpdatePredictedApps() {
-        if (mLauncherCallbacks != null) {
+        /*if (mLauncherCallbacks != null) {
             List<ComponentKey> apps = mLauncherCallbacks.getPredictedApps();
             if (apps != null) {
                 mAppsView.setPredictedApps(apps);
             }
+        }*/
+        LauncherProvider lp = LauncherAppState.getInstance().getLauncherProvider();
+        List<ComponentKey> apps = lp.getAllPredictedApps();
+        if (null != apps && !apps.isEmpty()) {
+            Log.d(TAG, "-------mAppsView-----setPredictedApps--------------");
+            mAppsView.setPredictedApps(apps);
         }
     }
 
     void lockAllApps() {
-        // TODO
-    }
-
-    void unlockAllApps() {
-        // TODO
     }
 
     public boolean launcherCallbacksProvidesSearch() {
@@ -3937,9 +3950,9 @@ public class Launcher extends Activity
                                     + ". Collides with " + tag;
                             if (LauncherAppState.isDogfoodBuild()) {
                                 throw (new RuntimeException(desc));
-                            } else {
-                                Log.d(TAG, desc);
                             }
+                            Log.d(TAG, desc);
+                            //LauncherModel.deleteItemFromDatabase(this, info);
                         }
                     }
                     break;
@@ -4423,6 +4436,8 @@ public class Launcher extends Activity
         }
         if (!packageNames.isEmpty()) {
             mWorkspace.removeItemsByPackageName(packageNames, user);
+            LauncherProvider lp = LauncherAppState.getInstance().getLauncherProvider();
+            lp.cleanPredictedAppsTable(packageNames);
         }
         if (!components.isEmpty()) {
             mWorkspace.removeItemsByComponentName(components, user);

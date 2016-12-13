@@ -101,6 +101,17 @@ public class LauncherSettings {
         public static final String ICON = "icon";
     }
 
+    public static final class PredictedApps implements BaseColumns {
+        public static final String TABLE_NAME = "predictedApps";
+        public static final Uri CONTENT_URI = Uri.parse("content://" +
+                ProviderConfig.AUTHORITY + "/" + TABLE_NAME);
+
+        public static final String COLUMN_PACKAGE_NAME = "packageName";
+        public static final String COLUMN_CLASSNAME = "classname";
+        public static final String COLUMN_TIME = "time";
+        public static final String COLUMN_FREQ = "frequency";
+    }
+
     /**
      * Workspace Screens.
      *

@@ -326,7 +326,7 @@ public class AlphabeticalAppsList {
             if (BuildConfig.DEBUG) {
                 mComponentToAppMap.put(app.toComponentKey(), app);
             } else {
-                if (!"com.jasonkung.launcher3".equals(app.componentName.getPackageName())) {
+                if (!mLauncher.getPackageName().equals(app.componentName.getPackageName())) {
                     mComponentToAppMap.put(app.toComponentKey(), app);
                 }
             }
@@ -425,10 +425,13 @@ public class AlphabeticalAppsList {
         mPredictedApps.clear();
         if (mPredictedAppComponents != null && !mPredictedAppComponents.isEmpty() && !hasFilter()) {
             for (ComponentKey ck : mPredictedAppComponents) {
+                Log.d(TAG, "ComponentKey------------------" + ck.toString());
                 AppInfo info = mComponentToAppMap.get(ck);
                 if (info != null) {
+                    Log.d(TAG, "mPredictedApps ADD------------------" + info.toString());
                     mPredictedApps.add(info);
                 } else {
+                    Log.d(TAG, "mComponentToAppMap ADD not found------------------" + ck.componentName.getPackageName());
                     if (LauncherAppState.isDogfoodBuild()) {
                         Log.e(TAG, "Predicted app not found: " + ck.flattenToString(mLauncher));
                     }
