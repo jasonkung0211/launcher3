@@ -593,6 +593,14 @@ public class LauncherModel extends BroadcastReceiver
         unbindWorkspaceItemsOnMainThread();
     }
 
+    public ArrayList<String> getPredictedIgnoreList() {
+        ArrayList<String> temp = new ArrayList<>();
+        for (ItemInfo info : sBgWorkspaceItems) {
+            temp.add(info.getIntent().getComponent().getClassName());
+        }
+        return temp;
+    }
+
     /** Unbinds all the sBgWorkspaceItems and sBgAppWidgets on the main thread */
     void unbindWorkspaceItemsOnMainThread() {
         // Ensure that we don't use the same workspace items data structure on the main thread

@@ -3467,7 +3467,6 @@ public class Launcher extends Activity
             mAppsView.scrollToTop();
         }
         if (updatePredictedApps) {
-            Log.d(TAG, "updatePredictedApps--------------tryAndUpdatePredictedApps" );
             tryAndUpdatePredictedApps();
         }
         showAppsOrWidgets(State.APPS, animated, focusSearchBar);
@@ -3597,9 +3596,8 @@ public class Launcher extends Activity
             }
         }*/
         LauncherProvider lp = LauncherAppState.getInstance().getLauncherProvider();
-        List<ComponentKey> apps = lp.getAllPredictedApps();
+        List<ComponentKey> apps = lp.getAllPredictedApps(mModel.getPredictedIgnoreList());
         if (null != apps && !apps.isEmpty()) {
-            Log.d(TAG, "-------mAppsView-----setPredictedApps--------------");
             mAppsView.setPredictedApps(apps);
         }
     }

@@ -17,6 +17,7 @@
 package com.jasonkung.launcher3;
 
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
 import android.appwidget.AppWidgetHost;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -478,19 +479,45 @@ public class LauncherProvider extends ContentProvider {
         mOpenHelper.createEmptyDB(mOpenHelper.getWritableDatabase());
     }
 
-    public List<ComponentKey> getAllPredictedApps() {
+    public List<ComponentKey> getAllPredictedApps(ArrayList<String> ignore) {
+        return getAllPredictedApps(ignore, 30);
+    }
+
+    public List<ComponentKey> getAllPredictedApps(ArrayList<String> ignore, int count) {
         List<ComponentKey> apps = new ArrayList<>();
-        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from " + LauncherSettings.PredictedApps.TABLE_NAME +
+        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT "
+                + LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME
+                + " , "
+                + LauncherSettings.PredictedApps.COLUMN_CLASSNAME
+                +" FROM " + LauncherSettings.PredictedApps.TABLE_NAME +
                 " ORDER BY " + LauncherSettings.PredictedApps.COLUMN_FREQ +
                 " DESC", null);
         if (c.moveToFirst()) {
             while (c.isAfterLast() == false) {
+                if(count <= apps.size())
+                    break;
                 String pn = c.getString(c.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME));
                 String cn = c.getString(c.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_CLASSNAME));
-                apps.add(new ComponentKey(new ComponentName(pn, cn), UserHandleCompat.myUserHandle()));
+                if(ignore != null && ignore.isEmpty() == false) {
+                    boolean isIgnore = false;
+                    for (String info : ignore) {
+                        if(info.equals(cn)) {
+                            isIgnore = true;
+                            break;
+                        }
+                    }
+                    if(!isIgnore) {
+                        apps.add(new ComponentKey(new ComponentName(pn, cn), UserHandleCompat.myUserHandle()));
+                    }
+                } else {
+                    apps.add(new ComponentKey(new ComponentName(pn, cn), UserHandleCompat.myUserHandle()));
+                }
                 c.moveToNext();
             }
+        }
+        if(c != null) {
+            c.close();
         }
         return apps;
     }
@@ -502,8 +529,6 @@ public class LauncherProvider extends ContentProvider {
                 + LauncherSettings.PredictedApps.COLUMN_CLASSNAME  + "=?" , selection);
     }
 
-
-
     public void insertOrUpdatePredictedApps(String packageName, String className) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         Cursor cursor = queryBycomponentName(db, packageName, className);
@@ -512,17 +537,18 @@ public class LauncherProvider extends ContentProvider {
             //update
             cursor.moveToFirst();
             long time = cursor.getLong(cursor.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_TIME));
-            Double freq = cursor.getDouble(cursor.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_FREQ));
+            float freq = cursor.getFloat(cursor.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_FREQ));
             int _id = cursor.getInt(cursor.getColumnIndex(LauncherSettings.PredictedApps._ID));
             long now = System.currentTimeMillis();
             if(now > time) {
-                if((1 * 1000 * 60 * 60) / (now - time) > 1) {
-                    freq++;
+                float hour = ((now - time) / AlarmManager.INTERVAL_HOUR);
+                if( hour < 1.0f ) {
+                    freq+= .5f;
                 } else {
-                    freq += (1 * 1000 * 60 * 60) / (now - time);
+                    freq += 1 / (hour + 1);
                 }
             } else {
-                freq += 0.04;
+                freq += .05f;
             }
             ContentValues values = new ContentValues();
             String[] selectionArgs = { String.valueOf(_id) };
@@ -530,18 +556,48 @@ public class LauncherProvider extends ContentProvider {
             values.put(LauncherSettings.PredictedApps.COLUMN_TIME, now);
             int count = db.update(LauncherSettings.PredictedApps.TABLE_NAME,values,
                     LauncherSettings.PredictedApps._ID+"=?", selectionArgs);
-            Log.d(TAG, className + "db.update : " + values.toString());
+
             if (count > 0) notifyListeners();
+            if(freq > 10) {
+                //update all
+                resizePredictedAppsTable();
+            }
         } else {
             //insert
             ContentValues values = new ContentValues();
             values.put(LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME, packageName);
             values.put(LauncherSettings.PredictedApps.COLUMN_CLASSNAME, className);
             values.put(LauncherSettings.PredictedApps.COLUMN_TIME, System.currentTimeMillis());
-            values.put(LauncherSettings.PredictedApps.COLUMN_FREQ, 1);
+            values.put(LauncherSettings.PredictedApps.COLUMN_FREQ, 1.2f);
             long ret = db.insert(LauncherSettings.PredictedApps.TABLE_NAME,null,values);
-            Log.d(TAG, className + "db.insert : " + values.toString());
             if (ret != -1) notifyListeners();
+        }
+    }
+
+    public void resizePredictedAppsTable() {
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + LauncherSettings.PredictedApps.TABLE_NAME, null);
+        try{
+            db.beginTransaction();
+            while (c.moveToNext()) {
+                float f = c.getFloat(c.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_FREQ));
+                if(f > 10) {
+                    f = 5;
+                } else {
+                    f = (( f - 1.0f ) / 9 ) * (5-1) + 1.0f ;
+                }
+                String _id = c.getString(c.getColumnIndex(LauncherSettings.PredictedApps._ID));
+                String[] values =  { String.format("%.3f", f), _id };
+                db.execSQL("UPDATE " + LauncherSettings.PredictedApps.TABLE_NAME +
+                        " SET " + LauncherSettings.PredictedApps.COLUMN_FREQ +
+                        " =? WHERE " + LauncherSettings.PredictedApps._ID+ "=?"
+                        , values);
+            }
+            db.setTransactionSuccessful();
+        } catch (SQLException ex) {
+            Log.e(TAG, ex.getMessage(), ex);
+        } finally {
+            db.endTransaction();
         }
     }
 
