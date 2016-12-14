@@ -596,7 +596,12 @@ public class LauncherModel extends BroadcastReceiver
     public ArrayList<String> getPredictedIgnoreList() {
         ArrayList<String> temp = new ArrayList<>();
         for (ItemInfo info : sBgWorkspaceItems) {
-            temp.add(info.getIntent().getComponent().getClassName());
+            try {
+                String t = info.getIntent().getComponent().getClassName();
+                temp.add(t);
+            }catch (Exception e) {
+                Log.d(TAG, "getPredictedIgnoreList: " + e.getMessage());
+            }
         }
         return temp;
     }

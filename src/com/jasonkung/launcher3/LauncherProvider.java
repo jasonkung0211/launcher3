@@ -568,7 +568,7 @@ public class LauncherProvider extends ContentProvider {
             values.put(LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME, packageName);
             values.put(LauncherSettings.PredictedApps.COLUMN_CLASSNAME, className);
             values.put(LauncherSettings.PredictedApps.COLUMN_TIME, System.currentTimeMillis());
-            values.put(LauncherSettings.PredictedApps.COLUMN_FREQ, 1.2f);
+            values.put(LauncherSettings.PredictedApps.COLUMN_FREQ, 1.1f);
             long ret = db.insert(LauncherSettings.PredictedApps.TABLE_NAME,null,values);
             if (ret != -1) notifyListeners();
         }
