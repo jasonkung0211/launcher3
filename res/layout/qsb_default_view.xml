@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/widget_section_height"
+    android:background="@android:color/transparent"
+    android:elevation="2dp">
+
+    <ImageView
+        android:id="@+id/search_bar_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_width="@dimen/widget_section_height"
+        android:layout_height="@dimen/widget_section_height"
+        android:clickable="true"
+        android:src="@drawable/google_icon" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:id="@+id/week_year_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="星期日, 2017"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/date_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/week_year_str"
+            android:layout_gravity="right|center_vertical"
+            android:text="12 月 12 日"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</RelativeLayout>
+

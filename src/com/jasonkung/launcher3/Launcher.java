@@ -113,6 +113,10 @@ import com.jasonkung.launcher3.widget.PendingAddWidgetInfo;
 import com.jasonkung.launcher3.widget.WidgetHostViewLoader;
 import com.jasonkung.launcher3.widget.WidgetsContainerView;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.format.TextStyle;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
@@ -126,6 +130,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -288,7 +293,7 @@ public class Launcher extends Activity
     @Thunk WidgetsModel mWidgetsModel;
 
     private boolean mAutoAdvanceRunning = false;
-    private AppWidgetHostView mQsb;
+    private /*AppWidgetHost*/View mQsb;
 
     private Bundle mSavedState;
     // We set the state in both onCreate and then onNewIntent in some cases, which causes both
@@ -3609,8 +3614,60 @@ public class Launcher extends Activity
         return (mLauncherCallbacks != null && mLauncherCallbacks.providesSearch());
     }
 
+    public boolean openSearch(Context context) {
+        SearchManager searchManager = (SearchManager) context.getSystemService(Context.SEARCH_SERVICE);
+        ComponentName globalSearchActivity = searchManager.getGlobalSearchActivity();
+        if (globalSearchActivity == null) {
+            Log.w(TAG, "No global search activity found.");
+            return false;
+        }
+        Intent intent = new Intent(android.app.SearchManager.INTENT_ACTION_GLOBAL_SEARCH);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setComponent(globalSearchActivity);
+        Bundle appSearchData = new Bundle();
+        appSearchData.putString("source", getPackageName());
+
+        intent.putExtra(android.app.SearchManager.APP_DATA, appSearchData);
+        intent.putExtra(android.app.SearchManager.QUERY, "");
+        intent.putExtra(android.app.SearchManager.EXTRA_SELECT_QUERY, true);
+        try {
+            context.startActivity(intent);
+            return true;
+        } catch (ActivityNotFoundException ex) {
+            Log.w(TAG, "Global search activity not found: " + globalSearchActivity);
+            return false;
+        }
+    }
+
+    public class DateChange extends BroadcastReceiver {
+        //Unable to instantiate receiver - no empty constructor
+        public DateChange() {}
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            getOrCreateDateTimeQsbBar();
+        }
+    }
+
     public View getOrCreateDateTimeQsbBar() {
-        return null;
+        if(mQsb == null) {
+            mQsb = LayoutInflater.from(this).inflate(R.layout.qsb_default_view, null);
+            mSearchDropTargetBar.addView(mQsb);
+            mSearchDropTargetBar.setQsbSearchBar(mQsb);
+            ImageView iv = (ImageView) mQsb.findViewById(R.id.search_bar_btn);
+            iv.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openSearch(getApplication());
+                }
+            });
+        }
+        TextView date = (TextView) mQsb.findViewById(R.id.date_str);
+        LocalDate currentDate =LocalDate.now();
+        date.setText(DateTimeFormatter.ISO_DATE.format(currentDate));
+        TextView week = (TextView) mQsb.findViewById(R.id.week_year_str);
+        week.setText(currentDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()));
+        return mQsb;
     }
 
     public View getOrCreateQsbBar() {
@@ -3693,7 +3750,7 @@ public class Launcher extends Activity
             if (widgetId != -1) {
                 mQsb = mAppWidgetHost.createView(this, widgetId, searchProvider);
                 mQsb.setId(R.id.qsb_widget);
-                mQsb.updateAppWidgetOptions(opts);
+                //mQsb.updateAppWidgetOptions(opts);
                 mQsb.setPadding(0, 0, 0, 0);
                 mSearchDropTargetBar.addView(mQsb);
                 mSearchDropTargetBar.setQsbSearchBar(mQsb);

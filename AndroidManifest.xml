@@ -64,6 +64,7 @@
     <uses-permission android:name="com.jasonkung.launcher3.permission.RECEIVE_FIRST_LOAD_BROADCAST" />
 
     <application
+        android:name=".app.AppController"
         android:allowBackup="@bool/enable_backup"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_home"
@@ -136,6 +137,16 @@
                 <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />
             </intent-filter>
         </receiver>
+
+        <receiver
+            android:name=".Launcher$DateChange"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
 
         <!-- Intent received used to initialize a restored widget -->
         <receiver android:name=".AppWidgetsRestoredReceiver" >

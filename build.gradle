@@ -113,6 +113,9 @@ configurations.all {
 
 dependencies {
 
+    //JSR-310
+    compile 'com.jakewharton.threetenabp:threetenabp:1.0.4'
+
     //icu
     //compile 'com.ibm.icu:icu4j:58.1'
 
