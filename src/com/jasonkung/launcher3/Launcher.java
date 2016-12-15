@@ -3662,11 +3662,15 @@ public class Launcher extends Activity
                 }
             });
         }
-        TextView date = (TextView) mQsb.findViewById(R.id.date_str);
         LocalDate currentDate =LocalDate.now();
-        date.setText(DateTimeFormatter.ISO_DATE.format(currentDate));
+        String dayofweek = currentDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        String dayofmonth = String.valueOf(currentDate.getDayOfMonth());
+        String month = currentDate.getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault());
+        String year = String.valueOf(currentDate.getYear());
+        TextView date = (TextView) mQsb.findViewById(R.id.date_str);
         TextView week = (TextView) mQsb.findViewById(R.id.week_year_str);
-        week.setText(currentDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()));
+        date.setText(year + " ," + month);
+        week.setText(dayofweek + " " + dayofmonth);
         return mQsb;
     }
 

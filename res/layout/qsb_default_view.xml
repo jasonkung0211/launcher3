@@ -10,31 +10,39 @@
         android:layout_alignParentLeft="true"
         android:layout_width="@dimen/widget_section_height"
         android:layout_height="@dimen/widget_section_height"
+        android:layout_centerVertical="true"
         android:clickable="true"
-        android:src="@drawable/google_icon" />
+        android:scaleType="centerInside"
+        android:background="@drawable/google_btn_icon_light" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingEnd="8dp"
+        android:layout_centerVertical="true"
         android:layout_alignParentRight="true">
 
         <TextView
             android:id="@+id/week_year_str"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="星期日, 2017"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:layout_alignParentRight="true"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif-medium" />
 
         <TextView
             android:id="@+id/date_str"
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/week_year_str"
             android:layout_gravity="right|center_vertical"
-            android:text="12 月 12 日"
             android:textColor="@android:color/white"
-            android:textSize="15sp" />
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif-medium" />
 
     </RelativeLayout>
 </RelativeLayout>
