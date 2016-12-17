@@ -166,7 +166,7 @@ public final class Utilities {
     }
 
     public static boolean isBlurBackground() {
-        return true;
+        return false;
     }
 
     /**
@@ -414,6 +414,34 @@ public final class Utilities {
             r.right = (int) (r.right * scale + 0.5f);
             r.bottom = (int) (r.bottom * scale + 0.5f);
         }
+    }
+
+    public static int detectionColor(Context c, View v) {
+        float r = 0xFF;
+        float g = 0xFF;
+        float b = 0xFF;
+        int[] position = new int[2];
+        v.getLocationInWindow(position);
+        Drawable wp = WallpaperManager.getInstance(c).getDrawable();
+        Bitmap bp = ((BitmapDrawable)wp).getBitmap();
+        int size = 500;
+        int index = 0;
+        int _y = position[1] + v.getHeight();
+        int _x = position[0] + v.getWidth();
+        Log.d(TAG, "x=" + position[0] + " to " + _x);
+        Log.d(TAG, "y=" + position[1] + " to " + _y);
+        for(int x = position[0] ; x < _x; x= x+2) {
+            for (int y = position[1] ; y < _y && index < size; y=y+2, index++) {
+                r = (r + (0xFF - Color.red(bp.getPixel(x,y)))) / 2;
+                g = (g + (0xFF - Color.green(bp.getPixel(x,y)))) / 2;
+                b = (b + (0xFF - Color.blue(bp.getPixel(x,y)))) / 2;
+                Log.d(TAG, "r=" + r);
+                Log.d(TAG, "g=" + g);
+                Log.d(TAG, "b=" + b);
+            }
+        }
+        if(null != bp ) bp.recycle();
+        return Color.argb(0xFF, Math.round(r),Math.round(g), Math.round(b));
     }
 
     public static int[] getCenterDeltaInScreenSpace(View v0, View v1, int[] delta) {

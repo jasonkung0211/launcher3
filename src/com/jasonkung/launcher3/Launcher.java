@@ -29,7 +29,9 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.SearchManager;
+import android.app.WallpaperManager;
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
@@ -1389,6 +1391,16 @@ public class Launcher extends Activity
         if (mSearchDropTargetBar != null) {
             mSearchDropTargetBar.setup(this, dragController);
             mSearchDropTargetBar.setQsbSearchBar(getOrCreateQsbBar());
+        }
+
+        if(mQsb != null && hideQsbBar && false) {
+            //TODO fix me
+            TextView date = (TextView) mQsb.findViewById(R.id.date_str);
+            TextView week = (TextView) mQsb.findViewById(R.id.week_year_str);
+            int textcolor = Utilities.detectionColor(this, week);
+            // When the view is not attached to a window, this method does not make sense
+            date.setTextColor(textcolor);
+            week.setTextColor(textcolor);
         }
 
         if (TestingUtils.MEMORY_DUMP_ENABLED) {
