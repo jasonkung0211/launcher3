@@ -165,6 +165,10 @@ public final class Utilities {
         }
     }
 
+    public static boolean isBlurBackground() {
+        return true;
+    }
+
     /**
      * Returns a bitmap suitable for the all apps view. If the package or the resource do not
      * exist, it returns null.

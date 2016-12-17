@@ -27,6 +27,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.jasonkung.launcher3.util.BlurBuilder;
+
 /**
  * A base container view, which supports resizing.
  */
@@ -60,15 +62,17 @@ public abstract class BaseContainerView extends FrameLayout implements Insettabl
         super(context, attrs, defStyleAttr);
         mContainerBoundsInset = getResources().getDimensionPixelSize(R.dimen.container_bounds_inset);
 
-//        final WallpaperManager wm = WallpaperManager.getInstance(context);
-//        mRevealDrawable = new BitmapDrawable(getResources(), ((BitmapDrawable)wm.getDrawable())
-//                .getBitmap());
+        if(Utilities.isBlurBackground()) {
+            final WallpaperManager wm = WallpaperManager.getInstance(context);
+            mRevealDrawable = new BitmapDrawable(getResources(), BlurBuilder.blur(context, ((BitmapDrawable) wm.getDrawable())
+                    .getBitmap()));
 
-        TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.BaseContainerView, defStyleAttr, 0);
-        mRevealDrawable = a.getDrawable(R.styleable.BaseContainerView_revealBackground);
-        a.recycle();
-
+        } else {
+            TypedArray a = context.obtainStyledAttributes(attrs,
+                    R.styleable.BaseContainerView, defStyleAttr, 0);
+            mRevealDrawable = a.getDrawable(R.styleable.BaseContainerView_revealBackground);
+            a.recycle();
+        }
         int maxSize = getResources().getDimensionPixelSize(R.dimen.container_max_width);
         int minMargin = getResources().getDimensionPixelSize(R.dimen.container_min_margin);
         int width = ((Launcher) context).getDeviceProfile().availableWidthPx;
