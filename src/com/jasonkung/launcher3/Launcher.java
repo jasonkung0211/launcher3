@@ -260,6 +260,9 @@ public class Launcher extends Activity
     private final BroadcastReceiver mCloseSystemDialogsReceiver
             = new CloseSystemDialogsIntentReceiver();
 
+    private final BroadcastReceiver mDateChangeBroadcastReceiver
+            = new DateChangeBroadcastReceiver();
+
     private LayoutInflater mInflater;
 
     @Thunk @BindView(R.id.workspace) Workspace mWorkspace;
@@ -511,6 +514,8 @@ public class Launcher extends Activity
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         registerReceiver(mCloseSystemDialogsReceiver, filter);
+        registerReceiver(mDateChangeBroadcastReceiver, new IntentFilter(Intent.ACTION_DATE_CHANGED));
+
 
         mRotationEnabled = getResources().getBoolean(R.bool.allow_rotation);
         // In case we are on a device with locked rotation, we should look at preferences to check
@@ -2038,6 +2043,7 @@ public class Launcher extends Activity
         TextKeyListener.getInstance().release();
 
         unregisterReceiver(mCloseSystemDialogsReceiver);
+        unregisterReceiver(mDateChangeBroadcastReceiver);
 
         mDragLayer.clearAllResizeFrames();
         ((ViewGroup) mWorkspace.getParent()).removeAllViews();
@@ -3651,10 +3657,7 @@ public class Launcher extends Activity
         }
     }
 
-    public class DateChange extends BroadcastReceiver {
-        //Unable to instantiate receiver - no empty constructor
-        public DateChange() {}
-
+    public class DateChangeBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             getOrCreateDateTimeQsbBar();
