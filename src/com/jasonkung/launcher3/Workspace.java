@@ -55,7 +55,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.TextView;
@@ -71,6 +70,7 @@ import com.jasonkung.launcher3.accessibility.OverviewScreenAccessibilityDelegate
 import com.jasonkung.launcher3.accessibility.WorkspaceAccessibilityHelper;
 import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
 import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.pageindicators.PageIndicator;
 import com.jasonkung.launcher3.util.LongArrayMap;
 import com.jasonkung.launcher3.util.Thunk;
 import com.jasonkung.launcher3.util.WallpaperUtils;

@@ -49,6 +49,7 @@ import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.Interpolator;
 
+import com.jasonkung.launcher3.pageindicators.PageIndicator;
 import com.jasonkung.launcher3.util.LauncherEdgeEffect;
 import com.jasonkung.launcher3.util.Thunk;
 
@@ -160,7 +161,8 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
 
     // Page Indicator
     @Thunk int mPageIndicatorViewId;
-    @Thunk PageIndicator mPageIndicator;
+    @Thunk
+    PageIndicator mPageIndicator;
     // The viewport whether the pages are to be contained (the actual view may be larger than the
     // viewport)
     private Rect mViewport = new Rect();

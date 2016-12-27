@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.jasonkung.launcher3;
+package com.jasonkung.launcher3.pageindicators;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.jasonkung.launcher3.R;
 
 public class PageIndicatorMarker extends FrameLayout {
     @SuppressWarnings("unused")

@@ -28,7 +28,8 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 
 import com.jasonkung.launcher3.FocusHelper.PagedFolderKeyEventListener;
-import com.jasonkung.launcher3.PageIndicator.PageMarkerResources;
+import com.jasonkung.launcher3.pageindicators.PageIndicator;
+import com.jasonkung.launcher3.pageindicators.PageIndicator.PageMarkerResources;
 import com.jasonkung.launcher3.Workspace.ItemOperator;
 import com.jasonkung.launcher3.util.Thunk;
 

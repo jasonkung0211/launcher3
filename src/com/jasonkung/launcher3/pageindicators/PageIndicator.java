@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jasonkung.launcher3;
+package com.jasonkung.launcher3.pageindicators;
 
 import android.animation.LayoutTransition;
 import android.content.Context;
@@ -22,6 +22,8 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+
+import com.jasonkung.launcher3.R;
 
 import java.util.ArrayList;
 
@@ -92,7 +94,7 @@ public class PageIndicator extends LinearLayout {
         transition.disableTransitionType(LayoutTransition.CHANGE_DISAPPEARING);
     }
 
-    void offsetWindowCenterTo(int activeIndex, boolean allowAnimations) {
+    private void offsetWindowCenterTo(int activeIndex, boolean allowAnimations) {
         if (activeIndex < 0) {
             new Throwable().printStackTrace();
         }
@@ -159,7 +161,7 @@ public class PageIndicator extends LinearLayout {
         mWindowRange[1] = windowEnd;
     }
 
-    void addMarker(int index, PageMarkerResources marker, boolean allowAnimations) {
+    public void addMarker(int index, PageMarkerResources marker, boolean allowAnimations) {
         index = Math.max(0, Math.min(index, mMarkers.size()));
 
         PageIndicatorMarker m =
@@ -170,31 +172,31 @@ public class PageIndicator extends LinearLayout {
         mMarkers.add(index, m);
         offsetWindowCenterTo(mActiveMarkerIndex, allowAnimations);
     }
-    void addMarkers(ArrayList<PageMarkerResources> markers, boolean allowAnimations) {
+    public void addMarkers(ArrayList<PageMarkerResources> markers, boolean allowAnimations) {
         for (int i = 0; i < markers.size(); ++i) {
             addMarker(Integer.MAX_VALUE, markers.get(i), allowAnimations);
         }
     }
 
-    void updateMarker(int index, PageMarkerResources marker) {
+    public void updateMarker(int index, PageMarkerResources marker) {
         PageIndicatorMarker m = mMarkers.get(index);
         m.setMarkerDrawables(marker.activeId, marker.inactiveId);
     }
 
-    void removeMarker(int index, boolean allowAnimations) {
+    public void removeMarker(int index, boolean allowAnimations) {
         if (mMarkers.size() > 0) {
             index = Math.max(0, Math.min(mMarkers.size() - 1, index));
             mMarkers.remove(index);
             offsetWindowCenterTo(mActiveMarkerIndex, allowAnimations);
         }
     }
-    void removeAllMarkers(boolean allowAnimations) {
+    public void removeAllMarkers(boolean allowAnimations) {
         while (mMarkers.size() > 0) {
             removeMarker(Integer.MAX_VALUE, allowAnimations);
         }
     }
 
-    void setActiveMarker(int index) {
+    public void setActiveMarker(int index) {
         // Center the active marker
         mActiveMarkerIndex = index;
         offsetWindowCenterTo(index, false);
