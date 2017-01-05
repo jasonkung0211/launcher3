@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jasonkung.launcher3;
+package com.jasonkung.launcher3.dragndrop;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -39,6 +39,20 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.jasonkung.launcher3.AppWidgetResizeFrame;
+import com.jasonkung.launcher3.CellLayout;
+import com.jasonkung.launcher3.Folder;
+import com.jasonkung.launcher3.FolderIcon;
+import com.jasonkung.launcher3.InsettableFrameLayout;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherAppWidgetHostView;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.SearchDropTargetBar;
+import com.jasonkung.launcher3.ShortcutAndWidgetContainer;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.Workspace;
 import com.jasonkung.launcher3.accessibility.LauncherAccessibilityDelegate;
 import com.jasonkung.launcher3.util.Thunk;
 
@@ -538,7 +552,7 @@ public class DragLayer extends InsettableFrameLayout {
     }
 
     public void addResizeFrame(ItemInfo itemInfo, LauncherAppWidgetHostView widget,
-            CellLayout cellLayout) {
+                               CellLayout cellLayout) {
         AppWidgetResizeFrame resizeFrame = new AppWidgetResizeFrame(getContext(),
                 widget, cellLayout, this);
 
@@ -866,7 +880,7 @@ public class DragLayer extends InsettableFrameLayout {
         invalidate();
     }
 
-    void showPageHints() {
+    public void showPageHints() {
         mShowPageHints = true;
         Workspace workspace = mLauncher.getWorkspace();
         getDescendantRectRelativeToSelf(workspace.getChildAt(workspace.numCustomPages()),
@@ -874,7 +888,7 @@ public class DragLayer extends InsettableFrameLayout {
         invalidate();
     }
 
-    void hidePageHints() {
+    public void hidePageHints() {
         mShowPageHints = false;
         invalidate();
     }

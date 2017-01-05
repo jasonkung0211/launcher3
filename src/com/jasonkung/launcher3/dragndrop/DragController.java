@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jasonkung.launcher3;
+package com.jasonkung.launcher3.dragndrop;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -32,9 +32,16 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.jasonkung.launcher3.DeleteDropTarget;
+import com.jasonkung.launcher3.DragSource;
+import com.jasonkung.launcher3.DropTarget;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.PagedView;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.ShortcutInfo;
+import com.jasonkung.launcher3.Utilities;
 import com.jasonkung.launcher3.accessibility.DragViewStateAnnouncer;
 import com.jasonkung.launcher3.util.Thunk;
 
@@ -61,13 +68,14 @@ public class DragController {
     private static final int SCROLL_OUTSIDE_ZONE = 0;
     private static final int SCROLL_WAITING_IN_ZONE = 1;
 
-    static final int SCROLL_NONE = -1;
-    static final int SCROLL_LEFT = 0;
-    static final int SCROLL_RIGHT = 1;
+    public static final int SCROLL_NONE = -1;
+    public static final int SCROLL_LEFT = 0;
+    public static final int SCROLL_RIGHT = 1;
 
     private static final float MAX_FLING_DEGREES = 35f;
 
-    @Thunk Launcher mLauncher;
+    @Thunk
+    Launcher mLauncher;
     private Handler mHandler;
 
     // temporaries to avoid gc thrash
@@ -417,7 +425,7 @@ public class DragController {
         return mTmpPoint;
     }
 
-    long getLastGestureUpTime() {
+    public long getLastGestureUpTime() {
         if (mDragging) {
             return System.currentTimeMillis();
         } else {
@@ -425,7 +433,7 @@ public class DragController {
         }
     }
 
-    void resetLastGestureUpTime() {
+    public void resetLastGestureUpTime() {
         mLastTouchUpTime = -1;
     }
 
@@ -487,7 +495,7 @@ public class DragController {
     /**
      * Sets the view that should handle move events.
      */
-    void setMoveTarget(View view) {
+    public void setMoveTarget(View view) {
         mMoveTarget = view;
     }    
 

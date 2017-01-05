@@ -70,6 +70,10 @@ import com.jasonkung.launcher3.accessibility.OverviewScreenAccessibilityDelegate
 import com.jasonkung.launcher3.accessibility.WorkspaceAccessibilityHelper;
 import com.jasonkung.launcher3.compat.AppWidgetManagerCompat;
 import com.jasonkung.launcher3.compat.UserHandleCompat;
+import com.jasonkung.launcher3.dragndrop.DragController;
+import com.jasonkung.launcher3.dragndrop.DragLayer;
+import com.jasonkung.launcher3.dragndrop.DragScroller;
+import com.jasonkung.launcher3.dragndrop.DragView;
 import com.jasonkung.launcher3.pageindicators.PageIndicator;
 import com.jasonkung.launcher3.util.LongArrayMap;
 import com.jasonkung.launcher3.util.Thunk;

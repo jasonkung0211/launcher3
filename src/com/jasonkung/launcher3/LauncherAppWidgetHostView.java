@@ -28,7 +28,8 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.RemoteViews;
 
-import com.jasonkung.launcher3.DragLayer.TouchCompleteListener;
+import com.jasonkung.launcher3.dragndrop.DragLayer;
+import com.jasonkung.launcher3.dragndrop.DragLayer.TouchCompleteListener;
 
 import java.util.ArrayList;
 

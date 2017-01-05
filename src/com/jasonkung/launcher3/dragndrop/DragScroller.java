@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jasonkung.launcher3;
+package com.jasonkung.launcher3.dragndrop;
 
 /**
  * Handles scrolling while dragging

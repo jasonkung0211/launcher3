@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jasonkung.launcher3;
+package com.jasonkung.launcher3.dragndrop;
 
 import android.animation.FloatArrayEvaluator;
 import android.animation.ValueAnimator;
@@ -33,6 +33,10 @@ import android.os.Build;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAnimUtils;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.Utilities;
 import com.jasonkung.launcher3.util.Thunk;
 
 import java.util.Arrays;
@@ -78,7 +82,7 @@ public class DragView extends View {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public DragView(Launcher launcher, Bitmap bitmap, int registrationX, int registrationY,
-            int left, int top, int width, int height, final float initialScale) {
+                    int left, int top, int width, int height, final float initialScale) {
         super(launcher);
         mDragLayer = launcher.getDragLayer();
         mInitialScale = initialScale;

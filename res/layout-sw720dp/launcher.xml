@@ -23,7 +23,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.jasonkung.launcher3.DragLayer
+    <com.jasonkung.launcher3.dragndrop.DragLayer
         android:id="@+id/drag_layer"
         android:clipChildren="false"
         android:clipToPadding="false"
@@ -78,6 +78,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="invisible" />
-    </com.jasonkung.launcher3.DragLayer>
+    </com.jasonkung.launcher3.dragndrop.DragLayer>
 
 </com.jasonkung.launcher3.LauncherRootView>

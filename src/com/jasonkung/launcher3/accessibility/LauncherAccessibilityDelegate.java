@@ -20,7 +20,7 @@ import com.jasonkung.launcher3.AppInfo;
 import com.jasonkung.launcher3.AppWidgetResizeFrame;
 import com.jasonkung.launcher3.CellLayout;
 import com.jasonkung.launcher3.DeleteDropTarget;
-import com.jasonkung.launcher3.DragController.DragListener;
+import com.jasonkung.launcher3.dragndrop.DragController.DragListener;
 import com.jasonkung.launcher3.DragSource;
 import com.jasonkung.launcher3.Folder;
 import com.jasonkung.launcher3.FolderInfo;

@@ -24,14 +24,13 @@ import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
+import com.jasonkung.launcher3.dragndrop.DragController;
 import com.jasonkung.launcher3.util.Thunk;
 
 /*

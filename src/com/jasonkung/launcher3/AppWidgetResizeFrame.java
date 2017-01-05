@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.jasonkung.launcher3.accessibility.DragViewStateAnnouncer;
+import com.jasonkung.launcher3.dragndrop.DragLayer;
 import com.jasonkung.launcher3.util.FocusLogic;
 
 public class AppWidgetResizeFrame extends FrameLayout implements View.OnKeyListener {

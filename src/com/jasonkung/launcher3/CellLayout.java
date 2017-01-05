@@ -400,7 +400,7 @@ public class CellLayout extends ViewGroup implements BubbleTextShadowHandler {
         mIsDragTarget = false;
     }
 
-    boolean isDragTarget() {
+    public boolean isDragTarget() {
         return mIsDragTarget;
     }
 
@@ -2867,10 +2867,10 @@ public class CellLayout extends ViewGroup implements BubbleTextShadowHandler {
 
         // X coordinate of the view in the layout.
         @ViewDebug.ExportedProperty
-        int x;
+        public int x;
         // Y coordinate of the view in the layout.
         @ViewDebug.ExportedProperty
-        int y;
+        public int y;
 
         boolean dropped;
 

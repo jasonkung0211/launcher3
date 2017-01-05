@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.jasonkung.launcher3.AppWidgetResizeFrame;
-import com.jasonkung.launcher3.DragController;
-import com.jasonkung.launcher3.DragLayer;
+import com.jasonkung.launcher3.dragndrop.DragController;
+import com.jasonkung.launcher3.dragndrop.DragLayer;
 import com.jasonkung.launcher3.DragSource;
 import com.jasonkung.launcher3.Launcher;
 import com.jasonkung.launcher3.LauncherAppWidgetProviderInfo;

@@ -29,9 +29,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.SearchManager;
-import android.app.WallpaperManager;
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
@@ -105,6 +103,9 @@ import com.jasonkung.launcher3.compat.LauncherActivityInfoCompat;
 import com.jasonkung.launcher3.compat.LauncherAppsCompat;
 import com.jasonkung.launcher3.compat.UserHandleCompat;
 import com.jasonkung.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.dragndrop.DragController;
+import com.jasonkung.launcher3.dragndrop.DragLayer;
+import com.jasonkung.launcher3.dragndrop.DragView;
 import com.jasonkung.launcher3.model.WidgetsModel;
 import com.jasonkung.launcher3.util.ComponentKey;
 import com.jasonkung.launcher3.util.LongArrayMap;
@@ -116,7 +117,6 @@ import com.jasonkung.launcher3.widget.WidgetHostViewLoader;
 import com.jasonkung.launcher3.widget.WidgetsContainerView;
 
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.TextStyle;
 
 import java.io.File;
@@ -143,7 +143,7 @@ import butterknife.ButterKnife;
 public class Launcher extends Activity
         implements View.OnClickListener, OnLongClickListener, LauncherModel.Callbacks,
                    View.OnTouchListener, PageSwitchListener, LauncherProviderChangeListener {
-    static final String TAG = "Launcher";
+    public static final String TAG = "Launcher";
     static final boolean LOGD = false;
 
     static final boolean PROFILE_STARTUP = false;

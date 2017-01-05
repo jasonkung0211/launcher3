@@ -20,6 +20,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 
 import com.jasonkung.launcher3.accessibility.DragViewStateAnnouncer;
+import com.jasonkung.launcher3.dragndrop.DragView;
 
 /**
  * Interface defining an object that can receive a drag.
