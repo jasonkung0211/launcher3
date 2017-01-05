@@ -49,7 +49,7 @@ public class FolderInfo extends ItemInfo {
     /**
      * Whether this folder has been opened
      */
-    boolean opened;
+    public boolean opened;
 
     public int options;
 
@@ -106,17 +106,17 @@ public class FolderInfo extends ItemInfo {
 
     }
 
-    void addListener(FolderListener listener) {
+    public void addListener(FolderListener listener) {
         listeners.add(listener);
     }
 
-    void removeListener(FolderListener listener) {
+    public void removeListener(FolderListener listener) {
         if (listeners.contains(listener)) {
             listeners.remove(listener);
         }
     }
 
-    void itemsChanged() {
+    public void itemsChanged() {
         for (int i = 0; i < listeners.size(); i++) {
             listeners.get(i).onItemsChanged();
         }
@@ -128,7 +128,7 @@ public class FolderInfo extends ItemInfo {
         listeners.clear();
     }
 
-    interface FolderListener {
+    public interface FolderListener {
         public void onAdd(ShortcutInfo item);
         public void onRemove(ShortcutInfo item);
         public void onTitleChanged(CharSequence title);

@@ -106,6 +106,8 @@ import com.jasonkung.launcher3.compat.UserManagerCompat;
 import com.jasonkung.launcher3.dragndrop.DragController;
 import com.jasonkung.launcher3.dragndrop.DragLayer;
 import com.jasonkung.launcher3.dragndrop.DragView;
+import com.jasonkung.launcher3.folder.Folder;
+import com.jasonkung.launcher3.folder.FolderIcon;
 import com.jasonkung.launcher3.model.WidgetsModel;
 import com.jasonkung.launcher3.util.ComponentKey;
 import com.jasonkung.launcher3.util.LongArrayMap;
@@ -409,7 +411,7 @@ public class Launcher extends Activity
     }
 
     private Stats mStats;
-    @BindView(R.id.focus_indicator) FocusIndicatorView mFocusHandler;
+    @BindView(R.id.focus_indicator) public FocusIndicatorView mFocusHandler;
     private boolean mRotationEnabled = false;
     private RotationPrefChangeHandler mRotationPrefChangeHandler;
 
@@ -2385,7 +2387,7 @@ public class Launcher extends Activity
     }
 
     FolderIcon addFolder(CellLayout layout, long container, final long screenId, int cellX,
-            int cellY) {
+                         int cellY) {
         final FolderInfo folderInfo = new FolderInfo();
         folderInfo.title = getText(R.string.folder_name);
 
@@ -2955,6 +2957,7 @@ public class Launcher extends Activity
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private boolean startActivity(View v, Intent intent, Object tag) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
@@ -2988,7 +2991,9 @@ public class Launcher extends Activity
                             height = bounds.height();
                         }
                     }
-                    opts = ActivityOptions.makeClipRevealAnimation(v, left, top, width, height);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        opts = ActivityOptions.makeClipRevealAnimation(v, left, top, width, height);
+                    }
                 } else if (!Utilities.ATLEAST_LOLLIPOP) {
                     // Below L, we use a scale up animation
                     opts = ActivityOptions.makeScaleUpAnimation(v, 0, 0,

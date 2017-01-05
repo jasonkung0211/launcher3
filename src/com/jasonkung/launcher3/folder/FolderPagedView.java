@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jasonkung.launcher3;
+package com.jasonkung.launcher3.folder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -27,7 +27,22 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 
+import com.jasonkung.launcher3.BubbleTextView;
+import com.jasonkung.launcher3.CellLayout;
+import com.jasonkung.launcher3.DeviceProfile;
 import com.jasonkung.launcher3.FocusHelper.PagedFolderKeyEventListener;
+import com.jasonkung.launcher3.FocusIndicatorView;
+import com.jasonkung.launcher3.IconCache;
+import com.jasonkung.launcher3.InvariantDeviceProfile;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherModel;
+import com.jasonkung.launcher3.PagedView;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.ShortcutAndWidgetContainer;
+import com.jasonkung.launcher3.ShortcutInfo;
+import com.jasonkung.launcher3.Utilities;
 import com.jasonkung.launcher3.dragndrop.DragController;
 import com.jasonkung.launcher3.pageindicators.PageIndicator;
 import com.jasonkung.launcher3.pageindicators.PageIndicator.PageMarkerResources;

@@ -40,7 +40,7 @@ import com.jasonkung.launcher3.DeviceProfile;
 import com.jasonkung.launcher3.DragSource;
 import com.jasonkung.launcher3.DropTarget;
 import com.jasonkung.launcher3.ExtendedEditText;
-import com.jasonkung.launcher3.Folder;
+import com.jasonkung.launcher3.folder.Folder;
 import com.jasonkung.launcher3.ItemInfo;
 import com.jasonkung.launcher3.Launcher;
 import com.jasonkung.launcher3.LauncherTransitionable;

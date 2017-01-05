@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jasonkung.launcher3;
+package com.jasonkung.launcher3.folder;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -51,7 +51,25 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jasonkung.launcher3.Alarm;
+import com.jasonkung.launcher3.CellLayout;
 import com.jasonkung.launcher3.CellLayout.CellInfo;
+import com.jasonkung.launcher3.DeviceProfile;
+import com.jasonkung.launcher3.DragSource;
+import com.jasonkung.launcher3.DropTarget;
+import com.jasonkung.launcher3.ExtendedEditText;
+import com.jasonkung.launcher3.FolderInfo;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAnimUtils;
+import com.jasonkung.launcher3.LauncherModel;
+import com.jasonkung.launcher3.LauncherSettings;
+import com.jasonkung.launcher3.LogDecelerateInterpolator;
+import com.jasonkung.launcher3.OnAlarmListener;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.ShortcutInfo;
+import com.jasonkung.launcher3.Stats;
+import com.jasonkung.launcher3.Utilities;
 import com.jasonkung.launcher3.dragndrop.DragController;
 import com.jasonkung.launcher3.dragndrop.DragController.DragListener;
 import com.jasonkung.launcher3.FolderInfo.FolderListener;
@@ -121,13 +139,13 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
 
     protected final Launcher mLauncher;
     protected DragController mDragController;
-    protected FolderInfo mInfo;
+    public FolderInfo mInfo;
 
     @Thunk FolderIcon mFolderIcon;
 
     @Thunk FolderPagedView mContent;
     @Thunk View mContentWrapper;
-    ExtendedEditText mFolderName;
+    public ExtendedEditText mFolderName;
 
     private View mFooter;
     private int mFooterHeight;
@@ -1039,10 +1057,10 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         lp.y = top;
     }
 
-    float getPivotXForIconAnimation() {
+    public float getPivotXForIconAnimation() {
         return mFolderIconPivotX;
     }
-    float getPivotYForIconAnimation() {
+    public float getPivotYForIconAnimation() {
         return mFolderIconPivotY;
     }
 
@@ -1170,7 +1188,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mDestroyed = true;
     }
 
-    boolean isDestroyed() {
+    public boolean isDestroyed() {
         return mDestroyed;
     }
 

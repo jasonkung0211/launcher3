@@ -17,7 +17,7 @@
 package com.jasonkung.launcher3.accessibility;
 
 import com.jasonkung.launcher3.CellLayout;
-import com.jasonkung.launcher3.FolderPagedView;
+import com.jasonkung.launcher3.folder.FolderPagedView;
 import com.jasonkung.launcher3.R;
 
 /**

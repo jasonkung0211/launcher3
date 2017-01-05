@@ -327,7 +327,7 @@ public class DeviceProfile {
     }
 
     /** Returns the workspace padding in the specified orientation */
-    Rect getWorkspacePadding(boolean isLayoutRtl) {
+    public Rect getWorkspacePadding(boolean isLayoutRtl) {
         Rect searchBarBounds = getSearchBarBounds(isLayoutRtl);
         Rect padding = new Rect();
         if (isVerticalBarLayout()) {

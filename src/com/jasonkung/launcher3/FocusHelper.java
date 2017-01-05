@@ -22,6 +22,8 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jasonkung.launcher3.folder.Folder;
+import com.jasonkung.launcher3.folder.FolderPagedView;
 import com.jasonkung.launcher3.util.FocusLogic;
 import com.jasonkung.launcher3.util.Thunk;
 

@@ -357,7 +357,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
     int getViewportWidth() {
         return mViewport.width();
     }
-    int getViewportHeight() {
+    public int getViewportHeight() {
         return mViewport.height();
     }
 
@@ -2051,7 +2051,7 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
         snapToPage(whichPage, PAGE_SNAP_ANIMATION_DURATION);
     }
 
-    protected void snapToPageImmediately(int whichPage) {
+    public void snapToPageImmediately(int whichPage) {
         snapToPage(whichPage, PAGE_SNAP_ANIMATION_DURATION, true, null);
     }
 

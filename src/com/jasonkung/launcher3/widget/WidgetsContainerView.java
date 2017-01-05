@@ -32,7 +32,7 @@ import com.jasonkung.launcher3.DeleteDropTarget;
 import com.jasonkung.launcher3.dragndrop.DragController;
 import com.jasonkung.launcher3.DragSource;
 import com.jasonkung.launcher3.DropTarget.DragObject;
-import com.jasonkung.launcher3.Folder;
+import com.jasonkung.launcher3.folder.Folder;
 import com.jasonkung.launcher3.IconCache;
 import com.jasonkung.launcher3.ItemInfo;
 import com.jasonkung.launcher3.Launcher;

@@ -25,6 +25,7 @@ import android.view.animation.AnimationUtils;
 
 import com.jasonkung.launcher3.allapps.AllAppsContainerView;
 import com.jasonkung.launcher3.dragndrop.DragLayer;
+import com.jasonkung.launcher3.folder.Folder;
 import com.jasonkung.launcher3.util.FlingAnimation;
 import com.jasonkung.launcher3.util.Thunk;
 import com.jasonkung.launcher3.widget.PendingAddShortcutInfo;

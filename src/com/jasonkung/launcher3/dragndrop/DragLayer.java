@@ -41,8 +41,8 @@ import android.widget.TextView;
 
 import com.jasonkung.launcher3.AppWidgetResizeFrame;
 import com.jasonkung.launcher3.CellLayout;
-import com.jasonkung.launcher3.Folder;
-import com.jasonkung.launcher3.FolderIcon;
+import com.jasonkung.launcher3.folder.Folder;
+import com.jasonkung.launcher3.folder.FolderIcon;
 import com.jasonkung.launcher3.InsettableFrameLayout;
 import com.jasonkung.launcher3.ItemInfo;
 import com.jasonkung.launcher3.Launcher;

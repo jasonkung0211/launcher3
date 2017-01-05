@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jasonkung.launcher3;
+package com.jasonkung.launcher3.folder;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -41,8 +41,29 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jasonkung.launcher3.Alarm;
+import com.jasonkung.launcher3.AppInfo;
+import com.jasonkung.launcher3.BubbleTextView;
+import com.jasonkung.launcher3.CellLayout;
+import com.jasonkung.launcher3.CheckLongPressHelper;
+import com.jasonkung.launcher3.DeviceProfile;
 import com.jasonkung.launcher3.DropTarget.DragObject;
+import com.jasonkung.launcher3.FastBitmapDrawable;
+import com.jasonkung.launcher3.FolderInfo;
 import com.jasonkung.launcher3.FolderInfo.FolderListener;
+import com.jasonkung.launcher3.IconCache;
+import com.jasonkung.launcher3.ItemInfo;
+import com.jasonkung.launcher3.Launcher;
+import com.jasonkung.launcher3.LauncherAnimUtils;
+import com.jasonkung.launcher3.LauncherAppState;
+import com.jasonkung.launcher3.LauncherSettings;
+import com.jasonkung.launcher3.OnAlarmListener;
+import com.jasonkung.launcher3.PreloadIconDrawable;
+import com.jasonkung.launcher3.R;
+import com.jasonkung.launcher3.ShortcutInfo;
+import com.jasonkung.launcher3.StylusEventHelper;
+import com.jasonkung.launcher3.Utilities;
+import com.jasonkung.launcher3.Workspace;
 import com.jasonkung.launcher3.dragndrop.DragLayer;
 import com.jasonkung.launcher3.dragndrop.DragView;
 import com.jasonkung.launcher3.util.Thunk;
@@ -53,7 +74,8 @@ import java.util.ArrayList;
  * An icon that can appear on in the workspace representing an {@link UserFolder}.
  */
 public class FolderIcon extends FrameLayout implements FolderListener {
-    @Thunk Launcher mLauncher;
+    @Thunk
+    Launcher mLauncher;
     @Thunk Folder mFolder;
     private FolderInfo mInfo;
     @Thunk static boolean sStaticValuesDirty = true;
@@ -93,7 +115,8 @@ public class FolderIcon extends FrameLayout implements FolderListener {
     public static Drawable sSharedFolderLeaveBehind = null;
 
     @Thunk ImageView mPreviewBackground;
-    @Thunk BubbleTextView mFolderName;
+    @Thunk
+    BubbleTextView mFolderName;
 
     FolderRingAnimator mFolderRingAnimator = null;
 
@@ -117,7 +140,8 @@ public class FolderIcon extends FrameLayout implements FolderListener {
     @Thunk ArrayList<ShortcutInfo> mHiddenItems = new ArrayList<ShortcutInfo>();
 
     private Alarm mOpenAlarm = new Alarm();
-    @Thunk ItemInfo mDragInfo;
+    @Thunk
+    ItemInfo mDragInfo;
 
     public FolderIcon(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -142,7 +166,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
         return !workspace.workspaceInModalState();
     }
 
-    static FolderIcon fromXml(int resId, Launcher launcher, ViewGroup group,
+    public static FolderIcon fromXml(int resId, Launcher launcher, ViewGroup group,
             FolderInfo folderInfo, IconCache iconCache) {
         @SuppressWarnings("all") // suppress dead code warning
         final boolean error = INITIAL_ITEM_ANIMATION_DURATION >= DROP_IN_ANIMATION_DURATION;
@@ -197,7 +221,8 @@ public class FolderIcon extends FrameLayout implements FolderListener {
     public static class FolderRingAnimator {
         public int mCellX;
         public int mCellY;
-        @Thunk CellLayout mCellLayout;
+        @Thunk
+        CellLayout mCellLayout;
         public float mOuterRingSize;
         public float mInnerRingSize;
         public FolderIcon mFolderIcon = null;
@@ -321,7 +346,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
         return mFolder;
     }
 
-    FolderInfo getFolderInfo() {
+    public FolderInfo getFolderInfo() {
         return mInfo;
     }
 

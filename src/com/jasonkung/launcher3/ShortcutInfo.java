@@ -27,6 +27,7 @@ import com.jasonkung.launcher3.LauncherSettings.Favorites;
 import com.jasonkung.launcher3.compat.LauncherActivityInfoCompat;
 import com.jasonkung.launcher3.compat.UserHandleCompat;
 import com.jasonkung.launcher3.compat.UserManagerCompat;
+import com.jasonkung.launcher3.folder.FolderIcon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
