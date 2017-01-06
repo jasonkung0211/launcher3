@@ -410,7 +410,7 @@ public class DeviceProfile {
      * When {@code false}, either device is in portrait mode or the device is in landscape mode and
      * the hotseat is on the bottom row.
      */
-    boolean isVerticalBarLayout() {
+    public boolean isVerticalBarLayout() {
         return isLandscape && transposeLayoutWithOrientation;
     }
 

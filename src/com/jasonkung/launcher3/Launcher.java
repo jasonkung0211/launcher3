@@ -3665,12 +3665,16 @@ public class Launcher extends Activity
     public class DateChangeBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            getOrCreateDateTimeQsbBar();
+            getOrCreateQsbBar();
         }
     }
 
     public View getOrCreateDateTimeQsbBar() {
         if(mQsb == null) {
+            AppWidgetProviderInfo searchProvider = Utilities.getSearchWidgetProvider(this);
+            if (searchProvider == null) {
+                return null;
+            }
             mQsb = LayoutInflater.from(this).inflate(R.layout.qsb_default_view, null);
             mSearchDropTargetBar.addView(mQsb);
             mSearchDropTargetBar.setQsbSearchBar(mQsb);
@@ -3695,12 +3699,13 @@ public class Launcher extends Activity
     }
 
     public View getOrCreateQsbBar() {
+        if (launcherCallbacksProvidesSearch()) {
+            return mLauncherCallbacks.getQsbBar();
+        }
+
         if(hideQsbBar/*show Date Time string.*/) {
             //If always allow bindAppWidgetIdIfAllowed, the QsbBar will show on.We need to hidden.
             return getOrCreateDateTimeQsbBar();
-        }
-        if (launcherCallbacksProvidesSearch()) {
-            return mLauncherCallbacks.getQsbBar();
         }
 
         if (mQsb == null) {
@@ -3785,13 +3790,10 @@ public class Launcher extends Activity
 
     private void reinflateQSBIfNecessary() {
         if (mQsb instanceof LauncherAppWidgetHostView &&
-                ((LauncherAppWidgetHostView) mQsb).isReinflateRequired() && !hideQsbBar) {
+                ((LauncherAppWidgetHostView) mQsb).isReinflateRequired()) {
             mSearchDropTargetBar.removeView(mQsb);
             mQsb = null;
             mSearchDropTargetBar.setQsbSearchBar(getOrCreateQsbBar());
-        }
-        if (hideQsbBar) {
-            mSearchDropTargetBar.setQsbSearchBar(getOrCreateDateTimeQsbBar());
         }
     }
 
