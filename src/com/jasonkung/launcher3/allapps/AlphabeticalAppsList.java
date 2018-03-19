@@ -303,6 +303,11 @@ public class AlphabeticalAppsList {
         onAppsUpdated();
     }
 
+    public void cleanPredictedApps() {
+        mPredictedAppComponents.clear();
+        onAppsUpdated();
+    }
+
     /**
      * Sets the current set of apps.
      */

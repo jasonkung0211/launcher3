@@ -106,4 +106,9 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"Зменшити ширину"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"Зменшити висоту"</string>
     <string name="widget_resized" msgid="9130327887929620">"Розміри віджета змінено на <xliff:g id="NUMBER_0">%1$s</xliff:g> завширшки та <xliff:g id="NUMBER_1">%2$s</xliff:g> заввишки"</string>
+
+    <string name="title_app_suggestions">Пропозиції додатків</string>
+    <string name="title_disable_suggestions_prompt">Вимкнути пропозиції додатків?</string>
+    <string name="msg_disable_suggestions_prompt">Пропозиції не відображатимуться вгорі списку додатків. Дані, які використовувалися для створення пропозицій, буде стерто назавжди.</string>
+    <string name="label_turn_off_suggestions">ВИМКНУТИ</string>
 </resources>

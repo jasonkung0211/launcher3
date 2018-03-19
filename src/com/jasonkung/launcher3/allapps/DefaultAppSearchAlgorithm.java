@@ -22,6 +22,7 @@ import com.jasonkung.launcher3.util.ComponentKey;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -60,7 +61,7 @@ public class DefaultAppSearchAlgorithm {
     protected ArrayList<ComponentKey> getTitleMatchResult(String query) {
         // Do an intersection of the words in the query and each title, and filter out all the
         // apps that don't match all of the words in the query.
-        final String queryTextLower = query.toLowerCase();
+        final String queryTextLower = query.toLowerCase(Locale.getDefault());
         final String[] queryWords = SPLIT_PATTERN.split(queryTextLower);
 
         final ArrayList<ComponentKey> result = new ArrayList<>();
@@ -77,8 +78,12 @@ public class DefaultAppSearchAlgorithm {
         String[] words = SPLIT_PATTERN.split(title.toLowerCase());
         for (int qi = 0; qi < queryWords.length; qi++) {
             boolean foundMatch = false;
+
             for (int i = 0; i < words.length; i++) {
-                if (words[i].startsWith(queryWords[qi])) {
+                if(words[i].toLowerCase(Locale.getDefault()).contains( queryWords[qi].toLowerCase(Locale.getDefault()) )) {
+                    foundMatch = true;
+                    break;
+                } else if (words[i].startsWith(queryWords[qi])) {
                     foundMatch = true;
                     break;
                 }

@@ -108,4 +108,9 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"ስፋት ይቀንሱ"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"ቁመት ይቀንሱ"</string>
     <string name="widget_resized" msgid="9130327887929620">"የመግብር መጠን ወደ ስፋት <xliff:g id="NUMBER_0">%1$s</xliff:g> ቁመት <xliff:g id="NUMBER_1">%2$s</xliff:g> ተለውጧል"</string>
+
+    <string name="title_app_suggestions">የመተግበሪያ አስተያየት ጥቆማዎች</string>
+    <string name="title_disable_suggestions_prompt">የመተግበሪያ አስተያየት ጥቆማዎች ይጥፉ?</string>
+    <string name="msg_disable_suggestions_prompt">የአስተያየት ጥቆማዎች በእርስዎ የመተግበሪያዎች ዝርዝር አናት ላይ አይታዩም፣ እና እነሱን ለመፍጠር ጥቅም ላይ የዋለው የአጠቃቀም ውሂብ በቋሚነት ይደመሰሳል።</string>
+    <string name="label_turn_off_suggestions">አጥፋ</string>
 </resources>

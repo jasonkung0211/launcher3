@@ -76,7 +76,7 @@ public class RotationPreferenceTest extends InstrumentationTestCase {
     }
 
     private void setRotationEnabled(boolean enabled) {
-        mPrefs.edit().putBoolean(Utilities.ALLOW_ROTATION_PREFERENCE_KEY, enabled).commit();
+        mPrefs.edit().putBoolean(Utilities.ALLOW_ROTATION_PREFERENCE_KEY, enabled).apply();
     }
 
     private Rect getHotseatBounds() throws Exception {

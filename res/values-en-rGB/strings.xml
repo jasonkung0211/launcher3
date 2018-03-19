@@ -106,4 +106,10 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"Decrease width"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"Decrease height"</string>
     <string name="widget_resized" msgid="9130327887929620">"Widget re-sized to width <xliff:g id="NUMBER_0">%1$s</xliff:g> height <xliff:g id="NUMBER_1">%2$s</xliff:g>"</string>
+
+
+    <string name="title_app_suggestions">App suggestions</string>
+    <string name="title_disable_suggestions_prompt">Turn off app suggestions?</string>
+    <string name="msg_disable_suggestions_prompt">"Suggestions won't appear at the top of your apps list and the usage data used to create them will be permanently erased."</string>
+    <string name="label_turn_off_suggestions">TURN OFF</string>
 </resources>

@@ -134,6 +134,10 @@ public final class Utilities {
             TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
     public static final String ALLOW_ROTATION_PREFERENCE_KEY = "pref_allowRotation";
+    public static final String HIDE_QSB_PREFERENCE_KEY = "pref_hide_qsb";
+    public static final String SHOW_PREDICTIONS = "pref_show_predictions";
+    public static final String HIDE_APPS_ICON_LABELS = "pref_hide_apps_icon_labels";
+    public static final String BLUR_BACKGROUND = "pref_blur_background";
 
     public static boolean isPropertyEnabled(String propertyName) {
         return Log.isLoggable(propertyName, Log.VERBOSE);
@@ -148,12 +152,34 @@ public final class Utilities {
         return ((res.getDisplayMetrics().densityDpi * res.getConfiguration().smallestScreenWidthDp) / originalDensity >= 600);
     }
 
+    public static boolean getHideQsbDefaultValue(Context context) {
+        Resources res = context.getResources();
+        return res.getBoolean(R.bool.hide_qsb);
+    }
+
+    private static boolean getHideIconLabelDefaultValue(Context c) {
+        Resources res = c.getResources();
+        return res.getBoolean(R.bool.hide_icon_labels_default);
+    }
+
     public static boolean isNycOrAbove() {
         return Build.VERSION.SDK_INT >= 24;
     }
 
     public static boolean isAllowRotationPrefEnabled(Context context) {
         return getPrefs(context).getBoolean(ALLOW_ROTATION_PREFERENCE_KEY, getAllowRotationDefaultValue(context));
+    }
+
+    public static boolean isHideQsbPrefEnabled(Context context) {
+        return getPrefs(context).getBoolean(HIDE_QSB_PREFERENCE_KEY, getHideQsbDefaultValue(context));
+    }
+
+    public static boolean isShowPredictions(Context c) {
+        return getPrefs(c).getBoolean(SHOW_PREDICTIONS, true);
+    }
+
+    public static boolean isHideIconLabels(Context c) {
+        return getPrefs(c).getBoolean(HIDE_APPS_ICON_LABELS, getHideIconLabelDefaultValue(c));
     }
 
     public static Bitmap createIconBitmap(Cursor c, int iconIndex, Context context) {
@@ -165,8 +191,8 @@ public final class Utilities {
         }
     }
 
-    public static boolean isBlurBackground() {
-        return false;
+    public static boolean isBlurBackground(Context c) {
+        return true;
     }
 
     /**

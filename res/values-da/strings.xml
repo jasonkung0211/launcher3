@@ -106,4 +106,9 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"Reducer bredden"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"Reducer højden"</string>
     <string name="widget_resized" msgid="9130327887929620">"Størrelsen for widgetten er ændret til bredde <xliff:g id="NUMBER_0">%1$s</xliff:g> og højde <xliff:g id="NUMBER_1">%2$s</xliff:g>"</string>
+
+    <string name="title_app_suggestions">Appforslag</string>
+    <string name="title_disable_suggestions_prompt">Vil du slå appforslag fra?</string>
+    <string name="msg_disable_suggestions_prompt">Der vises ikke forslag øverst på din liste over apps, og de brugsdata, der anvendes til at oprette dem, slettes permanent.</string>
+    <string name="label_turn_off_suggestions">SLÅ FRA</string>
 </resources>

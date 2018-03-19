@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/widget_section_height"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent"
     android:elevation="2dp">
 
-    <ImageView
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/search_bar_btn"
         android:layout_alignParentLeft="true"
         android:layout_width="@dimen/widget_section_height"
@@ -13,12 +14,19 @@
         android:layout_centerVertical="true"
         android:clickable="true"
         android:scaleType="centerInside"
-        android:background="@drawable/google_btn_icon_light" />
+        android:src="@drawable/google_favicon_vector"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|left"
+        fab:fab_shadow="true"
+        fab:fab_colorNormal="@android:color/white"
+        fab:fab_colorRipple="@android:color/darker_gray"
+        />
 
     <RelativeLayout
+        android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="8dp"
+        android:paddingEnd="16dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true">
 
@@ -28,8 +36,12 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:layout_alignParentRight="true"
-            android:textSize="20sp"
-            android:textStyle="normal"
+            android:textSize="22sp"
+            android:shadowColor="#CC555555"
+            android:shadowDx="2.0"
+            android:shadowDy="2.0"
+            android:shadowRadius="1.5"
+            android:ellipsize="end"
             android:fontFamily="sans-serif-medium" />
 
         <TextView
@@ -41,7 +53,11 @@
             android:layout_gravity="right|center_vertical"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:textStyle="normal"
+            android:shadowColor="#CC555555"
+            android:shadowDx="2.0"
+            android:shadowDy="2.0"
+            android:shadowRadius="1.5"
+            android:ellipsize="end"
             android:fontFamily="sans-serif-medium" />
 
     </RelativeLayout>

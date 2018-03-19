@@ -25,7 +25,12 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
-    <style name="Theme" parent="@style/BaseWallpaperTheme">
+    <style name="Theme" parent="@style/LauncherTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="LauncherTheme" parent="@style/BaseLauncherTheme">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>

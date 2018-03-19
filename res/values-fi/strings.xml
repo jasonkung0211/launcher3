@@ -106,4 +106,9 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"Vähennä leveyttä"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"Vähennä korkeutta"</string>
     <string name="widget_resized" msgid="9130327887929620">"Widgetin kokoa muutettiin. Sen leveys on nyt <xliff:g id="NUMBER_0">%1$s</xliff:g> ja korkeus <xliff:g id="NUMBER_1">%2$s</xliff:g>."</string>
+
+    <string name="title_app_suggestions">Sovellusehdotukset</string>
+    <string name="title_disable_suggestions_prompt">Poistetaanko sovellusehdotukset käytöstä?</string>
+    <string name="msg_disable_suggestions_prompt">Ehdotuksia ei näytetä sovellusluettelosi yläosassa. Niiden luomiseen käytetyt tiedot poistetaan pysyvästi.</string>
+    <string name="label_turn_off_suggestions">POISTA KÄYTÖSTÄ</string>
 </resources>

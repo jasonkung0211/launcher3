@@ -106,4 +106,9 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"کاهش عرض"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"کاهش ارتفاع"</string>
     <string name="widget_resized" msgid="9130327887929620">"اندازه ابزارک به عرض <xliff:g id="NUMBER_0">%1$s</xliff:g> ارتفاع <xliff:g id="NUMBER_1">%2$s</xliff:g> تغییر کرد"</string>
+
+    <string name="title_app_suggestions">پیشنهادات برنامه</string>
+    <string name="title_disable_suggestions_prompt">پیشنهادات برنامه خاموش شود؟</string>
+    <string name="msg_disable_suggestions_prompt">پیشنهادات در رأس فهرست برنامه‌های شما قرار نمی‌گیرند و داده‌های مصرف استفاده شده برای ایجاد آنها برای همیشه پاک می‌شوند.</string>
+    <string name="label_turn_off_suggestions">خاموش کردن</string>
 </resources>

@@ -1804,6 +1804,16 @@ public class Workspace extends PagedView
         mWindowToken = null;
     }
 
+    public void setTextVisible(boolean visible) {
+        if(Utilities.isHideIconLabels(mLauncher)) {
+            for (int i = 0; i < getChildCount() ; i++) {
+                final CellLayout page = (CellLayout) getPageAt(i);
+                if(!page.isHotseat())
+                    page.setTextVisible(visible);
+            }
+        }
+    }
+
     protected void onResume() {
         if (getPageIndicator() != null) {
             // In case accessibility state has changed, we need to perform this on every

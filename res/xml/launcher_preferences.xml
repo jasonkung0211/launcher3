@@ -16,10 +16,43 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreference
-        android:key="pref_allowRotation"
-        android:title="@string/allow_rotation_title"
-        android:defaultValue="@bool/allow_rotation"
-        android:persistent="true"
-    />
+    <PreferenceCategory
+        android:title="@string/pref_home_screen_category"
+        android:key="pref_home_screen" >
+        <SwitchPreference
+            android:key="pref_allowRotation"
+            android:title="@string/allow_rotation_title"
+            android:defaultValue="@bool/allow_rotation"
+            android:persistent="true" />
+
+        <SwitchPreference
+            android:key="pref_hide_qsb"
+            android:title="@string/hide_qsb_title"
+            android:defaultValue="@bool/hide_qsb"
+            android:persistent="true"
+            android:summary="@string/hide_qsb_summary" />
+
+        <SwitchPreference
+            android:key="pref_hide_apps_icon_labels"
+            android:title="@string/icon_labels"
+            android:defaultValue="@bool/hide_icon_labels_default"
+            android:persistent="true"
+            android:summaryOff="@string/icon_labels_show"
+            android:summaryOn="@string/icon_labels_hide"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_feature_category">
+        <SwitchPreference
+            android:key="pref_show_predictions"
+            android:title="@string/title_app_suggestions"
+            android:defaultValue="true"
+            android:persistent="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/about">
+        <Preference android:persistent="false" android:title="@string/about_app_version" android:key="about_app_version" />
+        <Preference android:persistent="false" android:title="@string/pref_open_source_licenses_title" android:key="open_source_licenses" />
+    </PreferenceCategory>
 </PreferenceScreen>

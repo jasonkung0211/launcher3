@@ -35,6 +35,66 @@ import android.widget.LinearLayout;
 
 public class DeviceProfile {
 
+    @Override
+    public String toString() {
+        return "DeviceProfile{" + "\n" +
+                "inv=" + inv + "\n" +
+                ", isTablet=" + isTablet + "\n" +
+                ", isLargeTablet=" + isLargeTablet + "\n" +
+                ", isPhone=" + isPhone + "\n" +
+                ", transposeLayoutWithOrientation=" + transposeLayoutWithOrientation + "\n" +
+                ", isLandscape=" + isLandscape + "\n" +
+                ", widthPx=" + widthPx + "\n" +
+                ", heightPx=" + heightPx + "\n" +
+                ", availableWidthPx=" + availableWidthPx + "\n" +
+                ", availableHeightPx=" + availableHeightPx + "\n" +
+                ", overviewModeMinIconZoneHeightPx=" + overviewModeMinIconZoneHeightPx + "\n" +
+                ", overviewModeMaxIconZoneHeightPx=" + overviewModeMaxIconZoneHeightPx + "\n" +
+                ", overviewModeBarItemWidthPx=" + overviewModeBarItemWidthPx + "\n" +
+                ", overviewModeBarSpacerWidthPx=" + overviewModeBarSpacerWidthPx + "\n" +
+                ", overviewModeIconZoneRatio=" + overviewModeIconZoneRatio + "\n" +
+                ", desiredWorkspaceLeftRightMarginPx=" + desiredWorkspaceLeftRightMarginPx + "\n" +
+                ", edgeMarginPx=" + edgeMarginPx + "\n" +
+                ", defaultWidgetPadding=" + defaultWidgetPadding + "\n" +
+                ", pageIndicatorHeightPx=" + pageIndicatorHeightPx + "\n" +
+                ", defaultPageSpacingPx=" + defaultPageSpacingPx + "\n" +
+                ", dragViewScale=" + dragViewScale + "\n" +
+                ", iconSizePx=" + iconSizePx + "\n" +
+                ", iconTextSizePx=" + iconTextSizePx + "\n" +
+                ", iconDrawablePaddingPx=" + iconDrawablePaddingPx + "\n" +
+                ", iconDrawablePaddingOriginalPx=" + iconDrawablePaddingOriginalPx + "\n" +
+                ", cellWidthPx=" + cellWidthPx + "\n" +
+                ", cellHeightPx=" + cellHeightPx + "\n" +
+                ", folderBackgroundOffset=" + folderBackgroundOffset + "\n" +
+                ", folderIconSizePx=" + folderIconSizePx + "\n" +
+                ", folderCellWidthPx=" + folderCellWidthPx + "\n" +
+                ", folderCellHeightPx=" + folderCellHeightPx + "\n" +
+                ", hotseatCellWidthPx=" + hotseatCellWidthPx + "\n" +
+                ", hotseatCellHeightPx=" + hotseatCellHeightPx + "\n" +
+                ", hotseatIconSizePx=" + hotseatIconSizePx + "\n" +
+                ", normalHotseatBarHeightPx=" + normalHotseatBarHeightPx + "\n" +
+                ", shortHotseatBarHeightPx=" + shortHotseatBarHeightPx + "\n" +
+                ", hotseatBarHeightPx=" + hotseatBarHeightPx + "\n" +
+                ", allAppsNumCols=" + allAppsNumCols + "\n" +
+                ", allAppsNumPredictiveCols=" + allAppsNumPredictiveCols + "\n" +
+                ", allAppsButtonVisualSize=" + allAppsButtonVisualSize + "\n" +
+                ", allAppsIconSizePx=" + allAppsIconSizePx + "\n" +
+                ", allAppsIconTextSizeSp=" + allAppsIconTextSizeSp + "\n" +
+                ", searchBarWidgetInternalPaddingTop=" + searchBarWidgetInternalPaddingTop + "\n" +
+                ", searchBarWidgetInternalPaddingBottom=" + searchBarWidgetInternalPaddingBottom + "\n" +
+                ", searchBarTopPaddingPx=" + searchBarTopPaddingPx + "\n" +
+                ", tallSearchBarNegativeTopPaddingPx=" + tallSearchBarNegativeTopPaddingPx + "\n" +
+                ", normalSearchBarTopExtraPaddingPx=" + normalSearchBarTopExtraPaddingPx + "\n" +
+                ", searchBarTopExtraPaddingPx=" + searchBarTopExtraPaddingPx + "\n" +
+                ", normalSearchBarBottomPaddingPx=" + normalSearchBarBottomPaddingPx + "\n" +
+                ", tallSearchBarBottomPaddingPx=" + tallSearchBarBottomPaddingPx + "\n" +
+                ", searchBarBottomPaddingPx=" + searchBarBottomPaddingPx + "\n" +
+                ", normalSearchBarSpaceHeightPx=" + normalSearchBarSpaceHeightPx + "\n" +
+                ", tallSearchBarSpaceHeightPx=" + tallSearchBarSpaceHeightPx + "\n" +
+                ", searchBarSpaceHeightPx=" + searchBarSpaceHeightPx + "\n" +
+                '}';
+    }
+
     public final InvariantDeviceProfile inv;
 
     // Device properties

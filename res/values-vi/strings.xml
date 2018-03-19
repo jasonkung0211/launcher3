@@ -106,4 +106,9 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"Giảm chiều rộng"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"Giảm chiều cao"</string>
     <string name="widget_resized" msgid="9130327887929620">"Đã đổi kích thước tiện ích thành chiều rộng <xliff:g id="NUMBER_0">%1$s</xliff:g> chiều cao <xliff:g id="NUMBER_1">%2$s</xliff:g>"</string>
+
+    <string name="title_app_suggestions">Đề xuất ứng dụng</string>
+    <string name="title_disable_suggestions_prompt">Tắt đề xuất ứng dụng?</string>
+    <string name="msg_disable_suggestions_prompt">Các đề xuất sẽ không hiển thị ở đầu danh sách ứng dụng của bạn và dữ liệu sử dụng đã được dùng để tạo các đề xuất này sẽ bị xóa vĩnh viễn.</string>
+    <string name="label_turn_off_suggestions">TẮT</string>
 </resources>

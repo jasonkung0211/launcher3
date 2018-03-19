@@ -23,7 +23,9 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.text.Selection;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.method.TextKeyListener;
+import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -192,6 +194,10 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
         mApps.setPredictedApps(apps);
     }
 
+    public void cleanPredictedApps() {
+        mApps.cleanPredictedApps();
+    }
+
     /**
      * Sets the current set of apps.
      */
@@ -258,6 +264,13 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
         mSearchBarController.reset();
         mAppsRecyclerView.reset();
     }
+    private SpannableStringBuilder getSearchHint(){
+        ImageSpan imageHint = new ImageSpan(getContext(), R.drawable.ic_search_grey);
+        SpannableStringBuilder spannableString =
+                        new SpannableStringBuilder(" "+getContext().getResources().getString(R.string.all_apps_search_bar_hint));
+        spannableString.setSpan(imageHint, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
 
     @Override
     protected void onFinishInflate() {
@@ -276,6 +289,13 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
 
         mSearchContainer = findViewById(R.id.search_container);
         mSearchInput = (ExtendedEditText) findViewById(R.id.search_box_input);
+        mSearchInput.setHint(getSearchHint());
+        mSearchInput.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                mSearchInput.setHint(b && view instanceof ExtendedEditText ? "": getSearchHint());
+            }
+        });
         mElevationController = Utilities.ATLEAST_LOLLIPOP
                 ? new HeaderElevationController.ControllerVL(mSearchContainer)
                 : new HeaderElevationController.ControllerV16(mSearchContainer);

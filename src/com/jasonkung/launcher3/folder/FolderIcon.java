@@ -710,6 +710,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
         va.start();
     }
 
+    //Hide name
     public void setTextVisible(boolean visible) {
         if (visible) {
             mFolderName.setVisibility(VISIBLE);

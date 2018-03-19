@@ -36,6 +36,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.database.sqlite.SQLiteStatement;
@@ -365,7 +366,7 @@ public class LauncherProvider extends ContentProvider {
     }
 
     public void clearFlagEmptyDbCreated() {
-        Utilities.getPrefs(getContext()).edit().remove(EMPTY_DATABASE_CREATED).commit();
+        Utilities.getPrefs(getContext()).edit().remove(EMPTY_DATABASE_CREATED).apply();
     }
 
     /**
@@ -486,38 +487,42 @@ public class LauncherProvider extends ContentProvider {
     public List<ComponentKey> getAllPredictedApps(ArrayList<String> ignore, int count) {
         List<ComponentKey> apps = new ArrayList<>();
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT "
-                + LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME
-                + " , "
-                + LauncherSettings.PredictedApps.COLUMN_CLASSNAME
-                +" FROM " + LauncherSettings.PredictedApps.TABLE_NAME +
-                " ORDER BY " + LauncherSettings.PredictedApps.COLUMN_FREQ +
-                " DESC", null);
-        if (c.moveToFirst()) {
-            while (c.isAfterLast() == false) {
-                if(count <= apps.size())
-                    break;
-                String pn = c.getString(c.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME));
-                String cn = c.getString(c.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_CLASSNAME));
-                if(ignore != null && ignore.isEmpty() == false) {
-                    boolean isIgnore = false;
-                    for (String info : ignore) {
-                        if(info.equals(cn)) {
-                            isIgnore = true;
-                            break;
+        try {
+            Cursor c = db.rawQuery("SELECT "
+                    + LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME
+                    + " , "
+                    + LauncherSettings.PredictedApps.COLUMN_CLASSNAME
+                    + " FROM " + LauncherSettings.PredictedApps.TABLE_NAME +
+                    " ORDER BY " + LauncherSettings.PredictedApps.COLUMN_FREQ +
+                    " DESC", null);
+            if (c.moveToFirst()) {
+                while (c.isAfterLast() == false) {
+                    if(count <= apps.size())
+                        break;
+                    String pn = c.getString(c.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME));
+                    String cn = c.getString(c.getColumnIndex(LauncherSettings.PredictedApps.COLUMN_CLASSNAME));
+                    if(ignore != null && ignore.isEmpty() == false) {
+                        boolean isIgnore = false;
+                        for (String info : ignore) {
+                            if(info.equals(cn)) {
+                                isIgnore = true;
+                                break;
+                            }
                         }
-                    }
-                    if(!isIgnore) {
+                        if(!isIgnore) {
+                            apps.add(new ComponentKey(new ComponentName(pn, cn), UserHandleCompat.myUserHandle()));
+                        }
+                    } else {
                         apps.add(new ComponentKey(new ComponentName(pn, cn), UserHandleCompat.myUserHandle()));
                     }
-                } else {
-                    apps.add(new ComponentKey(new ComponentName(pn, cn), UserHandleCompat.myUserHandle()));
+                    c.moveToNext();
                 }
-                c.moveToNext();
             }
-        }
-        if(c != null) {
-            c.close();
+            if(c != null) {
+                c.close();
+            }
+        } catch (SQLiteException e) {
+            e.printStackTrace();
         }
         return apps;
     }
@@ -572,6 +577,8 @@ public class LauncherProvider extends ContentProvider {
             long ret = db.insert(LauncherSettings.PredictedApps.TABLE_NAME,null,values);
             if (ret != -1) notifyListeners();
         }
+        if(cursor != null)
+            cursor.close();
     }
 
     public void resizePredictedAppsTable() {
@@ -598,6 +605,8 @@ public class LauncherProvider extends ContentProvider {
             Log.e(TAG, ex.getMessage(), ex);
         } finally {
             db.endTransaction();
+            if(c != null)
+                c.close();
         }
     }
 
@@ -611,6 +620,20 @@ public class LauncherProvider extends ContentProvider {
                         " WHERE " + LauncherSettings.PredictedApps.COLUMN_PACKAGE_NAME + "="+
                         pkg+";");
             }
+            db.setTransactionSuccessful();
+        } catch (SQLException ex) {
+            Log.e(TAG, ex.getMessage(), ex);
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void cleanPredictedAppsTableAll() {
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        try {
+            db.beginTransaction();
+            db.execSQL("DELETE FROM " + TABLE_PREDICTED_APPS +
+                    " WHERE 1=1;");
             db.setTransactionSuccessful();
         } catch (SQLException ex) {
             Log.e(TAG, ex.getMessage(), ex);
@@ -734,7 +757,7 @@ public class LauncherProvider extends ContentProvider {
          */
         protected void onEmptyDbCreated() {
             // Set the flag for empty DB
-            Utilities.getPrefs(mContext).edit().putBoolean(EMPTY_DATABASE_CREATED, true).commit();
+            Utilities.getPrefs(mContext).edit().putBoolean(EMPTY_DATABASE_CREATED, true).apply();
 
             // When a new DB is created, remove all previously stored managed profile information.
             ManagedProfileHeuristic.processAllUsers(Collections.<UserHandleCompat>emptyList(),
@@ -830,7 +853,7 @@ public class LauncherProvider extends ContentProvider {
         }
 
         private void setFlagJustLoadedOldDb() {
-            Utilities.getPrefs(mContext).edit().putBoolean(EMPTY_DATABASE_CREATED, false).commit();
+            Utilities.getPrefs(mContext).edit().putBoolean(EMPTY_DATABASE_CREATED, false).apply();
         }
 
         @Override

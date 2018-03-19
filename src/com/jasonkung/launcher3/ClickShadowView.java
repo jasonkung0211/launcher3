@@ -46,6 +46,9 @@ public class ClickShadowView extends View {
         mShadowOffset = getResources().getDimension(R.dimen.click_shadow_high_shift);
     }
 
+    //Avoid setTextVisible crash
+    public void setTextVisible(boolean b){};
+
     /**
      * @return extra space required by the view to show the shadow.
      */

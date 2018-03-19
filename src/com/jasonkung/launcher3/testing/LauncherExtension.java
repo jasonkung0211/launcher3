@@ -28,7 +28,7 @@ public class LauncherExtension extends Launcher {
     //------ Activity methods -------//
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setLauncherCallbacks(new LauncherExtensionCallbacks());
+        //setLauncherCallbacks(new LauncherExtensionCallbacks());
         super.onCreate(savedInstanceState);
     }
 

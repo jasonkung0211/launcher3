@@ -106,4 +106,9 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"Reducir ancho"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"Reducir altura"</string>
     <string name="widget_resized" msgid="9130327887929620">"Se ha modificado el tamaño del widget a <xliff:g id="NUMBER_0">%1$s</xliff:g> de ancho y <xliff:g id="NUMBER_1">%2$s</xliff:g> de alto"</string>
+
+    <string name="title_app_suggestions">Sugerencias de aplicaciones</string>
+    <string name="title_disable_suggestions_prompt">¿Desactivar las sugerencias de aplicaciones?</string>
+    <string name="msg_disable_suggestions_prompt">No se mostrarán sugerencias en la parte superior de tu lista de aplicaciones, y los datos de uso utilizados para crearlas se borrarán de forma permanente.</string>
+    <string name="label_turn_off_suggestions">DESACTIVAR</string>
 </resources>

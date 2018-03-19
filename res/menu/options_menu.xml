@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Settings">
+
+    <!--<item-->
+        <!--android:id="@+id/id_donate"-->
+        <!--app:showAsAction="always|withText"-->
+        <!--android:title="@string/donate_"-->
+        <!--android:icon="@drawable/ic_favorite_green_24dp"/>-->
+</menu>

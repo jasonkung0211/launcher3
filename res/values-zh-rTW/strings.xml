@@ -106,4 +106,10 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"減少寬度"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"減少高度"</string>
     <string name="widget_resized" msgid="9130327887929620">"已將小工具的寬度和高度分別調整為 <xliff:g id="NUMBER_0">%1$s</xliff:g> 和 <xliff:g id="NUMBER_1">%2$s</xliff:g>"</string>
+
+    <string name="title_app_suggestions">應用程式建議</string>
+    <string name="title_disable_suggestions_prompt">要關閉應用程式建議嗎？</string>
+    <string name="msg_disable_suggestions_prompt">關閉之後，應用程式清單頂端就不會顯示建議，而且用來產生這些建議的使用資料將永久清除。</string>
+    <string name="label_turn_off_suggestions">關閉</string>
+
 </resources>

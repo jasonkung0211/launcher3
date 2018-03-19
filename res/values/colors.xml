@@ -18,10 +18,13 @@
 */
 -->
 <resources>
+
+    <color name="primary_green">#52bf90</color>
+    <color name="primary_dark_green">#398564</color>
+
     <!-- The color tints to apply to the text and drag view when hovering
          over the delete target or the info target -->
     <color name="delete_target_hover_tint">#FFC1C1C1</color>
-    <color name="uninstall_target_hover_tint">#FFF0592B</color>
     <color name="info_target_hover_tint">#FF009688</color>
     <color name="cling_scrim_background">#80000000</color>
 
@@ -47,7 +50,50 @@
     <color name="all_apps_search_market_button_focused_bg_color">#DDDDDD</color>
 
     <!-- Widgets view -->
-    <color name="widgets_view_section_text_color">#FFFFFF</color>
-    <color name="widgets_view_item_text_color">#C4C4C4</color>
-    <color name="widgets_cell_color">#263238</color>
+    <!--<color name="widget_text_panel">#ff374248</color>-->
+    <color name="widgets_cell_color">#40ffffff</color>
+    <color name="widgets_cell_divider_color">#50ffffff</color>
+    <color name="widgets_view_item_text_color">#ffeeeeee</color>
+    <color name="widgets_view_section_text_color">#ffffffff</color>
+
+
+    <!--<color name="place_autocomplete_prediction_primary_text">#ff212121</color>-->
+    <!--<color name="place_autocomplete_prediction_primary_text_highlight">#ff757575</color>-->
+    <!--<color name="place_autocomplete_prediction_secondary_text">#ff757575</color>-->
+    <color name="place_autocomplete_search_hint">#ffbdbdbd</color>
+    <!--<color name="place_autocomplete_search_text">#ff212121</color>-->
+    <!--<color name="place_autocomplete_separator">#1f000000</color>-->
+    <!--<color name="common_google_signin_btn_text_dark_default">@android:color/white</color>-->
+    <!--<color name="common_google_signin_btn_text_dark_disabled">#1f000000</color>-->
+    <!--<color name="common_google_signin_btn_text_dark_focused">@android:color/black</color>-->
+    <!--<color name="common_google_signin_btn_text_dark_pressed">@android:color/white</color>-->
+    <!--<color name="common_google_signin_btn_text_light_default">#90000000</color>-->
+    <!--<color name="common_google_signin_btn_text_light_disabled">#1f000000</color>-->
+    <!--<color name="common_google_signin_btn_text_light_focused">#90000000</color>-->
+    <!--<color name="common_google_signin_btn_text_light_pressed">#de000000</color>-->
+    <!--<color name="common_plus_signin_btn_text_dark_default">@android:color/white</color>-->
+    <!--<color name="common_plus_signin_btn_text_dark_disabled">#ffaaaaaa</color>-->
+    <!--<color name="common_plus_signin_btn_text_dark_focused">@android:color/white</color>-->
+    <!--<color name="common_plus_signin_btn_text_dark_pressed">@android:color/white</color>-->
+    <!--<color name="common_plus_signin_btn_text_light_default">#ff737373</color>-->
+    <!--<color name="common_plus_signin_btn_text_light_disabled">#ffaaaaaa</color>-->
+    <!--<color name="common_plus_signin_btn_text_light_focused">#ff737373</color>-->
+    <!--<color name="common_plus_signin_btn_text_light_pressed">#de000000</color>-->
+    <color name="uninstall_target_hover_tint">#ffea4335</color>
+    <!--<color name="page_indicator_dot_color">#ffdddddd</color>-->
+    <!--<color name="all_apps_divider_color">#1e000000</color>-->
+    <!--<color name="all_apps_caret_color">#ffffffff</color>-->
+    <!--<color name="all_apps_caret_shadow_color">#22000000</color>-->
+    <!--<color name="all_apps_container_color">#fff2f2f2</color>-->
+    <!--<color name="all_apps_navbar_color">#28000000</color>-->
+    <!--<color name="all_apps_light_navbar_color">#aaf2f2f2</color>-->
+    <!--<color name="spring_loaded_panel_color">#40ffffff</color>-->
+    <!--<color name="spring_loaded_highlighted_panel_border_color">#ffffffff</color>-->
+    <!--<color name="notification_icon_default_color">#ff757575</color>-->
+    <!--<color name="qsb_connector">#fff2f2f2</color>-->
+    <!--<color name="qsb_background">#ffffffff</color>-->
+
+    <color name="favb_hint">#f1ff0000</color>
+    <color name="blur_darken_live_wallpaper">#AA000000</color>
+    <color name="blur_darken_opaque_wallpaper">#58000000</color>
 </resources>

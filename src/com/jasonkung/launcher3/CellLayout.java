@@ -143,6 +143,8 @@ public class CellLayout extends ViewGroup implements BubbleTextShadowHandler {
     private boolean mIsHotseat = false;
     private float mHotseatScale = 1f;
 
+    private boolean mIsTextVisible = true;
+
     public static final int MODE_SHOW_REORDER_HINT = 0;
     public static final int MODE_DRAG_OVER = 1;
     public static final int MODE_ON_DROP = 2;
@@ -202,6 +204,8 @@ public class CellLayout extends ViewGroup implements BubbleTextShadowHandler {
         mTmpOccupied = new boolean[mCountX][mCountY];
         mPreviousReorderDirection[0] = INVALID_DIRECTION;
         mPreviousReorderDirection[1] = INVALID_DIRECTION;
+
+        mIsTextVisible = Utilities.isHideIconLabels(mLauncher);
 
         setAlwaysDrawnWithCacheEnabled(false);
         final Resources res = getResources();
@@ -627,6 +631,10 @@ public class CellLayout extends ViewGroup implements BubbleTextShadowHandler {
         mShortcutsAndWidgets.setIsHotseat(isHotseat);
     }
 
+    public void setTextVisible(boolean visible) {
+        mIsTextVisible = visible;//TODO: set Text Color
+    }
+
     public boolean isHotseat() {
         return mIsHotseat;
     }
@@ -635,10 +643,12 @@ public class CellLayout extends ViewGroup implements BubbleTextShadowHandler {
             boolean markCells) {
         final LayoutParams lp = params;
 
-        // Hotseat icons - remove text
-        if (child instanceof BubbleTextView) {
+        if(child instanceof FolderIcon) {
+            ((FolderIcon) child).setTextVisible(!mIsHotseat && mIsTextVisible);
+        } else if (child instanceof BubbleTextView) {
             BubbleTextView bubbleChild = (BubbleTextView) child;
-            bubbleChild.setTextVisibility(!mIsHotseat);
+            // Hotseat icons - remove text
+            bubbleChild.setTextVisibility(!mIsHotseat && mIsTextVisible);
         }
 
         child.setScaleX(getChildrenScale());

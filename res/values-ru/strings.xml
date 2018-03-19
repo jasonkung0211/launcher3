@@ -106,4 +106,9 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"Уменьшить ширину"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"Уменьшить высоту"</string>
     <string name="widget_resized" msgid="9130327887929620">"Изменен размер виджета: до <xliff:g id="NUMBER_0">%1$s</xliff:g> в ширину и <xliff:g id="NUMBER_1">%2$s</xliff:g> в высоту"</string>
+
+    <string name="title_app_suggestions">Рекомендуемые приложения</string>
+    <string name="title_disable_suggestions_prompt">Не показывать рекомендуемые приложения?</string>
+    <string name="msg_disable_suggestions_prompt">Рекомендуемые приложения не будут показываться в начале списка. Данные, связанные с этой функцией, будут удалены.</string>
+    <string name="label_turn_off_suggestions">ОТКЛЮЧИТЬ</string>
 </resources>

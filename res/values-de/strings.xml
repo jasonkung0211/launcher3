@@ -106,4 +106,9 @@
     <string name="action_decrease_width" msgid="1374549771083094654">"Breite verringern"</string>
     <string name="action_decrease_height" msgid="282377193880900022">"Höhe verringern"</string>
     <string name="widget_resized" msgid="9130327887929620">"Größe des Widgets zu Breite <xliff:g id="NUMBER_0">%1$s</xliff:g> und Höhe <xliff:g id="NUMBER_1">%2$s</xliff:g> geändert"</string>
+
+    <string name="title_app_suggestions">App-Vorschläge</string>
+    <string name="title_disable_suggestions_prompt">App-Vorschläge deaktivieren?</string>
+    <string name="msg_disable_suggestions_prompt">Vorschläge werden nicht oben in deiner Apps-Liste angezeigt und die zu deiner Erstellung verwendeten Nutzungsdaten werden endgültig gelöscht.</string>
+    <string name="label_turn_off_suggestions">DEAKTIVIEREN</string>
 </resources>

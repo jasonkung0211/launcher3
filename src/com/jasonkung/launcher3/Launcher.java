@@ -30,6 +30,7 @@ import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.SearchManager;
+import android.app.WallpaperManager;
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
@@ -37,6 +38,7 @@ import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks2;
 import android.content.ComponentName;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -53,9 +55,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -68,6 +72,7 @@ import android.os.Message;
 import android.os.StrictMode;
 import android.os.SystemClock;
 import android.os.UserHandle;
+import android.provider.CalendarContract;
 import android.text.Selection;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -94,6 +99,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.javiersantos.piracychecker.PiracyChecker;
 import com.jasonkung.launcher3.DropTarget.DragObject;
 import com.jasonkung.launcher3.PagedView.PageSwitchListener;
 import com.jasonkung.launcher3.allapps.AllAppsContainerView;
@@ -109,7 +115,9 @@ import com.jasonkung.launcher3.dragndrop.DragView;
 import com.jasonkung.launcher3.folder.Folder;
 import com.jasonkung.launcher3.folder.FolderIcon;
 import com.jasonkung.launcher3.model.WidgetsModel;
+import com.jasonkung.launcher3.util.Blur;
 import com.jasonkung.launcher3.util.ComponentKey;
+import com.jasonkung.launcher3.util.LaunchUtil;
 import com.jasonkung.launcher3.util.LongArrayMap;
 import com.jasonkung.launcher3.util.PackageManagerHelper;
 import com.jasonkung.launcher3.util.TestingUtils;
@@ -117,6 +125,7 @@ import com.jasonkung.launcher3.util.Thunk;
 import com.jasonkung.launcher3.widget.PendingAddWidgetInfo;
 import com.jasonkung.launcher3.widget.WidgetHostViewLoader;
 import com.jasonkung.launcher3.widget.WidgetsContainerView;
+import com.melnykov.fab.FloatingActionButton;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.TextStyle;
@@ -138,6 +147,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 
 /**
  * Default launcher application.
@@ -169,6 +179,7 @@ public class Launcher extends Activity
     private static final int WORKSPACE_BACKGROUND_GRADIENT = 0;
     private static final int WORKSPACE_BACKGROUND_TRANSPARENT = 1;
     private static final int WORKSPACE_BACKGROUND_BLACK = 2;
+    private static final int WORKSPACE_BACKGROUND_BLUR = 3;
 
     private static final float BOUNCE_ANIMATION_TENSION = 1.3f;
 
@@ -230,6 +241,7 @@ public class Launcher extends Activity
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String str) {
             if (Utilities.ALLOW_ROTATION_PREFERENCE_KEY.equals(str)) {
                 Launcher.this.mRotationEnabled = Utilities.isAllowRotationPrefEnabled(Launcher.this.getApplicationContext());
+                if(BuildConfig.DEBUG) Log.d(TAG, "ALLOW_ROTATION_PREFERENCE_KEY----------"+mRotationEnabled+"---------------");
                 if (!Launcher.this.waitUntilResume(this, true)) {
                     run();
                 }
@@ -240,6 +252,189 @@ public class Launcher extends Activity
             Launcher.this.setOrientation();
         }
     }
+
+    class HideQsbPrefChangeHandler implements OnSharedPreferenceChangeListener, Runnable {
+        private HideQsbPrefChangeHandler() {
+        }
+
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String str) {
+            if(Utilities.HIDE_QSB_PREFERENCE_KEY.equals(str)){
+                Launcher.this.mHideQSBEnabled = Utilities.isHideQsbPrefEnabled(Launcher.this.getApplicationContext());
+                run();
+            }
+        }
+
+        public void run() {
+            Launcher.this.getOrCreateDateTimeQsbBar();
+        }
+    }
+
+    class ShowPredictionsPrefChangeHandler implements OnSharedPreferenceChangeListener, Runnable {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if(Utilities.SHOW_PREDICTIONS.equals(key)) {
+                Launcher.this.mShowPredictions = Utilities.isShowPredictions(getApplicationContext());
+                if(!Launcher.this.mShowPredictions) {
+                    run();
+                }
+            }
+        }
+
+        @Override
+        public void run() {
+            LauncherProvider lp = LauncherAppState.getInstance().getLauncherProvider();
+            lp.cleanPredictedAppsTableAll();
+            if (mAppsView != null) {
+                mAppsView.cleanPredictedApps();
+            }
+        }
+    }
+
+    class HideAppsIconLabelsPrefChangeHandle implements OnSharedPreferenceChangeListener, Runnable {
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if(Utilities.HIDE_APPS_ICON_LABELS.equals(key)) {
+                Launcher.this.mHideIconLabels = Utilities.isHideIconLabels(getApplicationContext());
+                run();
+            }
+        }
+
+        @Override
+        public void run() {
+            mWorkspace.setTextVisible(!mHideIconLabels);
+            reloadLauncherIcon();
+        }
+    }
+
+    public void reloadLauncherProfile() {
+        // Re-initialize device profile
+        LauncherAppState app = LauncherAppState.getInstance();
+        app.initInvariantDeviceProfile();
+        initializeDeviceProfile(app);
+        mDeviceProfile.layout(this);
+    }
+
+    public void reloadLauncherIcon() {
+        // Reload
+        mModel.resetLoadedState(true, true);
+        mModel.startLoader(mWorkspace.getRestorePage(), LauncherModel.LOADER_FLAG_NONE);
+        mWorkspace.updateCustomContentVisibility();
+        mAppsView.reset();
+    }
+
+    public void initializeDeviceProfile(LauncherAppState app) {
+        // Load configuration-specific DeviceProfile
+        mDeviceProfile = getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE ?
+                app.getInvariantDeviceProfile().landscapeProfile
+                : app.getInvariantDeviceProfile().portraitProfile;
+        mModel = app.setLauncher(this);
+        mIconCache = app.getIconCache();
+        mHideIconLabels = Utilities.isHideIconLabels(getApplicationContext());
+    }
+
+    private BroadcastReceiver mWallpaperBroadcastReceiver;
+    class WallpaperChangeBroadcast extends BroadcastReceiver {
+        public void onReceive(Context context, Intent intent) {
+            Launcher.this.refreshBlurredImage();
+        }
+    }
+
+    private void refreshBlurredImage() {
+        if (this.mRefreshBlurredImageTask != null) {
+            this.mRefreshBlurredImageTask.cancel(true);
+        }
+        this.mRefreshBlurredImageTask = new BlurAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new Void[0]);
+    }
+
+    class BlurredImageTaskResult extends Object {
+        Bitmap bitmap;
+        boolean isLiveWallpaper;
+    }
+
+    class BlurAsyncTask extends AsyncTask<Void, Void, BlurredImageTaskResult> {
+        BlurAsyncTask() {}
+
+        protected BlurredImageTaskResult doInBackground(Void[] params) {
+            if (Launcher.this.mLauncherView == null) {
+                return null;
+            }
+            Drawable wallpaperDrawable;
+            BlurredImageTaskResult mResult = new BlurredImageTaskResult();
+            WallpaperManager wallpaperManager = WallpaperManager.getInstance(Launcher.this);
+            mResult.isLiveWallpaper = wallpaperManager.getWallpaperInfo() != null;
+            try {
+                wallpaperDrawable = wallpaperManager.getFastDrawable();
+            } catch (RuntimeException e) {
+                wallpaperDrawable = null;
+                mResult.isLiveWallpaper = true;
+            }
+            Bitmap bitmap;
+            Canvas canvas;
+            int color;
+            if (mResult.isLiveWallpaper) {
+                bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+                canvas = new Canvas(bitmap);
+                color = Launcher.this.getResources().getColor(R.color.blur_darken_live_wallpaper);
+                canvas.drawARGB(Color.alpha(color), Color.red(color), Color.blue(color), Color.green(color));
+                mResult.bitmap = bitmap;
+            } else if (wallpaperDrawable != null) {
+                wallpaperDrawable.setBounds(0, 0, wallpaperDrawable.getIntrinsicWidth(), wallpaperDrawable.getIntrinsicHeight());
+                int vwidth = (int) Math.ceil((double) (((float) wallpaperDrawable.getIntrinsicWidth()) * 0.25f));
+                int vheight = (int) Math.ceil((double) (((float) wallpaperDrawable.getIntrinsicHeight()) * 0.25f));
+                if (vwidth <= 0 || vheight <= 0) {
+                    return null;
+                }
+                float scale;
+                bitmap = Bitmap.createBitmap(vwidth, vheight, Bitmap.Config.ARGB_8888);
+                canvas = new Canvas(bitmap);
+                Matrix wallpaperMatrix = new Matrix();
+                float dx = 0.0f;
+                float dy = 0.0f;
+                int dwidth = wallpaperDrawable.getIntrinsicWidth();
+                int dheight = wallpaperDrawable.getIntrinsicHeight();
+                if (dwidth * vheight > vwidth * dheight) {
+                    scale = ((float) vheight) / ((float) dheight);
+                    dx = (((float) vwidth) - (((float) dwidth) * scale)) * 0.5f;
+                } else {
+                    scale = ((float) vwidth) / ((float) dwidth);
+                    dy = (((float) vheight) - (((float) dheight) * scale)) * 0.5f;
+                }
+                wallpaperMatrix.setScale(scale, scale);
+                wallpaperMatrix.postTranslate((float) ((int) (0.5f + dx)), (float) ((int) (0.5f + dy)));
+                canvas.save();
+                canvas.concat(wallpaperMatrix);
+                wallpaperDrawable.draw(canvas);
+                canvas.restore();
+                color = Launcher.this.getResources().getColor(R.color.blur_darken_opaque_wallpaper);
+                canvas.save();
+                canvas.drawARGB(Color.alpha(color), Color.red(color), Color.blue(color), Color.green(color));
+                canvas.restore();
+                mResult.bitmap = Blur.blur(Launcher.this, bitmap, 5, 1);
+            } else {
+                bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+                canvas = new Canvas(bitmap);
+                color = Launcher.this.getResources().getColor(R.color.blur_darken_opaque_wallpaper);
+                canvas.drawARGB(Color.alpha(color), Color.red(color), Color.blue(color), Color.green(color));
+                mResult.bitmap = bitmap;
+            }
+            return mResult;
+        }
+
+        protected void onPostExecute(BlurredImageTaskResult result) {
+            if (result != null) {
+                Launcher.this.mBlurBackgroundDrawable =
+                        new BitmapDrawable(getResources(), result.bitmap);
+                //Launcher.this.mBlurImageView.setImageBitmap(result.bitmap);
+                //Launcher.this.mAllAppsBackground.setImageBitmap(result.bitmap);
+                //Launcher.this.mIsLiveWallpaper = result.isLiveWallpaper;
+                Launcher.this.mRefreshBlurredImageTask = null;
+            }
+        }
+    }
+
+    private AsyncTask mRefreshBlurredImageTask;
 
     /** The different states that Launcher can be in. */
     enum State { NONE, WORKSPACE, APPS, APPS_SPRING_LOADED, WIDGETS, WIDGETS_SPRING_LOADED }
@@ -350,6 +545,7 @@ public class Launcher extends Activity
     private final int mRestoreScreenOrientationDelay = 500;
 
     @Thunk Drawable mWorkspaceBackgroundDrawable;
+    @Thunk Drawable mBlurBackgroundDrawable;
 
     private final ArrayList<Integer> mSynchronouslyBoundPages = new ArrayList<Integer>();
     private static final boolean DISABLE_SYNCHRONOUS_BINDING_CURRENT_PAGE = false;
@@ -413,14 +609,41 @@ public class Launcher extends Activity
     private Stats mStats;
     @BindView(R.id.focus_indicator) public FocusIndicatorView mFocusHandler;
     private boolean mRotationEnabled = false;
+    private boolean mHideQSBEnabled = false;
+    private boolean mShowPredictions = true;
+    private boolean mHideIconLabels = false;
     private RotationPrefChangeHandler mRotationPrefChangeHandler;
+    private HideQsbPrefChangeHandler mHideQsbPrefChangeHandler;
+    private ShowPredictionsPrefChangeHandler mShowPredictionsPrefChangeHandler;
+    private HideAppsIconLabelsPrefChangeHandle mHideAppsIconLabelsPrefChangeHandle;
+
+    private PiracyChecker checker;
 
     @Thunk void setOrientation() {
         if (mRotationEnabled) {
             unlockScreenOrientation(true);
         } else {
-            setRequestedOrientation(
-                    ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+            if(mDeviceProfile.isTablet) {
+                /*int rotation = getWindowManager().getDefaultDisplay().getRotation();
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    if(rotation == Surface.ROTATION_90|| rotation == Surface.ROTATION_180){
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+                    } else {
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    }
+                } else {
+                    if(rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90){
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    } else {
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
+                    }
+                }*/
+                setRequestedOrientation(mapConfigurationOriActivityInfoOri(getResources()
+                        .getConfiguration().orientation));
+            } else {
+                setRequestedOrientation(
+                        ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+            }
         }
     }
 
@@ -441,7 +664,7 @@ public class Launcher extends Activity
                     .build());
         }
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.preOnCreate();
         }
 
@@ -449,17 +672,10 @@ public class Launcher extends Activity
 
         LauncherAppState app = LauncherAppState.getInstance();
 
-        // Load configuration-specific DeviceProfile
-        mDeviceProfile = getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE ?
-                app.getInvariantDeviceProfile().landscapeProfile
-                : app.getInvariantDeviceProfile().portraitProfile;
+        initializeDeviceProfile(app);
 
         mSharedPrefs = Utilities.getPrefs(this);
         mIsSafeModeEnabled = getPackageManager().isSafeMode();
-        mModel = app.setLauncher(this);
-        mIconCache = app.getIconCache();
-
         mDragController = new DragController(this);
         mInflater = getLayoutInflater();
         mStateTransitionAnimation = new LauncherStateTransitionAnimation(this);
@@ -486,6 +702,26 @@ public class Launcher extends Activity
 
         app.getInvariantDeviceProfile().landscapeProfile.setSearchBarHeight(getSearchBarHeight());
         app.getInvariantDeviceProfile().portraitProfile.setSearchBarHeight(getSearchBarHeight());
+
+        //HideQsbPrefChangeHandler
+        mHideQSBEnabled = Utilities.isHideQsbPrefEnabled(getApplicationContext());
+        mHideQsbPrefChangeHandler = new HideQsbPrefChangeHandler();
+        mSharedPrefs.registerOnSharedPreferenceChangeListener(this.mHideQsbPrefChangeHandler);
+
+
+        mShowPredictions = Utilities.isShowPredictions(getApplicationContext());
+        mShowPredictionsPrefChangeHandler = new ShowPredictionsPrefChangeHandler();
+        mSharedPrefs.registerOnSharedPreferenceChangeListener(this.mShowPredictionsPrefChangeHandler);
+
+        //mHideIconLabels = Utilities.isHideIconLabels(getApplicationContext());
+        mHideAppsIconLabelsPrefChangeHandle = new HideAppsIconLabelsPrefChangeHandle();
+        mSharedPrefs.registerOnSharedPreferenceChangeListener(this.mHideAppsIconLabelsPrefChangeHandle);
+
+        this.mWallpaperBroadcastReceiver = new WallpaperChangeBroadcast();
+        IntentFilter wallpaperFilter = new IntentFilter();
+        wallpaperFilter.addAction(Intent.ACTION_WALLPAPER_CHANGED);
+        registerReceiver(this.mWallpaperBroadcastReceiver, wallpaperFilter);
+
         setupViews();
         mDeviceProfile.layout(this);
 
@@ -522,17 +758,17 @@ public class Launcher extends Activity
         mRotationEnabled = getResources().getBoolean(R.bool.allow_rotation);
         // In case we are on a device with locked rotation, we should look at preferences to check
         // if the user has specifically allowed rotation.
-        if (!mRotationEnabled) {
-            mRotationEnabled = Utilities.isAllowRotationPrefEnabled(getApplicationContext());
-            mRotationPrefChangeHandler = new RotationPrefChangeHandler();
-            mSharedPrefs.registerOnSharedPreferenceChangeListener(this.mRotationPrefChangeHandler);
-        }
+        //if (!mRotationEnabled) {
+        mRotationEnabled = Utilities.isAllowRotationPrefEnabled(getApplicationContext());
+        mRotationPrefChangeHandler = new RotationPrefChangeHandler();
+        mSharedPrefs.registerOnSharedPreferenceChangeListener(this.mRotationPrefChangeHandler);
+        //}
 
         // On large interfaces, or on devices that a user has specifically enabled screen rotation,
         // we want the screen to auto-rotate based on the current orientation
         setOrientation();
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onCreate(savedInstanceState);
         }
 
@@ -548,7 +784,7 @@ public class Launcher extends Activity
 
     public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onPostCreate(savedInstanceState);
         }
     }
@@ -556,14 +792,14 @@ public class Launcher extends Activity
     /**
      * Call this after onCreate to set or clear overlay.
      */
-    public void setLauncherOverlay(LauncherOverlay overlay) {
+    /*public void setLauncherOverlay(LauncherOverlay overlay) {
         if (overlay != null) {
             overlay.setOverlayCallbacks(new LauncherOverlayCallbacksImpl());
         }
         mWorkspace.setLauncherOverlay(overlay);
-    }
+    }*/
 
-    public boolean setLauncherCallbacks(LauncherCallbacks callbacks) {
+    /*public boolean setLauncherCallbacks(LauncherCallbacks callbacks) {
         Log.d(TAG ,"--------------------setLauncherCallbacks--------------------------");
         mLauncherCallbacks = callbacks;
         mLauncherCallbacks.setLauncherSearchCallback(new Launcher.LauncherSearchCallbacks() {
@@ -608,11 +844,11 @@ public class Launcher extends Activity
             }
         });
         return true;
-    }
+    }*/
 
     @Override
     public void onLauncherProviderChange() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onLauncherProviderChange();
         }
     }
@@ -627,7 +863,7 @@ public class Launcher extends Activity
 
     /** To be overridden by subclasses to hint to Launcher that we have custom content */
     protected boolean hasCustomContentToLeft() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.hasCustomContentToLeft();
         }
         return false;
@@ -639,7 +875,7 @@ public class Launcher extends Activity
      * {@link #hasCustomContentToLeft()} is {@code true}.
      */
     protected void populateCustomContentContainer() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.populateCustomContentContainer();
         }
     }
@@ -864,7 +1100,7 @@ public class Launcher extends Activity
     protected void onActivityResult(
             final int requestCode, final int resultCode, final Intent data) {
         handleActivityResult(requestCode, resultCode, data);
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -890,7 +1126,7 @@ public class Launcher extends Activity
                         getString(R.string.app_name)), Toast.LENGTH_SHORT).show();
             }
         }
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onRequestPermissionsResult(requestCode, permissions,
                     grantResults);
         }
@@ -966,7 +1202,7 @@ public class Launcher extends Activity
         super.onStop();
         FirstFrameAnimatorHelper.setIsVisible(false);
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onStop();
         }
     }
@@ -976,7 +1212,7 @@ public class Launcher extends Activity
         super.onStart();
         FirstFrameAnimatorHelper.setIsVisible(true);
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onStart();
         }
     }
@@ -989,7 +1225,7 @@ public class Launcher extends Activity
             Log.v(TAG, "Launcher.onResume()");
         }
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.preOnResume();
         }
 
@@ -1094,7 +1330,7 @@ public class Launcher extends Activity
             InstallShortcutReceiver.disableAndFlushInstallQueue(this);
         }
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onResume();
         }
     }
@@ -1115,7 +1351,7 @@ public class Launcher extends Activity
             mWorkspace.getCustomContentCallbacks().onHide();
         }
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onPause();
         }
     }
@@ -1186,7 +1422,7 @@ public class Launcher extends Activity
     }
 
     protected boolean hasSettings() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.hasSettings();
         } else {
             // On devices with a locked orientation, we will at least have the allow rotation
@@ -1222,7 +1458,7 @@ public class Launcher extends Activity
         super.onWindowFocusChanged(hasFocus);
         mHasFocus = hasFocus;
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onWindowFocusChanged(hasFocus);
         }
     }
@@ -1365,6 +1601,7 @@ public class Launcher extends Activity
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         mWorkspaceBackgroundDrawable = getResources().getDrawable(R.drawable.workspace_bg);
+        refreshBlurredImage();
 
         // Setup the drag layer
         mDragLayer.setup(this, dragController);
@@ -1384,7 +1621,7 @@ public class Launcher extends Activity
         dragController.addDragListener(mWorkspace);
 
         // Setup Apps and Widgets
-        if (mLauncherCallbacks != null && mLauncherCallbacks.getAllAppsSearchBarController() != null) {
+        if ((false && mLauncherCallbacks != null) && mLauncherCallbacks.getAllAppsSearchBarController() != null) {
             mAppsView.setSearchBarController(mLauncherCallbacks.getAllAppsSearchBarController());
         } else {
             mAppsView.setSearchBarController(new DefaultAppSearchController());
@@ -1400,7 +1637,7 @@ public class Launcher extends Activity
             mSearchDropTargetBar.setQsbSearchBar(getOrCreateQsbBar());
         }
 
-        if(mQsb != null && hideQsbBar && false) {
+        if(false && mQsb != null && hideQsbBar) {
             //TODO fix me
             TextView date = (TextView) mQsb.findViewById(R.id.date_str);
             TextView week = (TextView) mQsb.findViewById(R.id.week_year_str);
@@ -1452,8 +1689,8 @@ public class Launcher extends Activity
 
         // Bind settings actions
         View settingsButton = findViewById(R.id.settings_button);
-        boolean hasSettings = hasSettings();
-        if (hasSettings) {
+        //boolean hasSettings = hasSettings();
+        if (true /*hasSettings*/) {
             settingsButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -1686,7 +1923,7 @@ public class Launcher extends Activity
         mAttached = true;
         mVisible = true;
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onAttachedToWindow();
         }
     }
@@ -1702,7 +1939,7 @@ public class Launcher extends Activity
         }
         updateAutoAdvanceState();
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onDetachedFromWindow();
         }
     }
@@ -1923,12 +2160,12 @@ public class Launcher extends Activity
                 mWidgetsView.scrollToTop();
             }
 
-            if (mLauncherCallbacks != null) {
+            if ((false && mLauncherCallbacks != null)) {
                 mLauncherCallbacks.onHomeIntent();
             }
         }
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onNewIntent(intent);
         }
 
@@ -1936,7 +2173,7 @@ public class Launcher extends Activity
         // as slow logic in the callbacks eat into the time the scroller expects for the snapToPage
         // animation.
         if (isActionMain) {
-            boolean moveToDefaultScreen = mLauncherCallbacks != null ?
+            boolean moveToDefaultScreen = (false && mLauncherCallbacks != null) ?
                     mLauncherCallbacks.shouldMoveToDefaultScreenOnHomeIntent() : true;
             if (alreadyOnHome && mState == State.WORKSPACE && !mWorkspace.isTouchActive() &&
                     openFolder == null && moveToDefaultScreen) {
@@ -2007,7 +2244,7 @@ public class Launcher extends Activity
         // Save the current widgets tray?
         // TODO(hyunyoungs)
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onSaveInstanceState(outState);
         }
     }
@@ -2015,6 +2252,7 @@ public class Launcher extends Activity
     @Override
     public void onDestroy() {
         super.onDestroy();
+        checker.destroy();
 
         // Remove all pending runnables
         mHandler.removeMessages(ADVANCE_MSG);
@@ -2033,6 +2271,15 @@ public class Launcher extends Activity
         if (this.mRotationPrefChangeHandler != null) {
             this.mSharedPrefs.unregisterOnSharedPreferenceChangeListener(this.mRotationPrefChangeHandler);
         }
+        if(this.mHideQsbPrefChangeHandler != null) {
+            this.mSharedPrefs.unregisterOnSharedPreferenceChangeListener(this.mHideQsbPrefChangeHandler);
+        }
+        if(this.mShowPredictionsPrefChangeHandler != null) {
+            this.mSharedPrefs.unregisterOnSharedPreferenceChangeListener(this.mShowPredictionsPrefChangeHandler);
+        }
+        if(this.mHideAppsIconLabelsPrefChangeHandle != null) {
+            this.mSharedPrefs.unregisterOnSharedPreferenceChangeListener(this.mHideAppsIconLabelsPrefChangeHandle);
+        }
         try {
             mAppWidgetHost.stopListening();
         } catch (NullPointerException ex) {
@@ -2046,6 +2293,7 @@ public class Launcher extends Activity
 
         unregisterReceiver(mCloseSystemDialogsReceiver);
         unregisterReceiver(mDateChangeBroadcastReceiver);
+        unregisterReceiver(mWallpaperBroadcastReceiver);
 
         mDragLayer.clearAllResizeFrames();
         ((ViewGroup) mWorkspace.getParent()).removeAllViews();
@@ -2055,7 +2303,7 @@ public class Launcher extends Activity
 
         LauncherAnimUtils.onDestroyActivity();
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onDestroy();
         }
     }
@@ -2128,7 +2376,7 @@ public class Launcher extends Activity
      */
     public boolean startSearch(String initialQuery,
             boolean selectInitialQuery, Bundle appSearchData, Rect sourceBounds) {
-        if (mLauncherCallbacks != null && mLauncherCallbacks.providesSearch()) {
+        if ((false && mLauncherCallbacks != null) && mLauncherCallbacks.providesSearch()) {
             return mLauncherCallbacks.startSearch(initialQuery, selectInitialQuery, appSearchData,
                     sourceBounds);
         }
@@ -2185,7 +2433,7 @@ public class Launcher extends Activity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.onPrepareOptionsMenu(menu);
         }
         return false;
@@ -2223,7 +2471,7 @@ public class Launcher extends Activity
     }
 
     protected void onWorkspaceLockedChanged() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onWorkspaceLockedChanged();
         }
     }
@@ -2498,7 +2746,7 @@ public class Launcher extends Activity
 
     @Override
     public void onBackPressed() {
-        if (mLauncherCallbacks != null && mLauncherCallbacks.handleBackPressed()) {
+        if ((false && mLauncherCallbacks != null) && mLauncherCallbacks.handleBackPressed()) {
             return;
         }
 
@@ -2643,7 +2891,7 @@ public class Launcher extends Activity
             showAppsView(true /* animated */, false /* resetListToTop */,
                     true /* updatePredictedApps */, false /* focusSearchBar */);
 
-            if (mLauncherCallbacks != null) {
+            if ((false && mLauncherCallbacks != null)) {
                 mLauncherCallbacks.onClickAllAppsButton(v);
             }
         }
@@ -2651,10 +2899,11 @@ public class Launcher extends Activity
 
     protected void onLongClickAllAppsButton(View v) {
         if (LOGD) Log.d(TAG, "onLongClickAllAppsButton");
-        if (!isAppsViewVisible()) {
-            showAppsView(true /* animated */, false /* resetListToTop */,
-                    true /* updatePredictedApps */, true /* focusSearchBar */);
-        }
+        showOverviewMode(true);
+        //if (!isAppsViewVisible()) {
+        //    showAppsView(true /* animated */, false /* resetListToTop */,
+        //            true /* updatePredictedApps */, true /* focusSearchBar */);
+        //}
     }
 
     private void showBrokenAppInstallDialog(final String packageName,
@@ -2720,7 +2969,7 @@ public class Launcher extends Activity
         // Start activities
         startAppShortcutOrInfoActivity(v);
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onClickAppShortcut(v);
         }
     }
@@ -2798,7 +3047,7 @@ public class Launcher extends Activity
             }
         }
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onClickFolderIcon(v);
         }
     }
@@ -2813,7 +3062,7 @@ public class Launcher extends Activity
             Toast.makeText(this, R.string.safemode_widget_error, Toast.LENGTH_SHORT).show();
         } else {
             showWidgetsView(true /* animated */, true /* resetPageToZero */);
-            if (mLauncherCallbacks != null) {
+            if ((false && mLauncherCallbacks != null)) {
                 mLauncherCallbacks.onClickAddWidgetButton(view);
             }
         }
@@ -2836,7 +3085,7 @@ public class Launcher extends Activity
                         .putExtra(WallpaperPickerActivity.EXTRA_WALLPAPER_OFFSET, offset),
                 REQUEST_PICK_WALLPAPER);
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onClickWallpaperPicker(v);
         }
     }
@@ -2847,10 +3096,10 @@ public class Launcher extends Activity
      */
     protected void onClickSettingsButton(View v) {
         if (LOGD) Log.d(TAG, "onClickSettingsButton");
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onClickSettingsButton(v);
         } else {
-            startActivity(new Intent(this, SettingsActivity.class));
+            startActivity(new Intent(this, Settings.class));
         }
     }
 
@@ -2877,7 +3126,7 @@ public class Launcher extends Activity
             moveWorkspaceToDefaultScreen();
         }
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onDragStarted(view);
         }
     }
@@ -2887,7 +3136,7 @@ public class Launcher extends Activity
      * This implies that the user is now on the homescreen and is not doing housekeeping.
      */
     protected void onInteractionEnd() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onInteractionEnd();
         }
     }
@@ -2902,7 +3151,7 @@ public class Launcher extends Activity
      * when the user is on the homescreen and not doing housekeeping.
      */
     protected void onInteractionBegin() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onInteractionBegin();
         }
     }
@@ -3061,8 +3310,10 @@ public class Launcher extends Activity
     }
 
     private void insert2DB(ComponentKey key) {
-        LauncherProvider lp = LauncherAppState.getInstance().getLauncherProvider();
-        lp.insertOrUpdatePredictedApps(key.componentName.getPackageName(), key.componentName.getClassName());
+        if(mShowPredictions) {
+            LauncherProvider lp = LauncherAppState.getInstance().getLauncherProvider();
+            lp.insertOrUpdatePredictedApps(key.componentName.getPackageName(), key.componentName.getClassName());
+        }
     }
 
     public boolean startActivitySafely(View v, Intent intent, Object tag) {
@@ -3369,6 +3620,9 @@ public class Launcher extends Activity
             case WORKSPACE_BACKGROUND_BLACK:
                 getWindow().setBackgroundDrawable(null);
                 break;
+            case WORKSPACE_BACKGROUND_BLUR:
+                getWindow().setBackgroundDrawable(mBlurBackgroundDrawable);
+                break;
             default:
                 getWindow().setBackgroundDrawable(mWorkspaceBackgroundDrawable);
         }
@@ -3395,7 +3649,7 @@ public class Launcher extends Activity
             // This clears all widget bitmaps from the widget tray
             // TODO(hyunyoungs)
         }
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onTrimMemory(level);
         }
     }
@@ -3404,6 +3658,8 @@ public class Launcher extends Activity
      * @return whether or not the Launcher state changed.
      */
     public boolean showWorkspace(boolean animated) {
+        setWorkspaceBackground(mState == State.WORKSPACE ? WORKSPACE_BACKGROUND_GRADIENT
+                : WORKSPACE_BACKGROUND_TRANSPARENT);
         return showWorkspace(WorkspaceStateTransitionAnimation.SCROLL_TO_CURRENT_PAGE, animated, null);
     }
 
@@ -3458,6 +3714,8 @@ public class Launcher extends Activity
      * Shows the overview button.
      */
     void showOverviewMode(boolean animated) {
+        setWorkspaceBackground(mState == State.WORKSPACE ? WORKSPACE_BACKGROUND_GRADIENT
+                : WORKSPACE_BACKGROUND_TRANSPARENT);
         showOverviewMode(animated, false);
     }
 
@@ -3509,7 +3767,8 @@ public class Launcher extends Activity
             mWidgetsView.scrollToTop();
         }
         showAppsOrWidgets(State.WIDGETS, animated, false);
-
+        if(Utilities.isBlurBackground(getApplicationContext()))
+            setWorkspaceBackground(WORKSPACE_BACKGROUND_BLUR);
         mWidgetsView.post(new Runnable() {
             @Override
             public void run() {
@@ -3543,7 +3802,6 @@ public class Launcher extends Activity
 
         // Change the state *after* we've called all the transition code
         mState = toState;
-
         // Pause the auto-advance of widgets until we are out of AllApps
         mUserPresent = false;
         updateAutoAdvanceState();
@@ -3601,6 +3859,9 @@ public class Launcher extends Activity
                 }
             }
         }, delay);
+        setWorkspaceBackground(mState == State.WORKSPACE ? WORKSPACE_BACKGROUND_GRADIENT
+                : WORKSPACE_BACKGROUND_TRANSPARENT);
+        showOverviewMode(true, false);
     }
 
     void exitSpringLoadedDragMode() {
@@ -3617,12 +3878,15 @@ public class Launcher extends Activity
      * resumed.
      */
     private void tryAndUpdatePredictedApps() {
-        /*if (mLauncherCallbacks != null) {
+        /*if ((false && mLauncherCallbacks != null)) {
             List<ComponentKey> apps = mLauncherCallbacks.getPredictedApps();
             if (apps != null) {
                 mAppsView.setPredictedApps(apps);
             }
         }*/
+        if(false == mShowPredictions) {
+            return;
+        }
         LauncherProvider lp = LauncherAppState.getInstance().getLauncherProvider();
         List<ComponentKey> apps = lp.getAllPredictedApps(mModel.getPredictedIgnoreList());
         if (null != apps && !apps.isEmpty()) {
@@ -3634,7 +3898,7 @@ public class Launcher extends Activity
     }
 
     public boolean launcherCallbacksProvidesSearch() {
-        return (mLauncherCallbacks != null && mLauncherCallbacks.providesSearch());
+        return ((false && mLauncherCallbacks != null) && mLauncherCallbacks.providesSearch());
     }
 
     public boolean openSearch(Context context) {
@@ -3645,7 +3909,7 @@ public class Launcher extends Activity
             return false;
         }
         Intent intent = new Intent(android.app.SearchManager.INTENT_ACTION_GLOBAL_SEARCH);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(0x10008000);
         intent.setComponent(globalSearchActivity);
         Bundle appSearchData = new Bundle();
         appSearchData.putString("source", getPackageName());
@@ -3662,6 +3926,15 @@ public class Launcher extends Activity
         }
     }
 
+    private boolean openCalendar() {
+        Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+        builder.appendPath("time");
+        ContentUris.appendId(builder, System.currentTimeMillis());
+        Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
+        LaunchUtil.startActivitySafely(this, intent);
+        return true;
+    }
+
     public class DateChangeBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -3669,41 +3942,58 @@ public class Launcher extends Activity
         }
     }
 
+    private OnClickListener mOnOpenCalendarClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            openCalendar();
+        }
+    };
+
     public View getOrCreateDateTimeQsbBar() {
         if(mQsb == null) {
-            AppWidgetProviderInfo searchProvider = Utilities.getSearchWidgetProvider(this);
-            if (searchProvider == null) {
-                return null;
-            }
             mQsb = LayoutInflater.from(this).inflate(R.layout.qsb_default_view, null);
             mSearchDropTargetBar.addView(mQsb);
             mSearchDropTargetBar.setQsbSearchBar(mQsb);
-            ImageView iv = (ImageView) mQsb.findViewById(R.id.search_bar_btn);
-            iv.setOnClickListener(new OnClickListener() {
+            FloatingActionButton fab = (FloatingActionButton) mQsb.findViewById(R.id.search_bar_btn);
+            fab.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     openSearch(getApplication());
                 }
             });
+            TextView date = (TextView) mQsb.findViewById(R.id.date_str);
+            TextView week = (TextView) mQsb.findViewById(R.id.week_year_str);
+            date.setOnClickListener(mOnOpenCalendarClickListener);
+            week.setOnClickListener(mOnOpenCalendarClickListener);
         }
-        LocalDate currentDate =LocalDate.now();
-        String dayofweek = currentDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
-        String dayofmonth = String.valueOf(currentDate.getDayOfMonth());
-        String month = currentDate.getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault());
-        String year = String.valueOf(currentDate.getYear());
+        FloatingActionButton fab = (FloatingActionButton) mQsb.findViewById(R.id.search_bar_btn);
         TextView date = (TextView) mQsb.findViewById(R.id.date_str);
         TextView week = (TextView) mQsb.findViewById(R.id.week_year_str);
-        date.setText(year + " ," + month);
-        week.setText(dayofweek + " " + dayofmonth);
+        if(fab != null) {
+            if(mHideQSBEnabled) {
+                fab.hide();
+            } else {
+                fab.show();
+            }
+        }
+        if(date !=null && week != null) {
+            LocalDate currentDate =LocalDate.now();
+            String dayofweek = currentDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+            String dayofmonth = String.valueOf(currentDate.getDayOfMonth());
+            String month = currentDate.getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault());
+            String year = String.valueOf(currentDate.getYear());
+            date.setText(year + ", " + month);
+            week.setText(dayofweek + " " + dayofmonth);
+        }
         return mQsb;
     }
 
     public View getOrCreateQsbBar() {
-        if (launcherCallbacksProvidesSearch()) {
+        /*if (false && launcherCallbacksProvidesSearch()) {
             return mLauncherCallbacks.getQsbBar();
-        }
+        }*/
 
-        if(hideQsbBar/*show Date Time string.*/) {
+        if(!mDeviceProfile.isVerticalBarLayout() && hideQsbBar) {
             //If always allow bindAppWidgetIdIfAllowed, the QsbBar will show on.We need to hidden.
             return getOrCreateDateTimeQsbBar();
         }
@@ -3744,7 +4034,7 @@ public class Launcher extends Activity
                         + " maxWidth=" + maxWidth + " minWidth=" + minWidth);
             }
 
-            if (mLauncherCallbacks != null) {
+            if ((false && mLauncherCallbacks != null)) {
                 opts.putAll(mLauncherCallbacks.getAdditionalSearchWidgetOptions());
             }
 
@@ -4313,7 +4603,7 @@ public class Launcher extends Activity
 
         InstallShortcutReceiver.disableAndFlushInstallQueue(this);
 
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.finishBindingItems(false);
         }
     }
@@ -4364,7 +4654,7 @@ public class Launcher extends Activity
     }
 
     public int getSearchBarHeight() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.getSearchBarHeight();
         }
         return LauncherCallbacks.SEARCH_BAR_HEIGHT_NORMAL;
@@ -4407,7 +4697,7 @@ public class Launcher extends Activity
         if (mAppsView != null) {
             mAppsView.setApps(apps);
         }
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.bindAllApplications(apps);
         }
     }
@@ -4630,7 +4920,7 @@ public class Launcher extends Activity
     }
 
     protected boolean isLauncherPreinstalled() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.isLauncherPreinstalled();
         }
         PackageManager pm = getPackageManager();
@@ -4652,7 +4942,7 @@ public class Launcher extends Activity
      * when our wallpaper cropper was not yet used to set a wallpaper.
      */
     protected boolean overrideWallpaperDimensions() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.overrideWallpaperDimensions();
         }
         return true;
@@ -4663,7 +4953,7 @@ public class Launcher extends Activity
      * before showing the standard launcher experience.
      */
     protected boolean hasFirstRunActivity() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.hasFirstRunActivity();
         }
         return false;
@@ -4673,7 +4963,7 @@ public class Launcher extends Activity
      * To be overridden by subclasses to launch any first run activity
      */
     protected Intent getFirstRunActivity() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.getFirstRunActivity();
         }
         return null;
@@ -4712,7 +5002,7 @@ public class Launcher extends Activity
      * screen that must be displayed and dismissed.
      */
     protected boolean hasDismissableIntroScreen() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.hasDismissableIntroScreen();
         }
         return false;
@@ -4722,7 +5012,7 @@ public class Launcher extends Activity
      * Full screen intro screen to be shown and dismissed before the launcher can be used.
      */
     protected View getIntroScreen() {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             return mLauncherCallbacks.getIntroScreen();
         }
         return null;
@@ -4851,7 +5141,7 @@ public class Launcher extends Activity
 
     @Override
     public void onPageSwitch(View newPage, int newPageIndex) {
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.onPageSwitch(newPage, newPageIndex);
         }
     }
@@ -4901,7 +5191,7 @@ public class Launcher extends Activity
                 writer.println("  " + sDumpLogs.get(i));
             }
         }
-        if (mLauncherCallbacks != null) {
+        if ((false && mLauncherCallbacks != null)) {
             mLauncherCallbacks.dump(prefix, fd, writer, args);
         }
     }

@@ -59,7 +59,7 @@ public class WidgetCell extends LinearLayout implements OnLayoutChangeListener {
     private static final int FADE_IN_DURATION_MS = 90;
 
     /** Widget cell width is calculated by multiplying this factor to grid cell width. */
-    private static final float WIDTH_SCALE = 2.6f;
+    private static final float WIDTH_SCALE = 3.0f;
 
     /** Widget preview width is calculated by multiplying this factor to the widget cell width. */
     private static final float PREVIEW_SCALE = 0.8f;

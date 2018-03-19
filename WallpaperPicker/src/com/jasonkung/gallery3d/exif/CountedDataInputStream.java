@@ -16,6 +16,8 @@
 
 package com.jasonkung.gallery3d.exif;
 
+import com.jasonkung.launcher3.BuildConfig;
+
 import java.io.EOFException;
 import java.io.FilterInputStream;
 import java.io.IOException;
@@ -75,7 +77,10 @@ class CountedDataInputStream extends FilterInputStream {
     public void skipTo(long target) throws IOException {
         long cur = mCount;
         long diff = target - cur;
-        assert(diff >= 0);
+        if(BuildConfig.DEBUG && !(diff >= 0)) {
+            throw new AssertionError();
+            //assert(diff >= 0);
+        }
         skipOrThrow(diff);
     }
 

@@ -31,7 +31,7 @@
     <string name="receive_first_load_broadcast_permission" translatable="false">com.jasonkung.launcher3.permission.RECEIVE_FIRST_LOAD_BROADCAST</string>
 
     <!-- Application name -->
-    <string name="application_name">Launcher3</string>
+    <string name="application_name">Launcher&lt;3</string>
     <string name="app_name">Launcher3</string>
     <!-- Default folder name -->
     <string name="folder_name"></string>
@@ -272,4 +272,23 @@
     <!-- Accessibility confirmation for widget resize. -->
     <string name="widget_resized">Widget resized to width <xliff:g id="number" example="2">%1$s</xliff:g> height <xliff:g id="number" example="1">%2$s</xliff:g></string>
 
+    <string name="place_autocomplete_search_hint"></string>
+    <string name="place_autocomplete_clear_button"></string>
+
+    <string name="hide_qsb_title">Hide Quick Search</string>
+    <string name="hide_qsb_summary">hide Google button</string>
+    <string name="about">About</string>
+    <string name="about_app_version">Version</string>
+    <string name="pref_open_source_licenses_title">Open source licenses</string>
+    <string name="pref_home_screen_category">Home screen</string>
+    <string name="pref_feature_category">Feature</string>
+
+    <string name="title_app_suggestions">App suggestions</string>
+    <string name="title_disable_suggestions_prompt">Turn off app suggestions?</string>
+    <string name="msg_disable_suggestions_prompt">"Suggestions won't appear at the top of your apps list, and the usage data used to create them will be permanently erased."</string>
+    <string name="label_turn_off_suggestions">TURN OFF</string>
+
+
+    <string name="donate_">Donate</string>
+    <string name="donate_message">However, if you like this app and would like to contribute in further development of it, please consider a donation.\nIt would really encourage me :)\n\nThank you!</string>
 </resources>

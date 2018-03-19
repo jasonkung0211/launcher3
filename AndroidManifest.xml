@@ -20,7 +20,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jasonkung.launcher3">
-    <uses-sdk android:targetSdkVersion="24" android:minSdkVersion="17"/>
+    <uses-sdk android:targetSdkVersion="26" android:minSdkVersion="17"/>
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <permission
         android:name="com.android.launcher.permission.INSTALL_SHORTCUT"
@@ -52,7 +53,7 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-	<uses-permission android:name="android.permission.BIND_APPWIDGET" />
+    <uses-permission android:name="android.permission.BIND_APPWIDGET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -68,7 +69,7 @@
         android:allowBackup="@bool/enable_backup"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_home"
-        android:label="@string/app_name"
+        android:label="@string/application_name"
         android:largeHeap="false"
         android:restoreAnyVersion="true"
         android:supportsRtl="true" >
@@ -91,7 +92,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.MONKEY"/>
-                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
@@ -123,8 +123,9 @@
         </activity>
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".Settings"
             android:label="@string/settings_button_text"
+            android:theme="@style/ThemeSetting"
             android:autoRemoveFromRecents="true"
             android:process=":settings_process">
         </activity>

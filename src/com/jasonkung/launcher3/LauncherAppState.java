@@ -176,6 +176,10 @@ public class LauncherAppState {
         return mInvariantDeviceProfile;
     }
 
+    public void initInvariantDeviceProfile() {
+        mInvariantDeviceProfile = new InvariantDeviceProfile(sContext);
+    }
+
     public static boolean isDogfoodBuild() {
         return FeatureFlags.IS_ALPHA_BUILD || FeatureFlags.IS_DEV_BUILD;
     }

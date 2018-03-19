@@ -42,10 +42,39 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="Theme" parent="@style/BaseWallpaperTheme"></style>
-
     <style name="ActionBarSetWallpaperStyle" parent="@android:style/Widget.DeviceDefault.ActionButton">
         <item name="android:textColor">#ffffffff</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
+
+
+    <style name="BaseLauncherTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="colorPrimary">@color/primary_green</item>
+        <item name="colorPrimaryDark">@color/primary_dark_green</item>
+    </style>
+
+    <style name="ThemeSetting" parent="@style/Theme.AppCompat.Light">
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+    <style name="LauncherTheme" parent="@style/BaseLauncherTheme" />
+    <style name="Theme" parent="@style/LauncherTheme" />
+    <style name="FastScrollerPopup">
+        <item name="android:textSize">@dimen/container_fastscroll_popup_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/container_fastscroll_popup_bg</item>
+        <item name="android:saveEnabled">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/container_fastscroll_popup_size</item>
+        <item name="android:minWidth">@dimen/container_fastscroll_popup_size</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:alpha">0.0</item>
+        <item name="android:elevation">3.0dip</item>
+    </style>
+
 </resources>
